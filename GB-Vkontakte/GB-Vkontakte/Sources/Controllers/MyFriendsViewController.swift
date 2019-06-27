@@ -15,6 +15,12 @@ class MyFriendsViewController: UITableViewController {
     var friendsIndexDictionary: [Character: [FriendModel]] = [:]
     var searchedFriends: [FriendModel] = []
     
+    var sessionInfo = (token: "", userId: 0)
+    
+    
+    
+    
+    
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
@@ -24,7 +30,12 @@ class MyFriendsViewController: UITableViewController {
         getFriendsIndexDictionary()
         self.tableView.rowHeight = 70
         
-        searchedFriends = friends
+        let session = Session.instance
+        
+        // получаем данные о сессии из статического свойства класса
+        sessionInfo.token = session.token
+        sessionInfo.userId = session.userId
+        print(sessionInfo)
     }
     
     // MARK: - Get data
@@ -115,10 +126,4 @@ class MyFriendsViewController: UITableViewController {
     }
 }
 
-//extension MyFriendsViewController: UITableViewDelegate, UITableViewDataSource {
-//    public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//
-//
-//    }
-//}
 

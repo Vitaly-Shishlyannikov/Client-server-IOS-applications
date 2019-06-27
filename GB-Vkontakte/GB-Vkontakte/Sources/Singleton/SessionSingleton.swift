@@ -8,6 +8,7 @@
 
 import UIKit
 
+// класс для хранения данных о сессии
 class Session {
     
     static let instance = Session()

@@ -22,9 +22,6 @@ class LaunchController: UIViewController {
     @IBAction func loginButtonPressed(_ sender: UIButton) {
     }
     
-    var token: String = ""
-    var userId: Int = 0
-    
     // время для таймера
     var timerSeconds = 3
     
@@ -41,10 +38,10 @@ class LaunchController: UIViewController {
         animateTitleVK()
         animateEnterButton()
         
-        // экземпляр класса Session
+        // передаем данные в статическое свойство класса
         let session = Session.instance
-        token = session.token
-        userId = session.userId
+        session.token = "abc123"
+        session.userId = 432290
     }
     
     override func viewWillAppear(_ animated: Bool) {
