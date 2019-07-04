@@ -17,6 +17,10 @@ class MyFriendsViewController: UITableViewController {
     
     var sessionInfo = (token: "", userId: 0)
     
+    
+    
+    
+    
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
