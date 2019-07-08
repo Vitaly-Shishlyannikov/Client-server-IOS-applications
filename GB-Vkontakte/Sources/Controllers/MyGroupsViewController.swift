@@ -10,32 +10,45 @@ import UIKit
 
 class MyGroupsViewController: UITableViewController {
     
-    var groups: [GroupModel] = [
-        GroupModel(name:"Тачки", avatarPath: "tachki"),
-        GroupModel(name:"Панк-рок и шоколадки", avatarPath: "punk"),
-        GroupModel(name:"Крутые перцы Бобруйска", avatarPath: "bobruisk"),
-        GroupModel(name:"Заработаем миллиард вместе", avatarPath: "milliard"),
-        GroupModel(name: "Фан-клуб Дмитрия Анатольевича", avatarPath: "medved")
-    ]
+//    var groups: [GroupModel] = [
+//        GroupModel(name:"Тачки", avatarPath: "tachki"),
+//        GroupModel(name:"Панк-рок и шоколадки", avatarPath: "punk"),
+//        GroupModel(name:"Крутые перцы Бобруйска", avatarPath: "bobruisk"),
+//        GroupModel(name:"Заработаем миллиард вместе", avatarPath: "milliard"),
+//        GroupModel(name: "Фан-клуб Дмитрия Анатольевича", avatarPath: "medved")
+//    ]
+    
+    var groups = [Group]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.tableView.rowHeight = 70
         
+        VKService.loadUserGroupsData(){[weak self] groups in
+            self?.groups = groups
+            self?.tableView?.reloadData()
+        }
+        print(groups)
     }
     
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print(groups.count)
         return groups.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: GroupCell.reuseIdentifier, for: indexPath) as? GroupCell else { return UITableViewCell() }
-        let avatarPath = groups[indexPath.row].avatarPath
-        cell.groupAvatar.image = UIImage(named: avatarPath)
-        cell.groupNameLabel.text = groups[indexPath.row].name
+        let group = groups[indexPath.row]
+        cell.groupNameLabel.text = group.name
         
+        let url = URL(string: group.photo)
+        let data = try? Data(contentsOf: url!)
+        if let imagedata = data {
+            cell.groupAvatar.image = UIImage(data: imagedata)
+        }
         return cell
     }
     
@@ -81,7 +94,7 @@ class MyGroupsViewController: UITableViewController {
 
             guard !groups.contains(where: { $0.name == group.name }) else { return }
 
-            groups.append(group)
+            //groups.append(group)
             let newIndexPath = IndexPath(item: groups.count - 1, section: 0)
             tableView.insertRows(at: [newIndexPath], with: .automatic)
         }
