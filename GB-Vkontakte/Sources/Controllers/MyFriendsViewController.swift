@@ -17,10 +17,6 @@ class MyFriendsViewController: UITableViewController {
     
     var sessionInfo = (token: "", userId: 0)
     
-    
-    
-    
-    
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
@@ -35,7 +31,7 @@ class MyFriendsViewController: UITableViewController {
         // получаем данные о сессии из статического свойства класса
         sessionInfo.token = session.token
         sessionInfo.userId = session.userId
-        print(sessionInfo)
+        
     }
     
     // MARK: - Get data

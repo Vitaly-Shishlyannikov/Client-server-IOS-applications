@@ -37,11 +37,6 @@ class LaunchController: UIViewController {
         self.loginButton.layer.cornerRadius = 5
         animateTitleVK()
         animateEnterButton()
-        
-        // передаем данные в статическое свойство класса
-        let session = Session.instance
-        session.token = "abc123"
-        session.userId = 432290
     }
     
     override func viewWillAppear(_ animated: Bool) {
