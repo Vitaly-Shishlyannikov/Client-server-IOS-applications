@@ -9,6 +9,7 @@
 import UIKit
 import WebKit
 import Alamofire
+import AlamofireObjectMapper
 
 class WebViewController: UIViewController, WKNavigationDelegate {
     
@@ -18,7 +19,7 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         }
     }
     
-    let session = Session.instance
+    //let token = Session.instance.token
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,27 +60,37 @@ class WebViewController: UIViewController, WKNavigationDelegate {
                 return dict
         }
         
-        let token = params["access_token"]
+        guard let token = params["access_token"], let userID = params["user_id"] else {
+            return
+        }
+        Session.instance.token = token
+        Session.instance.userId = Int(userID)!
         
         print(token)
+        print(userID)
         
-        session.token = token ?? ""
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateInitialViewController()!
+        present(vc, animated: true, completion: nil)
         
-        Alamofire.request("https://api.vk.com/method/groups.get?extended=1&access_token=\(token!)&v=5.95").responseJSON { (response) in
-            print(response.description)
-        }
-
-        Alamofire.request("https://api.vk.com/method/friends.get?access_token=\(token!)&v=5.95").responseJSON { (response) in
-            print(response.description)
-        }
-
-        Alamofire.request("https://api.vk.com/method/photos.getAll?access_token=\(token!)&v=5.95").responseJSON { (response) in
-            print(response.description)
-        }
+//        Session.instance.token = token ?? ""
+//        Session.instance.userId = Int(userID) ?? 0
         
-        Alamofire.request("https://api.vk.com/method/groups.search?q=kurskcity&access_token=\(token!)&v=5.95").responseJSON { (response) in
-            print(response.description)
-        }
+//        Alamofire.request("https://api.vk.com/method/groups.get?extended=1&access_token=\(token!)&v=5.95").responseJSON { (response) in
+//            print(response.description)
+//        }
+//
+//        Alamofire.request("https://api.vk.com/method/friends.get?access_token=\(token!)&v=5.95").responseJSON { (response) in
+//            print(response.description)
+//        }
+//
+//        Alamofire.request("https://api.vk.com/method/photos.getAll?access_token=\(token!)&v=5.95").responseJSON { (response) in
+//            print(response.description)
+//        }
+//
+//        Alamofire.request("https://api.vk.com/method/groups.search?q=kurskcity&access_token=\(token!)&v=5.95").responseJSON { (response) in
+//            print(response.description)
+//        }
         
         decisionHandler(.cancel)
     }
