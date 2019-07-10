@@ -10,17 +10,24 @@ import UIKit
 
 class AllGroupsViewController: UITableViewController {
     
-    var groups: [GroupModel] = [
-        GroupModel(name: "Марсиане среди нас", avatarPath: "marsiane"),
-        GroupModel(name: "Любители психостимуляторов", avatarPath: "psicho"),
-        GroupModel(name: "Теории заговоров 18 века", avatarPath: "zagovor"),
-        GroupModel(name: "Группа для тех, у кого живет домовой", avatarPath: "domovoi"),
-        GroupModel(name: "Разработка IOS", avatarPath: "ios"),
-    ]
+//    var groups: [GroupModel] = [
+//        GroupModel(name: "Марсиане среди нас", avatarPath: "marsiane"),
+//        GroupModel(name: "Любители психостимуляторов", avatarPath: "psicho"),
+//        GroupModel(name: "Теории заговоров 18 века", avatarPath: "zagovor"),
+//        GroupModel(name: "Группа для тех, у кого живет домовой", avatarPath: "domovoi"),
+//        GroupModel(name: "Разработка IOS", avatarPath: "ios"),
+//    ]
+    
+    var groups = [Group]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.rowHeight = 70
+        
+        VKService.loadAllGroupsData(){[weak self] groups in
+            self?.groups = groups
+            self?.tableView?.reloadData()
+        }
     }
     
     // MARK: - Table view data source
@@ -31,10 +38,14 @@ class AllGroupsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: GroupCell.reuseIdentifier, for: indexPath) as? GroupCell else { return UITableViewCell() }
-        let avatarPath = groups[indexPath.row].avatarPath
-        cell.groupAvatar.image = UIImage(named: avatarPath)
-        cell.groupNameLabel.text = groups[indexPath.row].name
+        let group = groups[indexPath.row]
+        cell.groupNameLabel.text = group.name
         
+        let url = URL(string: group.photo)
+        let data = try? Data(contentsOf: url!)
+        if let imagedata = data {
+            cell.groupAvatar.image = UIImage(data: imagedata)
+        }
         return cell
     }
     

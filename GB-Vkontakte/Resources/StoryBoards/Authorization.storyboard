@@ -13,7 +13,7 @@
         <!--Web View Controller-->
         <scene sceneID="ojh-or-eS3">
             <objects>
-                <viewController id="UCj-rc-V5R" customClass="WebViewController" customModule="GB_Vkontakte" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="UCj-rc-V5R" customClass="VKWebViewController" customModule="GB_Vkontakte" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PiM-G1-eJW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

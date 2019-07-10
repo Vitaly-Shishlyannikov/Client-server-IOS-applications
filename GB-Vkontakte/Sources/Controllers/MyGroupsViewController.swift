@@ -94,7 +94,7 @@ class MyGroupsViewController: UITableViewController {
 
             guard !groups.contains(where: { $0.name == group.name }) else { return }
 
-            //groups.append(group)
+            groups.append(group)
             let newIndexPath = IndexPath(item: groups.count - 1, section: 0)
             tableView.insertRows(at: [newIndexPath], with: .automatic)
         }

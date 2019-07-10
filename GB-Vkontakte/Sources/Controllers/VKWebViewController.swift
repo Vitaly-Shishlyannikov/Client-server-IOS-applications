@@ -11,15 +11,13 @@ import WebKit
 import Alamofire
 import AlamofireObjectMapper
 
-class WebViewController: UIViewController, WKNavigationDelegate {
+class VKWebViewController: UIViewController, WKNavigationDelegate {
     
     @IBOutlet weak var webView: WKWebView! {
         didSet{
             webView.navigationDelegate = self
         }
     }
-    
-    //let token = Session.instance.token
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,9 +70,6 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateInitialViewController()!
         present(vc, animated: true, completion: nil)
-        
-//        Session.instance.token = token ?? ""
-//        Session.instance.userId = Int(userID) ?? 0
         
 //        Alamofire.request("https://api.vk.com/method/groups.get?extended=1&access_token=\(token!)&v=5.95").responseJSON { (response) in
 //            print(response.description)
