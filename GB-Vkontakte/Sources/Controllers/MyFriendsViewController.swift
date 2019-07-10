@@ -10,84 +10,112 @@ import UIKit
 
 class MyFriendsViewController: UITableViewController {
     
-    var friends: [FriendModel] = []
-    var friendsIndex: [Character] = []
-    var friendsIndexDictionary: [Character: [FriendModel]] = [:]
-    var searchedFriends: [FriendModel] = []
+    var friends = [Friend]()
     
-    var sessionInfo = (token: "", userId: 0)
+    var friendsIndexArray: [Character] {
+        return getFriendsIndexArray()
+    }
+    
+    var friendsIndexDictionary: [Character: [Friend]] {
+        return getFriendsIndexDictionary()
+    }
+    
+    var searchedFriends: [Friend] = []
     
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getFriends()
-        getFriendsIndexArray()
-        getFriendsIndexDictionary()
+        
         self.tableView.rowHeight = 70
         
-        let session = Session.instance
+        VKService.loadFriendsData(){[weak self] friends in
+            self?.friends = friends
+            self?.tableView?.reloadData()
+        }
         
-        // получаем данные о сессии из статического свойства класса
-        sessionInfo.token = session.token
-        sessionInfo.userId = session.userId
+//        getFriendsIndexArray()
+//        getFriendsIndexDictionary()
+      
+    }
+    
+    // MARK: - Functions
+    
+    func getFriendsIndexArray() -> [Character] {
         
+        var friendIndexArray: [Character] = []
+        for friend in friends {
+            if let firstLetter = friend.lastName.first {
+                friendIndexArray.append(firstLetter)
+            }
+        }
+        friendIndexArray = Array(Set(friendIndexArray))
+        friendIndexArray.sort()
+        return friendIndexArray
     }
     
-    // MARK: - Get data
-    
-    func getFriends () {
-        friends = FriendsServerEmulator.getFriends() ?? []
+    func getFriendsIndexDictionary() -> [Character: [Friend]] {
+        
+        var frIndDict: [Character: [Friend]] = [:]
+        for friend in friends {
+            if let firstLetter = friend.lastName.first {
+                if (frIndDict.keys.contains(firstLetter)) {
+                    frIndDict[firstLetter]?.append(friend)
+                } else {
+                    frIndDict[firstLetter] = [friend]
+                }
+            }
+        }
+        return frIndDict
     }
-    
-    func getFriendsIndexArray () {
-        friendsIndex = FriendsServerEmulator.getOrderedFriendIndexArray() ?? []
-    }
-    
-    func getFriendsIndexDictionary () {
-        friendsIndexDictionary = FriendsServerEmulator.getFriendIndexDictionary()
-    }
-    
-    
     
     // MARK: - Table view data source
     
     // количество секций равно количеству элементов в массиве первых букв
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return friendsIndex.count
+        return friendsIndexArray.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // для каждой буквы в массиве индексов проверяем соответствие первой букве фамилии
         // всех друзей, добавляем при совпадении и возвращаем кол-во элементов для секции
-        let char = friendsIndex[section]
-        let rowsArray: [FriendModel] = friendsIndexDictionary[char] ?? []
+        let char = friendsIndexArray[section]
+        let rowsArray: [Friend] = friendsIndexDictionary[char] ?? []
         return rowsArray.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        let char = friendsIndex[indexPath.section]
-        let friendName = friendsIndexDictionary[char]?[indexPath.row].name
-        let avatarPath = friendsIndexDictionary[char]?[indexPath.row].avatarPath
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: FriendCell.reuseIdentifier, for: indexPath) as? FriendCell else { return UITableViewCell() }
-        cell.friendNameLabel.text = friendName
-        cell.friendAvatar.image = UIImage(named: avatarPath!)
-        //cell.contentView.backgroundColor = UIColor.white
         
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: FriendCell.reuseIdentifier, for: indexPath) as? FriendCell else { return UITableViewCell() }
+
+        let char = friendsIndexArray[indexPath.section]
+        let friendFirstName = friendsIndexDictionary[char]?[indexPath.row].firstName
+        let friendLastName = friendsIndexDictionary[char]?[indexPath.row].lastName
+        let friendFullName = friendFirstName! + " " + friendLastName!
+        
+        cell.friendNameLabel.text = friendFullName
+        
+        guard let avatarPath = friendsIndexDictionary[char]?[indexPath
+            .row].photo else {return UITableViewCell()}
+        guard let url = URL(string: avatarPath) else {return UITableViewCell()}
+        let data = try? Data(contentsOf: url)
+        if let imagedata = data {
+            cell.friendAvatar.image = UIImage(data: imagedata)
+        //cell.contentView.backgroundColor = UIColor.white
+        }
         return cell
     }
     
     // метод контрола для быстрого перехода по первым буквам фамилий
     override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         // преобразуем массив [Chararacter] в [String]
-        let friendsIndexString = friendsIndex.map {String($0)}
+        let friendsIndexString = friendsIndexArray.map {String($0)}
         return friendsIndexString
     }
     
     // текст для header секции, берется из массива индексов
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return String(friendsIndex[section])
+        return String(friendsIndexArray[section])
     }
     
     // header секции и настройка его цвета
@@ -113,10 +141,10 @@ class MyFriendsViewController: UITableViewController {
         if segue.identifier == "PhotoSegue",
             let photoController = segue.destination as? PhotoCollectionViewController,
             let indexPath = tableView.indexPathForSelectedRow {
-            let selectedFriendCharacter = friendsIndex[indexPath.section]
+            let selectedFriendCharacter = friendsIndexArray[indexPath.section]
             print(indexPath)
             print(friendsIndexDictionary)
-            let photoName = friendsIndexDictionary[selectedFriendCharacter]?[indexPath.row].name
+            let photoName = friendsIndexDictionary[selectedFriendCharacter]?[indexPath.row].lastName
             photoController.friendNameForTitle = photoName ?? ""
             }
     }

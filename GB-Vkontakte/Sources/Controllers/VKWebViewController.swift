@@ -71,15 +71,15 @@ class VKWebViewController: UIViewController, WKNavigationDelegate {
         let vc = storyboard.instantiateInitialViewController()!
         present(vc, animated: true, completion: nil)
         
-//        Alamofire.request("https://api.vk.com/method/groups.get?extended=1&access_token=\(token!)&v=5.95").responseJSON { (response) in
+//        Alamofire.request("https://api.vk.com/method/groups.get?extended=1&access_token=\(Session.instance.token)&v=5.95").responseJSON { (response) in
 //            print(response.description)
 //        }
 //
-//        Alamofire.request("https://api.vk.com/method/friends.get?access_token=\(token!)&v=5.95").responseJSON { (response) in
+//        Alamofire.request("https://api.vk.com/method/friends.get?fields=photo_50&access_token=\(Session.instance.token)&v=5.95").responseJSON { (response) in
 //            print(response.description)
 //        }
-//
-//        Alamofire.request("https://api.vk.com/method/photos.getAll?access_token=\(token!)&v=5.95").responseJSON { (response) in
+////
+////        Alamofire.request("https://api.vk.com/method/photos.getAll?access_token=\(token!)&v=5.95").responseJSON { (response) in
 //            print(response.description)
 //        }
 //
