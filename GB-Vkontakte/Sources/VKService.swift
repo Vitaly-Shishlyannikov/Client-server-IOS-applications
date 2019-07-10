@@ -55,31 +55,5 @@ class VKService {
                 completion(resultValue!)
             })
     }
-    
-    static func getOrderedFriendIndexArray(friendsArray: [Friend]) -> [Character]? {
-        var friendIndexArray: [Character] = []
-        for friend in friendsArray {
-            if let firstLetter = friend.lastName.first {
-                friendIndexArray.append(firstLetter)
-            }
-        }
-        friendIndexArray = Array(Set(friendIndexArray))
-        friendIndexArray.sort()
-        return friendIndexArray
-    }
-    
-    static func getFriendIndexDictionary(friendsArray: [Friend]) -> [Character: [Friend]] {
-        var friendIndexDictionary: [Character: [Friend]] = [:]
-        for friend in friendsArray {
-            if let firstLetter = friend.lastName.first {
-                if (friendIndexDictionary.keys.contains(firstLetter)) {
-                    friendIndexDictionary[firstLetter]?.append(friend)
-                } else {
-                    friendIndexDictionary[firstLetter] = [friend]
-                }
-            }
-        }
-        return friendIndexDictionary
-    }
 }
 

@@ -33,10 +33,6 @@ class MyFriendsViewController: UITableViewController {
             self?.friends = friends
             self?.tableView?.reloadData()
         }
-        
-//        getFriendsIndexArray()
-//        getFriendsIndexDictionary()
-      
     }
     
     // MARK: - Functions
@@ -129,7 +125,6 @@ class MyFriendsViewController: UITableViewController {
     // функция удаления друзей
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            
             friends.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
@@ -141,11 +136,11 @@ class MyFriendsViewController: UITableViewController {
         if segue.identifier == "PhotoSegue",
             let photoController = segue.destination as? PhotoCollectionViewController,
             let indexPath = tableView.indexPathForSelectedRow {
-            let selectedFriendCharacter = friendsIndexArray[indexPath.section]
-            print(indexPath)
-            print(friendsIndexDictionary)
-            let photoName = friendsIndexDictionary[selectedFriendCharacter]?[indexPath.row].lastName
-            photoController.friendNameForTitle = photoName ?? ""
+                let selectedFriendCharacter = friendsIndexArray[indexPath.section]
+                print(indexPath)
+                print(friendsIndexDictionary)
+                let photoName = friendsIndexDictionary[selectedFriendCharacter]?[indexPath.row].lastName
+                photoController.friendNameForTitle = photoName ?? ""
             }
     }
 }
