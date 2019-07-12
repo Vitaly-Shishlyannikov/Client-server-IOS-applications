@@ -10,16 +10,15 @@ import UIKit
 import WebKit
 import Alamofire
 import AlamofireObjectMapper
+import SwiftKeychainWrapper
 
-class WebViewController: UIViewController, WKNavigationDelegate {
+class VKWebViewController: UIViewController, WKNavigationDelegate {
     
     @IBOutlet weak var webView: WKWebView! {
         didSet{
             webView.navigationDelegate = self
         }
     }
-    
-    //let token = Session.instance.token
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,32 +65,20 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         Session.instance.token = token
         Session.instance.userId = Int(userID)!
         
-        print(token)
-        print(userID)
+        // сохраняем токен в Keychain
+        KeychainWrapper.standard.set(Session.instance.token, forKey: "token")
+        //print(KeychainWrapper.standard.string(forKey: "token") as Any)
         
+        // сохраняем версию в UserDefaults
+        let userDefaults = UserDefaults.standard
+        userDefaults.set("5.68", forKey: "version")
+        //print(userDefaults.string(forKey: "version") as Any)
+        
+        // переход на TabBarController
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateInitialViewController()!
         present(vc, animated: true, completion: nil)
-        
-//        Session.instance.token = token ?? ""
-//        Session.instance.userId = Int(userID) ?? 0
-        
-//        Alamofire.request("https://api.vk.com/method/groups.get?extended=1&access_token=\(token!)&v=5.95").responseJSON { (response) in
-//            print(response.description)
-//        }
-//
-//        Alamofire.request("https://api.vk.com/method/friends.get?access_token=\(token!)&v=5.95").responseJSON { (response) in
-//            print(response.description)
-//        }
-//
-//        Alamofire.request("https://api.vk.com/method/photos.getAll?access_token=\(token!)&v=5.95").responseJSON { (response) in
-//            print(response.description)
-//        }
-//
-//        Alamofire.request("https://api.vk.com/method/groups.search?q=kurskcity&access_token=\(token!)&v=5.95").responseJSON { (response) in
-//            print(response.description)
-//        }
-        
+
         decisionHandler(.cancel)
     }
     

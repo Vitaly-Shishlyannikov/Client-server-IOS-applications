@@ -12,8 +12,8 @@ import Alamofire
 import AlamofireObjectMapper
 import ObjectMapper
 
-class VKResponse: Mappable {
-    var response: VKResponseInternal? = nil
+class VKGroupResponse: Mappable {
+    var response: VKGroupResponseInternal? = nil
     
     required init?(map: Map) {}
     
@@ -22,7 +22,7 @@ class VKResponse: Mappable {
     }
 }
 
-class VKResponseInternal: Mappable {
+class VKGroupResponseInternal: Mappable {
     var items: [Group] = []
     
     required init?(map: Map) {}
