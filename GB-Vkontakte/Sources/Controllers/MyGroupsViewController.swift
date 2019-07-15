@@ -29,13 +29,11 @@ class MyGroupsViewController: UITableViewController {
             self?.groups = groups
             self?.tableView?.reloadData()
         }
-        print(groups)
     }
     
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let cnt = groups.count
         return groups.count
     }
     

@@ -14,33 +14,22 @@ class PhotoCollectionViewController: UICollectionViewController {
     
     var friendNameForTitle: String = ""
     
-    var photos: [PhotoModel] = []
+    var photos: [Photo] = []
     
-    func getPhotos () {
-        photos = PhotosServerEmulator.getPhotos() ?? []
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        getPhotos()
+        
+        VKService.loadFriendsPhotos(){[weak self] photos in
+            self?.photos = photos
+            self?.collectionView?.reloadData()
+        }
         
         title = friendNameForTitle
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
-
     // MARK: UICollectionViewDataSource
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
         return photos.count
 
     }
@@ -49,7 +38,11 @@ class PhotoCollectionViewController: UICollectionViewController {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as? PhotoCell else {return UICollectionViewCell()}
         
         let photoPath = photos[indexPath.row].photoPath
-        cell.photoImageView.image = UIImage(named: photoPath)
+        guard let url = URL(string: photoPath) else {return UICollectionViewCell()}
+        let data = try? Data(contentsOf: url)
+        if let imagedata = data {
+            cell.photoImageView.image = UIImage(data: imagedata)
+        }
 
         return cell
     }
@@ -62,36 +55,4 @@ class PhotoCollectionViewController: UICollectionViewController {
                 fullScreenPhoto.indexPathSelected = indexPath
             }
     }
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-    
-    }
-    */
-
 }

@@ -20,11 +20,9 @@ class VKService {
             .responseObject(completionHandler: { (vkResponse: DataResponse<VKGroupResponse>) in
                 let result = vkResponse.result
                 switch result {
-                case .success(let val): print(val.response?.items)
+                case .success(let val): completion(val.response?.items ?? [])
                 case .failure(let error): print(error)
                 }
-                let resultValue = result.value?.response?.items
-                completion(resultValue!)
             })
         }
     
@@ -34,11 +32,9 @@ class VKService {
             .responseObject(completionHandler: { (vkResponse: DataResponse<VKGroupResponse>) in
                 let result = vkResponse.result
                 switch result {
-                case .success(let val): print(val.response?.items)
+                case .success(let val): completion(val.response?.items ?? [])
                 case .failure(let error): print(error)
                 }
-                let resultValue = result.value?.response?.items
-                completion(resultValue!)
             })
     }
     
@@ -48,11 +44,32 @@ class VKService {
             .responseObject(completionHandler: { (vkResponse: DataResponse<VKFriendResponse>) in
                 let result = vkResponse.result
                 switch result {
-                case .success(let val): print(val.response?.items)
+                case .success(let val): completion(val.response?.items ?? [])
                 case .failure(let error): print(error)
                 }
-                let resultValue = result.value?.response?.items
-                completion(resultValue!)
+            })
+    }
+    
+    static func loadFriendsPhotos(completion: @escaping ([Photo]) -> Void) {
+        
+        Alamofire.request("https://api.vk.com/method/photos.getAll?owner_id=1&extended=1&access_token=\(Session.instance.token)&v=5.95")
+            .responseObject(completionHandler: { (vkResponse: DataResponse<VKPhotoResponse>) in
+                
+               
+                let result = vkResponse.result
+                
+                var items = result.value?.response?.items
+                var photos: [Photo?] = []
+                for item in items! {
+                    let photo = item.sizes.first
+                    photos.append(photo)
+                }
+                switch result {
+                case .success(let val): completion(photos as! [Photo])
+                case .failure(let error): print(error)
+                }
+                print(result.value)
+                print(photos)
             })
     }
 }
