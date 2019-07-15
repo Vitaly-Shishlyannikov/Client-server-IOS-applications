@@ -141,6 +141,9 @@ class MyFriendsViewController: UITableViewController {
             guard let lastName = friendsIndexDictionary[selectedFriendCharacter]?[indexPath.row].lastName else {return}
             let photoName = firstName + " " + lastName
             photoController.friendNameForTitle = photoName
+            
+            let selectedFriendID = friendsIndexDictionary[selectedFriendCharacter]?[indexPath.row].id
+            photoController.selectedFriendID = String(selectedFriendID ?? 1)
             }
     }
 }

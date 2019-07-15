@@ -50,26 +50,24 @@ class VKService {
             })
     }
     
-    static func loadFriendsPhotos(completion: @escaping ([Photo]) -> Void) {
+    static func loadFriendsPhotos(friendID: String, completion: @escaping ([Photo]) -> Void) {
         
-        Alamofire.request("https://api.vk.com/method/photos.getAll?owner_id=1&extended=1&access_token=\(Session.instance.token)&v=5.95")
+        Alamofire.request("https://api.vk.com/method/photos.getAll?owner_id=\(friendID)&extended=1&access_token=\(Session.instance.token)&v=5.95")
             .responseObject(completionHandler: { (vkResponse: DataResponse<VKPhotoResponse>) in
-                
                
+                var photos: [Photo] = []
                 let result = vkResponse.result
+                let items = result.value?.response?.items ?? []
                 
-                var items = result.value?.response?.items
-                var photos: [Photo?] = []
-                for item in items! {
-                    let photo = item.sizes.first
+                for item in items {
+                    guard let photo = item.sizes.last else {return}
                     photos.append(photo)
                 }
+                
                 switch result {
-                case .success(let val): completion(photos as! [Photo])
+                case .success(_): completion(photos)
                 case .failure(let error): print(error)
                 }
-                print(result.value)
-                print(photos)
             })
     }
 }

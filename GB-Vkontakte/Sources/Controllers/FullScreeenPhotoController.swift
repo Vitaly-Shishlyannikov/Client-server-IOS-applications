@@ -16,21 +16,28 @@ class FullScreenPhotoController: UIViewController  {
     
     var indexPathSelected = IndexPath()
     
-    var photos: [PhotoModel] = []
+    var photos: [Photo] = []
     
     override func viewDidLoad() {
-        getPhotos()
+        
         setMainPhoto()
         setupView()
     }
     
-    func getPhotos () {
-        photos = PhotosServerEmulator.getPhotos() ?? []
+    func setImageToPhoto (photo: Photo, setImageTo imageView: UIImageView) {
+        
+        let urlPath = photo.photoPath
+        guard let url = URL(string: urlPath) else {return}
+        let data = try? Data(contentsOf: url)
+        if let imagedata = data {
+            imageView.image = UIImage(data: imagedata)
+        }
     }
+
     
     func setMainPhoto () {
-        let currentPhotoImage = UIImage(named: photos[indexPathSelected.row].photoPath)
-        mainPhoto.image = currentPhotoImage
+        
+        setImageToPhoto(photo: photos[indexPathSelected.row], setImageTo: mainPhoto)
     }
     
     func setupView() {
@@ -50,8 +57,7 @@ class FullScreenPhotoController: UIViewController  {
     @objc func swipeLeft(_ sender: UITapGestureRecognizer) {
         if indexPathSelected.row < photos.count - 1 {
             
-            let nextPhotoImage = UIImage(named: photos[indexPathSelected.row + 1].photoPath)
-            nextPhoto.image = nextPhotoImage
+            setImageToPhoto(photo: photos[indexPathSelected.row + 1], setImageTo: nextPhoto)
             
             animatedPhotoChangeLeft()
             
@@ -90,8 +96,7 @@ class FullScreenPhotoController: UIViewController  {
     @objc func swipeRight(_ sender: UITapGestureRecognizer) {
         if indexPathSelected.row > 0 {
             
-            let nextPhotoImage = UIImage(named: photos[indexPathSelected.row].photoPath)
-            nextPhoto.image = nextPhotoImage
+            setImageToPhoto(photo: photos[indexPathSelected.row], setImageTo: nextPhoto)
             
             indexPathSelected.row -= 1
             
