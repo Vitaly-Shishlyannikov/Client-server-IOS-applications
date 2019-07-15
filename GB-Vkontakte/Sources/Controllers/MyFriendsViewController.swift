@@ -85,9 +85,9 @@ class MyFriendsViewController: UITableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FriendCell.reuseIdentifier, for: indexPath) as? FriendCell else { return UITableViewCell() }
 
         let char = friendsIndexArray[indexPath.section]
-        let friendFirstName = friendsIndexDictionary[char]?[indexPath.row].firstName
-        let friendLastName = friendsIndexDictionary[char]?[indexPath.row].lastName
-        let friendFullName = friendFirstName! + " " + friendLastName!
+        guard let friendFirstName = friendsIndexDictionary[char]?[indexPath.row].firstName else {return UITableViewCell()}
+        guard let friendLastName = friendsIndexDictionary[char]?[indexPath.row].lastName else {return UITableViewCell()}
+        let friendFullName = friendFirstName + " " + friendLastName
         
         cell.friendNameLabel.text = friendFullName
         
@@ -137,10 +137,10 @@ class MyFriendsViewController: UITableViewController {
             let photoController = segue.destination as? PhotoCollectionViewController,
             let indexPath = tableView.indexPathForSelectedRow {
                 let selectedFriendCharacter = friendsIndexArray[indexPath.section]
-                print(indexPath)
-                print(friendsIndexDictionary)
-                let photoName = friendsIndexDictionary[selectedFriendCharacter]?[indexPath.row].lastName
-                photoController.friendNameForTitle = photoName ?? ""
+            guard let firstName = friendsIndexDictionary[selectedFriendCharacter]?[indexPath.row].firstName else {return}
+            guard let lastName = friendsIndexDictionary[selectedFriendCharacter]?[indexPath.row].lastName else {return}
+            let photoName = firstName + " " + lastName
+            photoController.friendNameForTitle = photoName
             }
     }
 }
