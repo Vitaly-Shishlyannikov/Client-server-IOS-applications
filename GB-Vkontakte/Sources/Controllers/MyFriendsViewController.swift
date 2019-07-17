@@ -7,20 +7,21 @@
 //
 
 import UIKit
+import RealmSwift
 
 class MyFriendsViewController: UITableViewController {
     
-    var friends = [Friend]()
+    var friends = [RealmFriends]()
     
     var friendsIndexArray: [Character] {
         return getFriendsIndexArray()
     }
     
-    var friendsIndexDictionary: [Character: [Friend]] {
+    var friendsIndexDictionary: [Character: [RealmFriends]] {
         return getFriendsIndexDictionary()
     }
     
-    var searchedFriends: [Friend] = []
+    var searchedFriends: [RealmFriends] = []
     
     // MARK: - LifeCycle
     
@@ -29,13 +30,23 @@ class MyFriendsViewController: UITableViewController {
         
         self.tableView.rowHeight = 70
         
-        VKService.loadFriendsData(){[weak self] friends in
-            self?.friends = friends
+        VKService.loadFriendsData() {[weak self] in
+            self?.loadFriendsData()
             self?.tableView?.reloadData()
         }
     }
     
     // MARK: - Functions
+    
+    func loadFriendsData() {
+        do {
+            let realm = try? Realm()
+            guard let friends = realm?.objects(RealmFriends.self) else {return}
+            self.friends = Array(friends)
+        } catch {
+            print(error)
+        }
+    }
     
     func getFriendsIndexArray() -> [Character] {
         
@@ -50,9 +61,9 @@ class MyFriendsViewController: UITableViewController {
         return friendIndexArray
     }
     
-    func getFriendsIndexDictionary() -> [Character: [Friend]] {
+    func getFriendsIndexDictionary() -> [Character: [RealmFriends]] {
         
-        var frIndDict: [Character: [Friend]] = [:]
+        var frIndDict: [Character: [RealmFriends]] = [:]
         for friend in friends {
             if let firstLetter = friend.lastName.first {
                 if (frIndDict.keys.contains(firstLetter)) {
@@ -76,7 +87,7 @@ class MyFriendsViewController: UITableViewController {
         // для каждой буквы в массиве индексов проверяем соответствие первой букве фамилии
         // всех друзей, добавляем при совпадении и возвращаем кол-во элементов для секции
         let char = friendsIndexArray[section]
-        let rowsArray: [Friend] = friendsIndexDictionary[char] ?? []
+        let rowsArray: [RealmFriends] = friendsIndexDictionary[char] ?? []
         return rowsArray.count
     }
     

@@ -11,6 +11,7 @@ import WebKit
 import Alamofire
 import AlamofireObjectMapper
 import ObjectMapper
+import RealmSwift
 
 class VKService {
         
@@ -38,15 +39,32 @@ class VKService {
             })
     }
     
-    static func loadFriendsData(completion: @escaping ([Friend]) -> Void) {
+    static func loadFriendsData(completion: @escaping () -> Void) {
         
         Alamofire.request("https://api.vk.com/method/friends.get?fields=photo_50&access_token=\(Session.instance.token)&v=5.95")
             .responseObject(completionHandler: { (vkResponse: DataResponse<VKFriendResponse>) in
                 let result = vkResponse.result
-                switch result {
-                case .success(let val): completion(val.response?.items ?? [])
-                case .failure(let error): print(error)
+                guard let friends = result.value?.response?.items else {return}
+                
+                var friendsRealm = [RealmFriends]()
+                for friend in friends {
+                    let friendRealm = RealmFriends()
+                    friendRealm.id = friend.id
+                    friendRealm.firstName = friend.firstName
+                    friendRealm.lastName = friend.lastName
+                    friendRealm.photo = friend.photo
+                    friendsRealm.append(friendRealm)
                 }
+                do {
+                    let realm = try Realm()
+                    try realm.write {
+                        realm.add(friendsRealm, update: true)
+                    }
+                    print(realm.configuration.fileURL)
+                } catch {
+                    print(error)
+                }
+                completion()
             })
     }
     
@@ -60,7 +78,7 @@ class VKService {
                 let items = result.value?.response?.items ?? []
                 
                 for item in items {
-                    guard let photo = item.sizes.last else {return}
+                    guard let photo = item.sizes.first else {return}
                     photos.append(photo)
                 }
                 

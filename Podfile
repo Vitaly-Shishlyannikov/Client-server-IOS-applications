@@ -8,5 +8,6 @@ target 'GB-Vkontakte' do
   pod 'Alamofire', '4.7'
   pod 'AlamofireObjectMapper', '~> 5.2'
   pod 'SwiftKeychainWrapper'
+  pod 'RealmSwift' 
 
 end
