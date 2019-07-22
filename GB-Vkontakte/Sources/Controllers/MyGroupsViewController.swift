@@ -7,27 +7,32 @@
 //
 
 import UIKit
+import RealmSwift
 
 class MyGroupsViewController: UITableViewController {
     
-//    var groups: [GroupModel] = [
-//        GroupModel(name:"Тачки", avatarPath: "tachki"),
-//        GroupModel(name:"Панк-рок и шоколадки", avatarPath: "punk"),
-//        GroupModel(name:"Крутые перцы Бобруйска", avatarPath: "bobruisk"),
-//        GroupModel(name:"Заработаем миллиард вместе", avatarPath: "milliard"),
-//        GroupModel(name: "Фан-клуб Дмитрия Анатольевича", avatarPath: "medved")
-//    ]
-    
-    var groups = [Group]()
+    var groups = [RealmGroup]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.tableView.rowHeight = 70
         
-        VKService.loadUserGroupsData(){[weak self] groups in
-            self?.groups = groups
+        VKService.loadUserGroupsData(){[weak self] in
+            self?.loadGroupsData()
             self?.tableView?.reloadData()
+        }
+    }
+    
+    // MARK: - Functions
+    
+    func loadGroupsData() {
+        do {
+            let realm = try Realm()
+            let groups = realm.objects(RealmGroup.self)
+            self.groups = Array(groups)
+        } catch {
+            print(error)
         }
     }
     
@@ -50,14 +55,6 @@ class MyGroupsViewController: UITableViewController {
         return cell
     }
     
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
-     return true
-     }
-     */
-    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
@@ -66,21 +63,6 @@ class MyGroupsViewController: UITableViewController {
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
-    
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-     
-     }
-     */
-    
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
     
     // MARK: - Navigation
     

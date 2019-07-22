@@ -24,7 +24,7 @@ class VKFriendResponse: Mappable {
 }
 
 class VKFriendResponseInternal: Mappable {
-    var items: [RealmFriends] = []
+    var items: [RealmFriend] = []
     
     required init?(map: Map) {}
     
@@ -33,7 +33,7 @@ class VKFriendResponseInternal: Mappable {
     }
 }
 
-class RealmFriends: Object, Mappable {
+class RealmFriend: Object, Mappable {
     
     @objc dynamic var id: Int = 0
     @objc dynamic var firstName: String = ""

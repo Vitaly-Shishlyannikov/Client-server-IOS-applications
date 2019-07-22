@@ -11,17 +11,17 @@ import RealmSwift
 
 class MyFriendsViewController: UITableViewController {
     
-    var friends = [RealmFriends]()
+    var friends = [RealmFriend]()
     
     var friendsIndexArray: [Character] {
         return getFriendsIndexArray()
     }
     
-    var friendsIndexDictionary: [Character: [RealmFriends]] {
+    var friendsIndexDictionary: [Character: [RealmFriend]] {
         return getFriendsIndexDictionary()
     }
     
-    var searchedFriends: [RealmFriends] = []
+    var searchedFriends: [RealmFriend] = []
     
     // MARK: - LifeCycle
     
@@ -40,8 +40,8 @@ class MyFriendsViewController: UITableViewController {
     
     func loadFriendsData() {
         do {
-            let realm = try? Realm()
-            guard let friends = realm?.objects(RealmFriends.self) else {return}
+            let realm = try Realm()
+            let friends = realm.objects(RealmFriend.self)
             self.friends = Array(friends)
         } catch {
             print(error)
@@ -61,9 +61,9 @@ class MyFriendsViewController: UITableViewController {
         return friendIndexArray
     }
     
-    func getFriendsIndexDictionary() -> [Character: [RealmFriends]] {
+    func getFriendsIndexDictionary() -> [Character: [RealmFriend]] {
         
-        var frIndDict: [Character: [RealmFriends]] = [:]
+        var frIndDict: [Character: [RealmFriend]] = [:]
         for friend in friends {
             if let firstLetter = friend.lastName.first {
                 if (frIndDict.keys.contains(firstLetter)) {
@@ -87,7 +87,7 @@ class MyFriendsViewController: UITableViewController {
         // для каждой буквы в массиве индексов проверяем соответствие первой букве фамилии
         // всех друзей, добавляем при совпадении и возвращаем кол-во элементов для секции
         let char = friendsIndexArray[section]
-        let rowsArray: [RealmFriends] = friendsIndexDictionary[char] ?? []
+        let rowsArray: [RealmFriend] = friendsIndexDictionary[char] ?? []
         return rowsArray.count
     }
     

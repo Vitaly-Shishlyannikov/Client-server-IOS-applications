@@ -11,6 +11,7 @@ import WebKit
 import Alamofire
 import AlamofireObjectMapper
 import ObjectMapper
+import RealmSwift
 
 class VKGroupResponse: Mappable {
     var response: VKGroupResponseInternal? = nil
@@ -23,7 +24,7 @@ class VKGroupResponse: Mappable {
 }
 
 class VKGroupResponseInternal: Mappable {
-    var items: [Group] = []
+    var items: [RealmGroup] = []
     
     required init?(map: Map) {}
     
@@ -32,12 +33,18 @@ class VKGroupResponseInternal: Mappable {
     }
 }
 
-class Group: Mappable {
-    var id: Int = 0
-    var photo: String = ""
-    var name: String = ""
+class RealmGroup: Object, Mappable {
+    @objc dynamic var id: Int = 0
+    @objc dynamic var photo: String = ""
+    @objc dynamic var name: String = ""
     
-    required init?(map: Map) {}
+    override static func primaryKey() -> String? {
+        return "id"
+    }
+    
+    required convenience init?(map: Map) {
+        self.init()
+    }
     
     func mapping(map: Map) {
         id <- map["id"]
