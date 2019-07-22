@@ -13,13 +13,14 @@ private let reuseIdentifier = "Cell"
 class PhotoCollectionViewController: UICollectionViewController {
     
     var friendNameForTitle: String = ""
+    var selectedFriendID: String = ""
     
     var photos: [Photo] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        VKService.loadFriendsPhotos(){[weak self] photos in
+        VKService.loadFriendsPhotos(friendID: selectedFriendID){[weak self] photos in
             self?.photos = photos
             self?.collectionView?.reloadData()
         }
@@ -49,10 +50,11 @@ class PhotoCollectionViewController: UICollectionViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "fullScreenSegue",
-            let fullScreenPhoto = segue.destination as? FullScreenPhotoController,
+            let fullScreenPhotoController = segue.destination as? FullScreenPhotoController,
             let indexPaths = collectionView.indexPathsForSelectedItems,
             let indexPath = indexPaths.first {
-                fullScreenPhoto.indexPathSelected = indexPath
-            }
+                fullScreenPhotoController.indexPathSelected = indexPath
+                fullScreenPhotoController.photos = photos
+        }
     }
 }

@@ -138,6 +138,8 @@
 		5836E75D22BC3833007AA848 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				58554E0722DDF82300C4644C /* Realm */,
+				58554E0622DDF6D900C4644C /* Data */,
 				5836E76122BC38E7007AA848 /* Controllers */,
 				5838A4B622C5008E00EBE770 /* Singleton */,
 				5836E76622BC3A2D007AA848 /* ExtensionsForClasses */,
@@ -147,10 +149,6 @@
 				581DF8FA22974DDA00CF8777 /* Cells */,
 				5836E76422BC39B8007AA848 /* SereverEmulators */,
 				5836E76222BC3956007AA848 /* Transitions */,
-				58611E3522D28E8C005BDC34 /* VKService.swift */,
-				58611E3922D358DA005BDC34 /* Group.swift */,
-				58611E3C22D35F46005BDC34 /* Friend.swift */,
-				588B5CB122D893F9004296D2 /* Photo.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -184,14 +182,14 @@
 		5836E76122BC38E7007AA848 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				58A5DDEE229B3CCC001381C4 /* MyFriendsViewController.swift */,
+				58A5DDEC229B3B69001381C4 /* MyGroupsViewController.swift */,
+				58A5DDE7229B3801001381C4 /* AllGroupsViewController.swift */,
 				5841A7EB22BB71CC009C22DD /* CustomNavigationController.swift */,
 				5869687522CE0971002AB84D /* VKWebViewController.swift */,
 				58E75F2B228EEBDD00EC0B9C /* LaunchController.swift */,
-				5841A7E522B7D41A009C22DD /* FullScreeenPhotoController.swift */,
 				5848118D22A8FFBE00DD653C /* NewsViewController.swift */,
-				58A5DDE7229B3801001381C4 /* AllGroupsViewController.swift */,
-				58A5DDEC229B3B69001381C4 /* MyGroupsViewController.swift */,
-				58A5DDEE229B3CCC001381C4 /* MyFriendsViewController.swift */,
+				5841A7E522B7D41A009C22DD /* FullScreeenPhotoController.swift */,
 				58A5DDF4229B42AC001381C4 /* PhotoCollectionViewController.swift */,
 			);
 			path = Controllers;
@@ -246,6 +244,24 @@
 			path = Controls;
 			sourceTree = "<group>";
 		};
+		58554E0622DDF6D900C4644C /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				58611E3522D28E8C005BDC34 /* VKService.swift */,
+				58611E3C22D35F46005BDC34 /* Friend.swift */,
+				58611E3922D358DA005BDC34 /* Group.swift */,
+				588B5CB122D893F9004296D2 /* Photo.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		58554E0722DDF82300C4644C /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Realm;
+			sourceTree = "<group>";
+		};
 		58A5DDE9229B3815001381C4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -275,10 +291,10 @@
 		58E75F18228EEBA400EC0B9C /* GB-Vkontakte */ = {
 			isa = PBXGroup;
 			children = (
-				5836E75C22BC3821007AA848 /* Resources */,
-				5836E75D22BC3833007AA848 /* Sources */,
 				58E75F19228EEBA400EC0B9C /* AppDelegate.swift */,
 				58E75F25228EEBA600EC0B9C /* Info.plist */,
+				5836E75C22BC3821007AA848 /* Resources */,
+				5836E75D22BC3833007AA848 /* Sources */,
 			);
 			path = "GB-Vkontakte";
 			sourceTree = "<group>";

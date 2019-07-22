@@ -7,26 +7,31 @@
 //
 
 import UIKit
+import RealmSwift
 
 class AllGroupsViewController: UITableViewController {
     
-//    var groups: [GroupModel] = [
-//        GroupModel(name: "Марсиане среди нас", avatarPath: "marsiane"),
-//        GroupModel(name: "Любители психостимуляторов", avatarPath: "psicho"),
-//        GroupModel(name: "Теории заговоров 18 века", avatarPath: "zagovor"),
-//        GroupModel(name: "Группа для тех, у кого живет домовой", avatarPath: "domovoi"),
-//        GroupModel(name: "Разработка IOS", avatarPath: "ios"),
-//    ]
-    
-    var groups = [Group]()
+    var groups = [RealmGroup]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.rowHeight = 70
         
-        VKService.loadAllGroupsData(){[weak self] groups in
-            self?.groups = groups
+        VKService.loadAllGroupsData(){[weak self] in
+            self?.loadGroupsData()
             self?.tableView?.reloadData()
+        }
+    }
+    
+    // MARK: - Functions
+    
+    func loadGroupsData() {
+        do {
+            let realm = try Realm()
+            let groups = realm.objects(RealmGroup.self)
+            self.groups = Array(groups)
+        } catch {
+            print(error)
         }
     }
     
