@@ -182,9 +182,9 @@
 		5836E76122BC38E7007AA848 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				58A5DDEE229B3CCC001381C4 /* MyFriendsViewController.swift */,
 				58A5DDEC229B3B69001381C4 /* MyGroupsViewController.swift */,
 				58A5DDE7229B3801001381C4 /* AllGroupsViewController.swift */,
+				58A5DDEE229B3CCC001381C4 /* MyFriendsViewController.swift */,
 				5841A7EB22BB71CC009C22DD /* CustomNavigationController.swift */,
 				5869687522CE0971002AB84D /* VKWebViewController.swift */,
 				58E75F2B228EEBDD00EC0B9C /* LaunchController.swift */,

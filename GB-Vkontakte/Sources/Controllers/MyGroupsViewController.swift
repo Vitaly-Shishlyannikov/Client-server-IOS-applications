@@ -13,27 +13,47 @@ class MyGroupsViewController: UITableViewController {
     
     var groups = [RealmGroup]()
     
+    var token: NotificationToken?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.tableView.rowHeight = 70
         
         VKService.loadUserGroupsData(){[weak self] in
-            self?.loadGroupsData()
+            self?.loadGroupsDataAndRealmNotofocations()
             self?.tableView?.reloadData()
         }
     }
     
     // MARK: - Functions
     
-    func loadGroupsData() {
-        do {
-            let realm = try Realm()
-            let groups = realm.objects(RealmGroup.self)
-            self.groups = Array(groups)
-        } catch {
-            print(error)
-        }
+    func loadGroupsDataAndRealmNotofocations() {
+        guard let realm = try? Realm() else {return}
+        let resultGroups = realm.objects(RealmGroup.self)
+        token = resultGroups.observe({[weak self] changes in
+            switch changes {
+            case .initial(let results):
+                self?.groups = Array(results)
+            case let .update(results, deletions, insertions, modifications):
+                self?.groups = Array(results)
+                self?.tableView.performBatchUpdates({
+                    self?.tableView.insertRows(at: insertions.map({IndexPath(row: $0, section: 0)}), with: .automatic)
+                    self?.tableView.deleteRows(at: deletions.map({IndexPath(row: $0, section: 0)}), with: .automatic)
+                    self?.tableView.reloadRows(at: modifications.map({IndexPath(row: $0, section: 0)}), with: .automatic)
+                })
+            case .error(let error):
+                print(error)
+            }
+        })
+        self.groups = Array(resultGroups)
+        
+//        // проверка работы RealmNotifications, через 5 сек удаляется первая группа
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+//            try? realm.write {
+//                realm.delete(self.groups.first!)
+//            }
+//        }
     }
     
     // MARK: - Table view data source
