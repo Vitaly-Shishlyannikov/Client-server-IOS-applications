@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import FirebaseAuth
+import FirebaseFirestore
 
 class MyFriendsViewController: UITableViewController {
     
@@ -35,6 +36,34 @@ class MyFriendsViewController: UITableViewController {
             self?.loadFriendsData()
             self?.tableView?.reloadData()
         }
+        
+        let db = Firestore.firestore()
+        let userId = (Auth.auth().currentUser?.uid)!
+        
+        db.collection(userId).getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    print("\(document.documentID) => \(document.data())")
+                }
+            }
+        }
+
+//        var ref: DocumentReference? = nil
+//        ref = db.collection(userId).document("favourite groups")
+//        ref?.setData( [
+//            "id111": "Куклы ручной работы",
+//            "id222": "Counter-Strike not dead",
+//            "id333": "Поездка в  Индию",
+//            "id4444sds44": "MDK"
+//        ]) { err in
+//            if let err = err {
+//                print("Error adding document: \(err)")
+//            } else {
+//                print("Document added with ID: \(ref!.documentID)")
+//            }
+//        }
     }
     
     // MARK: - Functions
@@ -158,9 +187,8 @@ class MyFriendsViewController: UITableViewController {
             photoController.selectedFriendID = String(selectedFriendID ?? 1)
             }
     }
+    
     @IBAction func logout(_ sender: Any) {
-//        try? Auth.auth().signOut()
-//        navigationController?.popViewController(animated: true)
         
         do{
             try Auth.auth().signOut()
