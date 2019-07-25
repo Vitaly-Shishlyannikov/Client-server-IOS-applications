@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5831EE7722E8E8B8002EF2F4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5831EE7622E8E8B8002EF2F4 /* GoogleService-Info.plist */; };
+		5831EE7922E8EC9E002EF2F4 /* FirebaseAuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5831EE7822E8EC9E002EF2F4 /* FirebaseAuthController.swift */; };
 		5836E75B22BC3015007AA848 /* CustomInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5836E75A22BC3015007AA848 /* CustomInteractiveTransition.swift */; };
 		5838A4B822C500D100EBE770 /* SessionSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5838A4B722C500D100EBE770 /* SessionSingleton.swift */; };
 		583A96C622AE8D5100D7CC7F /* ThreePointsIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583A96C522AE8D5100D7CC7F /* ThreePointsIndicator.swift */; };
@@ -54,6 +56,8 @@
 
 /* Begin PBXFileReference section */
 		0BE564799A3D7971653DE863 /* Pods-GB-Vkontakte.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GB-Vkontakte.release.xcconfig"; path = "Target Support Files/Pods-GB-Vkontakte/Pods-GB-Vkontakte.release.xcconfig"; sourceTree = "<group>"; };
+		5831EE7622E8E8B8002EF2F4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5831EE7822E8EC9E002EF2F4 /* FirebaseAuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthController.swift; sourceTree = "<group>"; };
 		5836E75A22BC3015007AA848 /* CustomInteractiveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInteractiveTransition.swift; sourceTree = "<group>"; };
 		5838A4B722C500D100EBE770 /* SessionSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionSingleton.swift; sourceTree = "<group>"; };
 		583A96C522AE8D5100D7CC7F /* ThreePointsIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThreePointsIndicator.swift; sourceTree = "<group>"; };
@@ -182,9 +186,10 @@
 		5836E76122BC38E7007AA848 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				5831EE7822E8EC9E002EF2F4 /* FirebaseAuthController.swift */,
+				58A5DDEE229B3CCC001381C4 /* MyFriendsViewController.swift */,
 				58A5DDEC229B3B69001381C4 /* MyGroupsViewController.swift */,
 				58A5DDE7229B3801001381C4 /* AllGroupsViewController.swift */,
-				58A5DDEE229B3CCC001381C4 /* MyFriendsViewController.swift */,
 				5841A7EB22BB71CC009C22DD /* CustomNavigationController.swift */,
 				5869687522CE0971002AB84D /* VKWebViewController.swift */,
 				58E75F2B228EEBDD00EC0B9C /* LaunchController.swift */,
@@ -291,6 +296,7 @@
 		58E75F18228EEBA400EC0B9C /* GB-Vkontakte */ = {
 			isa = PBXGroup;
 			children = (
+				5831EE7622E8E8B8002EF2F4 /* GoogleService-Info.plist */,
 				58E75F19228EEBA400EC0B9C /* AppDelegate.swift */,
 				58E75F25228EEBA600EC0B9C /* Info.plist */,
 				5836E75C22BC3821007AA848 /* Resources */,
@@ -392,6 +398,7 @@
 				58E75F21228EEBA600EC0B9C /* Assets.xcassets in Resources */,
 				5848119522A913A600DD653C /* NewsCell.xib in Resources */,
 				58E75F1F228EEBA400EC0B9C /* Main.storyboard in Resources */,
+				5831EE7722E8E8B8002EF2F4 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -444,6 +451,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5831EE7922E8EC9E002EF2F4 /* FirebaseAuthController.swift in Sources */,
 				58FAC712229C960F00DE1667 /* RoundAvatarView.swift in Sources */,
 				588B5CB222D893F9004296D2 /* Photo.swift in Sources */,
 				5869687622CE0971002AB84D /* VKWebViewController.swift in Sources */,
@@ -627,7 +635,9 @@
 			baseConfigurationReference = BFF49E1ABFA98FBF379C4857 /* Pods-GB-Vkontakte.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2DDX593STW;
 				INFOPLIST_FILE = "GB-Vkontakte/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -635,6 +645,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "tiV.GB-Vkontakte";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -645,7 +656,9 @@
 			baseConfigurationReference = 0BE564799A3D7971653DE863 /* Pods-GB-Vkontakte.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2DDX593STW;
 				INFOPLIST_FILE = "GB-Vkontakte/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -653,6 +666,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "tiV.GB-Vkontakte";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

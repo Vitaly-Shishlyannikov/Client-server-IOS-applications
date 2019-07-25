@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import FirebaseAuth
 
 class MyFriendsViewController: UITableViewController {
     
@@ -156,6 +157,17 @@ class MyFriendsViewController: UITableViewController {
             let selectedFriendID = friendsIndexDictionary[selectedFriendCharacter]?[indexPath.row].id
             photoController.selectedFriendID = String(selectedFriendID ?? 1)
             }
+    }
+    @IBAction func logout(_ sender: Any) {
+//        try? Auth.auth().signOut()
+//        navigationController?.popViewController(animated: true)
+        
+        do{
+            try Auth.auth().signOut()
+            self.dismiss(animated: true, completion: nil)
+        } catch (let error) {
+            print("Failed with error \(error)")
+        }
     }
 }
 
