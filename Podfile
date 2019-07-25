@@ -9,5 +9,7 @@ target 'GB-Vkontakte' do
   pod 'AlamofireObjectMapper', '~> 5.2'
   pod 'SwiftKeychainWrapper'
   pod 'RealmSwift' 
-
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Auth'
+  pod 'Firebase/Firestore'
 end
