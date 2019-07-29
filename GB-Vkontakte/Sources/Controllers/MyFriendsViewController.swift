@@ -11,7 +11,7 @@ import RealmSwift
 import FirebaseAuth
 import FirebaseFirestore
 
-class MyFriendsViewController: UITableViewController {
+class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
     
     var friends = [RealmFriend]()
     
@@ -25,10 +25,16 @@ class MyFriendsViewController: UITableViewController {
     
     var searchedFriends: [RealmFriend] = []
     
+    var searchIsActive = false
+    
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        searchBar.delegate = self
         
         self.tableView.rowHeight = 70
         
@@ -106,11 +112,40 @@ class MyFriendsViewController: UITableViewController {
         return frIndDict
     }
     
+    // MARK: - SearchBar delegate
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchIsActive = true;
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchIsActive = false;
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchIsActive = false;
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchIsActive = false;
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchedFriends = self.friends.filter({(friend: RealmFriend) -> Bool in
+            return friend.firstName.lowercased().contains(searchText.lowercased()) ||
+            friend.lastName.lowercased().contains(searchText.lowercased())
+        })
+        
+        searchIsActive = searchText.count == 0 ? false : true
+        
+        tableView.reloadData()
+    }
+    
     // MARK: - Table view data source
     
     // количество секций равно количеству элементов в массиве первых букв
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return friendsIndexArray.count
+        return searchIsActive ? 1 : friendsIndexArray.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -118,27 +153,41 @@ class MyFriendsViewController: UITableViewController {
         // всех друзей, добавляем при совпадении и возвращаем кол-во элементов для секции
         let char = friendsIndexArray[section]
         let rowsArray: [RealmFriend] = friendsIndexDictionary[char] ?? []
-        return rowsArray.count
+        return searchIsActive ? searchedFriends.count : rowsArray.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FriendCell.reuseIdentifier, for: indexPath) as? FriendCell else { return UITableViewCell() }
+        
+        if searchIsActive {
+            let friend = searchedFriends[indexPath.row]
+            let fullName = friend.firstName + " " + friend.lastName
+            cell.friendNameLabel.text = fullName
+            
+            let avatarPath = searchedFriends[indexPath.row].photo
+            guard let url = URL(string: avatarPath) else {return UITableViewCell()}
+            let data = try? Data(contentsOf: url)
+            if let imagedata = data {
+                cell.friendAvatar.image = UIImage(data: imagedata)
+            } else {
 
-        let char = friendsIndexArray[indexPath.section]
-        guard let friendFirstName = friendsIndexDictionary[char]?[indexPath.row].firstName else {return UITableViewCell()}
-        guard let friendLastName = friendsIndexDictionary[char]?[indexPath.row].lastName else {return UITableViewCell()}
-        let friendFullName = friendFirstName + " " + friendLastName
-        
-        cell.friendNameLabel.text = friendFullName
-        
-        guard let avatarPath = friendsIndexDictionary[char]?[indexPath
-            .row].photo else {return UITableViewCell()}
-        guard let url = URL(string: avatarPath) else {return UITableViewCell()}
-        let data = try? Data(contentsOf: url)
-        if let imagedata = data {
-            cell.friendAvatar.image = UIImage(data: imagedata)
-        //cell.contentView.backgroundColor = UIColor.white
+                let char = friendsIndexArray[indexPath.section]
+                guard let friendFirstName = friendsIndexDictionary[char]?[indexPath.row].firstName else {return UITableViewCell()}
+                guard let friendLastName = friendsIndexDictionary[char]?[indexPath.row].lastName else {return UITableViewCell()}
+                let friendFullName = friendFirstName + " " + friendLastName
+                
+                cell.friendNameLabel.text = friendFullName
+                
+                guard let avatarPath = friendsIndexDictionary[char]?[indexPath
+                    .row].photo else {return UITableViewCell()}
+                guard let url = URL(string: avatarPath) else {return UITableViewCell()}
+                let data = try? Data(contentsOf: url)
+                if let imagedata = data {
+                    cell.friendAvatar.image = UIImage(data: imagedata)
+                //cell.contentView.backgroundColor = UIColor.white
+                }
+            }
         }
         return cell
     }
@@ -147,12 +196,12 @@ class MyFriendsViewController: UITableViewController {
     override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         // преобразуем массив [Chararacter] в [String]
         let friendsIndexString = friendsIndexArray.map {String($0)}
-        return friendsIndexString
+        return searchIsActive ? nil : friendsIndexString
     }
     
     // текст для header секции, берется из массива индексов
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return String(friendsIndexArray[section])
+        return searchIsActive ? nil : String(friendsIndexArray[section])
     }
     
     // header секции и настройка его цвета
@@ -178,16 +227,18 @@ class MyFriendsViewController: UITableViewController {
             let photoController = segue.destination as? PhotoCollectionViewController,
             let indexPath = tableView.indexPathForSelectedRow {
                 let selectedFriendCharacter = friendsIndexArray[indexPath.section]
-            guard let firstName = friendsIndexDictionary[selectedFriendCharacter]?[indexPath.row].firstName else {return}
-            guard let lastName = friendsIndexDictionary[selectedFriendCharacter]?[indexPath.row].lastName else {return}
-            let photoName = firstName + " " + lastName
-            photoController.friendNameForTitle = photoName
+                guard let firstName = friendsIndexDictionary[selectedFriendCharacter]?[indexPath.row].firstName else {return}
+                guard let lastName = friendsIndexDictionary[selectedFriendCharacter]?[indexPath.row].lastName else {return}
+                let photoName = firstName + " " + lastName
+                photoController.friendNameForTitle = photoName
             
-            let selectedFriendID = friendsIndexDictionary[selectedFriendCharacter]?[indexPath.row].id
-            photoController.selectedFriendID = String(selectedFriendID ?? 1)
+                let selectedFriendID = friendsIndexDictionary[selectedFriendCharacter]?[indexPath.row].id
+                photoController.selectedFriendID = String(selectedFriendID ?? 1)
             }
     }
     
+    
+    // функция для разлогинивания в fireBase
     @IBAction func logout(_ sender: Any) {
         
         do{

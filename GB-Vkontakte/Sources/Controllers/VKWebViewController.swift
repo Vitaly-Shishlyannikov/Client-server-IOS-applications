@@ -78,7 +78,7 @@ class VKWebViewController: UIViewController, WKNavigationDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateInitialViewController()!
         present(vc, animated: true, completion: nil)
-
+        
         decisionHandler(.cancel)
     }
     
