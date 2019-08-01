@@ -37,7 +37,7 @@ class VKService {
     
     static func loadAllGroupsData(completion: @escaping () -> Void) {
         
-        Alamofire.request("https://api.vk.com/method/groups.search?q=a&access_token=\(Session.instance.token)&v=5.95")
+        Alamofire.request("https://api.vk.com/method/groups.search?q=c&access_token=\(Session.instance.token)&v=5.95")
             .responseObject(completionHandler: { (vkResponse: DataResponse<VKGroupResponse>) in
                 guard let groups = vkResponse.result.value?.response?.items else {return}
                 
