@@ -34,27 +34,27 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        searchBar.delegate = self
-        
         self.tableView.rowHeight = 70
+        
+        searchBar.delegate = self
         
         VKService.loadFriendsData() {[weak self] in
             self?.loadFriendsData()
             self?.tableView?.reloadData()
         }
         
-        let db = Firestore.firestore()
-        let userId = (Auth.auth().currentUser?.uid)!
-        
-        db.collection(userId).getDocuments() { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                for document in querySnapshot!.documents {
-                    print("\(document.documentID) => \(document.data())")
-                }
-            }
-        }
+//        let db = Firestore.firestore()
+//        let userId = (Auth.auth().currentUser?.uid)!
+//
+//        db.collection(userId).getDocuments() { (querySnapshot, err) in
+//            if let err = err {
+//                print("Error getting documents: \(err)")
+//            } else {
+//                for document in querySnapshot!.documents {
+//                    print("\(document.documentID) => \(document.data())")
+//                }
+//            }
+//        }
 
 //        var ref: DocumentReference? = nil
 //        ref = db.collection(userId).document("favourite groups")
@@ -236,7 +236,6 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
                 photoController.selectedFriendID = String(selectedFriendID ?? 1)
             }
     }
-    
     
     // функция для разлогинивания в fireBase
     @IBAction func logout(_ sender: Any) {
