@@ -24,11 +24,15 @@ class VKPostResponse: Mappable {
 
 class VKPostItems: Mappable {
     var items: [Post] = []
+    var sourceProfiles: [Post] = []
+    var sourceGroups: [Post] = []
     
     required init?(map: Map) {}
     
     func mapping(map: Map) {
         items <- map["items"]
+        sourceGroups <- map["groups"]
+        sourceProfiles <- map["profiles"]
     }
 }
 
@@ -71,6 +75,14 @@ class Post: Mappable {
     @objc dynamic var likes: Int = 0
     @objc dynamic var reposts: Int = 0
     
+    @objc dynamic var sourceProfileFirstName: String = ""
+    @objc dynamic var sourceProfileLastName: String = ""
+    @objc dynamic var sourceProfilePhotoURL: String = ""
+    
+    @objc dynamic var sourceGroupName: String = ""
+    @objc dynamic var sourceGroupPhotoURL: String = ""
+    
+    
     required init?(map: Map) {}
     
     func mapping(map: Map) {
@@ -80,5 +92,12 @@ class Post: Mappable {
         comments <- map["comments"]
         likes <- map["likes"]
         reposts <- map["reposts"]
+        
+        sourceProfileFirstName <- map["first_name"]
+        sourceProfileLastName <- map["last_name"]
+        sourceProfilePhotoURL <- map["photo_50"]
+        
+        sourceGroupName <- map["name"]
+        sourceGroupPhotoURL <- map["photo_100"]
     }
 }

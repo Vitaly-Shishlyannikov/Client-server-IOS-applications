@@ -102,7 +102,8 @@ class VKService {
                 
                 let result = vkResponse.result
                 
-                guard let news = result.value?.response?.items else {return}
+//               let news =     [Post]()
+                guard let news =    result.value?.response?.items else {return}
                 
                 switch result {
                 case .success(_): completion(news)
