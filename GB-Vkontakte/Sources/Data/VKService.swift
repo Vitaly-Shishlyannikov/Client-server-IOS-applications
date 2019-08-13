@@ -95,10 +95,10 @@ class VKService {
             })
     }
     
-    static func loadNews(completion: @escaping ([Post]) -> Void) {
+    static func loadNews(completion: @escaping ([News]) -> Void) {
         
         Alamofire.request("https://api.vk.com/method/newsfeed.get?filters=post&access_token=\(Session.instance.token)&v=5.95")
-            .responseObject(completionHandler: { (vkResponse: DataResponse<VKPostResponse>) in
+            .responseObject(completionHandler: { (vkResponse: DataResponse<VKNewsResponse>) in
                 
                 let result = vkResponse.result
                 

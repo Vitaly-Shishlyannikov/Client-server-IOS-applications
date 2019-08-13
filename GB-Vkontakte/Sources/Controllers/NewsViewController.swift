@@ -10,18 +10,17 @@ import UIKit
 
 class NewsViewController: UITableViewController {
     
-    var news = [Post]()
+    var news = [News]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.register(UINib(nibName: "NewsCell", bundle: nil),
+        tableView.register(UINib(nibName: "NewsCellPost", bundle: nil),
                            forCellReuseIdentifier: NewsCell.reuseId)
         
         tableView.dataSource = self
         
-        tableView.estimatedRowHeight = 3000
-        tableView.rowHeight = UITableView.automaticDimension
+        self.tableView.rowHeight = 150
 
         VKService.loadNews(){[weak self] news in
             self?.news = news

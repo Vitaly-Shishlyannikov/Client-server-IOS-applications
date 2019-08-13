@@ -12,8 +12,8 @@ import Alamofire
 import AlamofireObjectMapper
 import ObjectMapper
 
-class VKPostResponse: Mappable {
-    var response: VKPostItems? = nil
+class VKNewsResponse: Mappable {
+    var response: VKNewsItems? = nil
     
     required init?(map: Map) {}
     
@@ -22,10 +22,10 @@ class VKPostResponse: Mappable {
     }
 }
 
-class VKPostItems: Mappable {
-    var items: [Post] = []
-    var sourceProfiles: [Post] = []
-    var sourceGroups: [Post] = []
+class VKNewsItems: Mappable {
+    var items: [News] = []
+    var sourceProfiles: [News] = []
+    var sourceGroups: [News] = []
     
     required init?(map: Map) {}
     
@@ -66,7 +66,7 @@ class VKPostItems: Mappable {
 //    }
 //}
 
-class Post: Mappable {
+class News: Mappable {
     
     @objc dynamic var source_id: Int = 0
     @objc dynamic var text: String = ""
