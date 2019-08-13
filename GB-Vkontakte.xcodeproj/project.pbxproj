@@ -40,6 +40,7 @@
 		58A5DDF3229B4251001381C4 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A5DDF2229B4251001381C4 /* PhotoCell.swift */; };
 		58A5DDF5229B42AC001381C4 /* PhotoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A5DDF4229B42AC001381C4 /* PhotoCollectionViewController.swift */; };
 		58A5DDFA229C05AB001381C4 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A5DDF9229C05AB001381C4 /* GradientView.swift */; };
+		58B0F06123028A7E00434736 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B0F06023028A7E00434736 /* Post.swift */; };
 		58D8B15222A68DB800B80789 /* GradientNotInspectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D8B15122A68DB800B80789 /* GradientNotInspectable.swift */; };
 		58E75F1A228EEBA400EC0B9C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E75F19228EEBA400EC0B9C /* AppDelegate.swift */; };
 		58E75F1F228EEBA400EC0B9C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58E75F1D228EEBA400EC0B9C /* Main.storyboard */; };
@@ -89,6 +90,7 @@
 		58A5DDF2229B4251001381C4 /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		58A5DDF4229B42AC001381C4 /* PhotoCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewController.swift; sourceTree = "<group>"; };
 		58A5DDF9229C05AB001381C4 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		58B0F06023028A7E00434736 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		58D8B15122A68DB800B80789 /* GradientNotInspectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientNotInspectable.swift; sourceTree = "<group>"; };
 		58E75F16228EEBA400EC0B9C /* GB-Vkontakte.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GB-Vkontakte.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		58E75F19228EEBA400EC0B9C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -186,14 +188,14 @@
 		5836E76122BC38E7007AA848 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				5869687522CE0971002AB84D /* VKWebViewController.swift */,
+				5848118D22A8FFBE00DD653C /* NewsViewController.swift */,
 				58A5DDEE229B3CCC001381C4 /* MyFriendsViewController.swift */,
 				58A5DDEC229B3B69001381C4 /* MyGroupsViewController.swift */,
 				58A5DDE7229B3801001381C4 /* AllGroupsViewController.swift */,
 				5831EE7822E8EC9E002EF2F4 /* FirebaseAuthController.swift */,
 				5841A7EB22BB71CC009C22DD /* CustomNavigationController.swift */,
-				5869687522CE0971002AB84D /* VKWebViewController.swift */,
 				58E75F2B228EEBDD00EC0B9C /* LaunchController.swift */,
-				5848118D22A8FFBE00DD653C /* NewsViewController.swift */,
 				5841A7E522B7D41A009C22DD /* FullScreeenPhotoController.swift */,
 				58A5DDF4229B42AC001381C4 /* PhotoCollectionViewController.swift */,
 			);
@@ -213,8 +215,8 @@
 		5836E76422BC39B8007AA848 /* SereverEmulators */ = {
 			isa = PBXGroup;
 			children = (
-				588F829922A14EA300DA7643 /* FriendsServerEmulator.swift */,
 				5848119222A9098100DD653C /* NewsServerEmulator.swift */,
+				588F829922A14EA300DA7643 /* FriendsServerEmulator.swift */,
 				5841A7E722B82248009C22DD /* PhotosServerEmulator.swift */,
 			);
 			path = SereverEmulators;
@@ -255,6 +257,7 @@
 				58611E3522D28E8C005BDC34 /* VKService.swift */,
 				58611E3C22D35F46005BDC34 /* Friend.swift */,
 				58611E3922D358DA005BDC34 /* Group.swift */,
+				58B0F06023028A7E00434736 /* Post.swift */,
 				588B5CB122D893F9004296D2 /* Photo.swift */,
 			);
 			path = Data;
@@ -481,6 +484,7 @@
 				58A5DDF5229B42AC001381C4 /* PhotoCollectionViewController.swift in Sources */,
 				5848119922A93E9900DD653C /* ShareControl.swift in Sources */,
 				58D8B15222A68DB800B80789 /* GradientNotInspectable.swift in Sources */,
+				58B0F06123028A7E00434736 /* Post.swift in Sources */,
 				5841A7E822B82248009C22DD /* PhotosServerEmulator.swift in Sources */,
 				58611E3A22D358DA005BDC34 /* Group.swift in Sources */,
 				58A5DDF3229B4251001381C4 /* PhotoCell.swift in Sources */,

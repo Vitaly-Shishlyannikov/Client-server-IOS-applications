@@ -94,5 +94,21 @@ class VKService {
                 }
             })
     }
+    
+    static func loadNews(completion: @escaping ([Post]) -> Void) {
+        
+        Alamofire.request("https://api.vk.com/method/newsfeed.get?filters=post&access_token=\(Session.instance.token)&v=5.95")
+            .responseObject(completionHandler: { (vkResponse: DataResponse<VKPostResponse>) in
+                
+                let result = vkResponse.result
+                
+                guard let news = result.value?.response?.items else {return}
+                
+                switch result {
+                case .success(_): completion(news)
+                case .failure(let error): print(error)
+                }
+            })
+    }
 }
 
