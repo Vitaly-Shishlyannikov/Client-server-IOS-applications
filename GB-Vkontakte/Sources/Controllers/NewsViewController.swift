@@ -45,6 +45,7 @@ class NewsViewController: UITableViewController {
         
         cell.newsText.text = news[indexPath.row].text
         cell.sourceLabel.text = String(news[indexPath.row].source_id)
+//        news[indexPath.row].
 //        let picturePath = news[indexPath.row].photo
 //        let sourceImagePath = news[indexPath.row].newsSourceImage
 //        cell.newsImage.image = UIImage(named: picturePath)
