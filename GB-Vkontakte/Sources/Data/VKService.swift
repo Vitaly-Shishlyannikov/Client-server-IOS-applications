@@ -94,5 +94,25 @@ class VKService {
                 }
             })
     }
+    
+    static func loadNews(completion: @escaping ([News]) -> Void) {
+        
+        debugPrint("isMainThread \(Thread.isMainThread)")
+        
+        DispatchQueue.global(qos: .utility).async {
+        
+        Alamofire.request("https://api.vk.com/method/newsfeed.get?filters=post&access_token=\(Session.instance.token)&v=5.95")
+            .responseObject(completionHandler: { (vkResponse: DataResponse<VKNewsResponse>) in
+                
+                let result = vkResponse.result
+                
+                guard let news = result.value?.response?.items else {return}
+                
+                DispatchQueue.main.async {
+                    completion(news) 
+                }
+            })
+        }
+    }
 }
 

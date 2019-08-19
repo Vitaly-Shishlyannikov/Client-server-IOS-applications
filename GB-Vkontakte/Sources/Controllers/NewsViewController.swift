@@ -10,36 +10,28 @@ import UIKit
 
 class NewsViewController: UITableViewController {
     
-    var news: [NewsModel] = []
-
-    func getNews () {
-        news = NewsServerEmulator.getNews() ?? []
-    }
+    var news = [News]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getNews()
         
-        tableView.register(UINib(nibName: "NewsCell", bundle: nil),
+        tableView.register(UINib(nibName: "NewsCellPost", bundle: nil),
                            forCellReuseIdentifier: NewsCell.reuseId)
         
         tableView.dataSource = self
         
-        tableView.estimatedRowHeight = 3000
-        tableView.rowHeight = UITableView.automaticDimension
+        self.tableView.rowHeight = 150
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        VKService.loadNews(){[weak self] news in
+            self?.news = news
+            self?.tableView?.reloadData()
+        }
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return news.count
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -51,15 +43,12 @@ class NewsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: NewsCell.reuseId, for: indexPath) as? NewsCell else {return UITableViewCell()}
         
-        cell.newsText.text = news[indexPath.row].newsText
-        cell.sourceLabel.text = news[indexPath.row].newsSource
-        let picturePath = news[indexPath.row].newsPicturePath
-        let sourceImagePath = news[indexPath.row].newsSourceImage
-        cell.newsImage.image = UIImage(named: picturePath)
-        cell.sourceImage.image = UIImage(named: sourceImagePath)
-        
-
-        // Configure the cell...
+        cell.newsText.text = news[indexPath.row].text
+        cell.sourceLabel.text = String(news[indexPath.row].source_id)
+//        let picturePath = news[indexPath.row].photo
+//        let sourceImagePath = news[indexPath.row].newsSourceImage
+//        cell.newsImage.image = UIImage(named: picturePath)
+//        cell.sourceImage.image = UIImage(named: sourceImagePath)
 
         return cell
     }
