@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 import SDWebImage
 
 class NewsViewController: UITableViewController {
@@ -46,6 +47,14 @@ class NewsViewController: UITableViewController {
         
         cell.newsText.text = news[indexPath.row].text
         cell.sourceLabel.text = String(news[indexPath.row].source_id)
+        
+        let sourceId = news[indexPath.row].source_id
+        if sourceId < 0 {
+            let realm = try! Realm()
+            let group = realm.objects(SourceGroupRealm.self).filter("id == %@", -sourceId).first
+//            cell.sourceLabel.text =
+            cell.sourceLabel.text = group?.name
+        }
 //        news[indexPath.row].
 //        let picturePath = news[indexPath.row].photo
 //        let sourceImagePath = news[indexPath.row].newsSourceImage
