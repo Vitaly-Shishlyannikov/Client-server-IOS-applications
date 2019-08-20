@@ -49,12 +49,18 @@ class NewsViewController: UITableViewController {
         cell.sourceLabel.text = String(news[indexPath.row].source_id)
         
         let sourceId = news[indexPath.row].source_id
+        let realm = try? Realm()
+        
         if sourceId < 0 {
-            let realm = try! Realm()
-            let group = realm.objects(SourceGroupRealm.self).filter("id == %@", -sourceId).first
-//            cell.sourceLabel.text =
-            cell.sourceLabel.text = group?.name
+            let group = realm?.objects(SourceGroupRealm.self).filter("id == %@", -sourceId).first
+            cell.sourceLabel.text = group?.name ?? "default name"
+            cell.sourceImage.sd_setImage(with: URL(string: ((group?.photoURL)!)), placeholderImage: UIImage(named: "defaultAvatar"))
+        } else {
+            let user = realm?.objects(SourceProfileRealm.self).filter("id == %@", sourceId).first
+            cell.sourceLabel.text = user?.fullName ?? "default name"
+            cell.sourceImage.sd_setImage(with: URL(string: ((user?.photoURL)!)), placeholderImage: UIImage(named: "defaultAvatar"))
         }
+        
 //        news[indexPath.row].
 //        let picturePath = news[indexPath.row].photo
 //        let sourceImagePath = news[indexPath.row].newsSourceImage
