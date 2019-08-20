@@ -12,4 +12,6 @@ target 'GB-Vkontakte' do
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
+
+  pod 'SDWebImage', '~> 5.0'
 end
