@@ -37,36 +37,6 @@ class VKNewsItems: Mappable {
     }
 }
 
-//class VKPostAttachments: Mappable {
-//    var attachments: [VKPostPhotos?] = []
-//
-//    required init?(map: Map) {}
-//
-//    func mapping(map: Map) {
-//       attachments <- map["attachments"]
-//    }
-//}
-//
-//class VKPostPhotos: Mappable {
-//    var photo: VKPostPhotoSizes? = nil
-//
-//    required init?(map: Map) {}
-//
-//    func mapping(map: Map) {
-//        photo <- map["photo"]
-//    }
-//}
-//
-//class VKPostPhotoSizes: Mappable {
-//    var sizes: [Post] = []
-//
-//    required init?(map: Map) {}
-//
-//    func mapping(map: Map) {
-//        sizes <- map["sizes"]
-//    }
-//}
-
 class SourceProfileRealm: Object, Mappable {
     
     @objc dynamic var id: Int = 0
@@ -122,14 +92,7 @@ class News: Mappable {
     @objc dynamic var reposts: Int = 0
     
     @objc dynamic var photoNews: String = ""
-    
-    @objc dynamic var sourceGroupName: String = ""
-    @objc dynamic var sourceGroupPhotoURL: String = ""
-    
-    @objc dynamic var sourceProfileName: String = ""
-    @objc dynamic var sourceProfilePhotoURL: String = ""
-    
-    
+
     required init?(map: Map) {}
     
     func mapping(map: Map) {

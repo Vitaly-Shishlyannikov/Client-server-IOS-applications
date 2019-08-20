@@ -101,8 +101,8 @@ class VKService {
         
         DispatchQueue.global(qos: .utility).async {
         
-        Alamofire.request("https://api.vk.com/method/newsfeed.get?filters=post&access_token=\(Session.instance.token)&v=5.95")
-            .responseObject(completionHandler: { (vkResponse: DataResponse<VKNewsResponse>) in
+            Alamofire.request("https://api.vk.com/method/newsfeed.get?filters=post&access_token=\(Session.instance.token)&v=5.95")
+                .responseObject(completionHandler: { (vkResponse: DataResponse<VKNewsResponse>) in
                 
                 let result = vkResponse.result
                 
@@ -115,7 +115,7 @@ class VKService {
                     try realm.write {
                         realm.add(sourceGroups, update: true)
                     }
-                    print(realm.configuration.fileURL)
+//                    print(realm.configuration.fileURL)
                 } catch {
                     print(error)
                 }
@@ -131,14 +131,10 @@ class VKService {
                     try realm.write {
                         realm.add(sourceProfiles, update: true)
                     }
-                    print(realm.configuration.fileURL)
+//                    print(realm.configuration.fileURL)
                 } catch {
                     print(error)
                 }
-                
-               
-                
-//                result.value?.response?.items[1].
                 DispatchQueue.main.async {
                     completion(news)
                 }
