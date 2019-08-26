@@ -59,11 +59,11 @@ class VKWebViewController: UIViewController, WKNavigationDelegate {
                 return dict
         }
         
-        guard let token = params["access_token"], let userID = params["user_id"] else {
-            return
+        if let token = params["access_token"], let userID = params["user_id"] {
+            Session.instance.token = token
+            Session.instance.userId = Int(userID)!
         }
-        Session.instance.token = token
-        Session.instance.userId = Int(userID)!
+        
         
         // сохраняем токен в Keychain
         KeychainWrapper.standard.set(Session.instance.token, forKey: "token")
