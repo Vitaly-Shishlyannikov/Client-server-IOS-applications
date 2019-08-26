@@ -20,7 +20,7 @@ class VKService {
         Alamofire.request("https://api.vk.com/method/groups.get?extended=1&access_token=\(Session.instance.token)&v=5.95")
             .responseObject(completionHandler: { (vkResponse: DataResponse<VKGroupResponse>) in
                 
-                guard let groups = vkResponse.result.value?.response?.items else {return}
+                let groups = vkResponse.result.value?.response?.items ?? []
                 
                 do {
                     let realm = try Realm()
@@ -39,7 +39,8 @@ class VKService {
         
         Alamofire.request("https://api.vk.com/method/groups.search?q=c&access_token=\(Session.instance.token)&v=5.95")
             .responseObject(completionHandler: { (vkResponse: DataResponse<VKGroupResponse>) in
-                guard let groups = vkResponse.result.value?.response?.items else {return}
+                
+                let groups = vkResponse.result.value?.response?.items ?? []
                 
                 do {
                     let realm = try Realm()
@@ -59,7 +60,8 @@ class VKService {
         Alamofire.request("https://api.vk.com/method/friends.get?fields=photo_50&access_token=\(Session.instance.token)&v=5.95")
             .responseObject(completionHandler: { (vkResponse: DataResponse<VKFriendResponse>) in
                 let result = vkResponse.result
-                guard let friends = result.value?.response?.items else {return}
+                
+                let friends = result.value?.response?.items ?? []
                 
                 do {
                     let realm = try Realm()
@@ -84,8 +86,9 @@ class VKService {
                 let items = result.value?.response?.items ?? []
                 
                 for item in items {
-                    guard let photo = item.sizes.first else {return}
-                    photos.append(photo)
+                    if let photo = item.sizes.last {
+                        photos.append(photo)
+                    }
                 }
                 
                 switch result {
@@ -106,9 +109,9 @@ class VKService {
                 
                 let result = vkResponse.result
                 
-                guard let news = result.value?.response?.items else {return}
+                let news = result.value?.response?.items ?? []
                 
-                guard let sourceGroups = result.value?.response?.sourceGroups else {return}
+                let sourceGroups = result.value?.response?.sourceGroups ?? []
                 
                 do {
                     let realm = try Realm()
@@ -120,7 +123,7 @@ class VKService {
                     print(error)
                 }
                 
-                guard let sourceProfiles = result.value?.response?.sourceProfiles else {return}
+                let sourceProfiles = result.value?.response?.sourceProfiles ?? []
                 
                 for sourceProfile in sourceProfiles {
                     sourceProfile.fullName = sourceProfile.firstName + " " + sourceProfile.lastName
