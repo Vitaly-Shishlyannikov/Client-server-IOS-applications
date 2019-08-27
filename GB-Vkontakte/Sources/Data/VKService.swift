@@ -16,86 +16,109 @@ import RealmSwift
 class VKService {
         
     static func loadUserGroupsData(completion: @escaping () -> Void) {
+        
+        DispatchQueue.global(qos: .utility).async {
     
-        Alamofire.request("https://api.vk.com/method/groups.get?extended=1&access_token=\(Session.instance.token)&v=5.95")
-            .responseObject(completionHandler: { (vkResponse: DataResponse<VKGroupResponse>) in
-                
-                let groups = vkResponse.result.value?.response?.items ?? []
-                
-                do {
-                    let realm = try Realm()
-                    try realm.write {
-                        realm.add(groups, update: true)
+            Alamofire.request("https://api.vk.com/method/groups.get?extended=1&access_token=\(Session.instance.token)&v=5.95")
+                .responseObject(completionHandler: { (vkResponse: DataResponse<VKGroupResponse>) in
+                    
+                    let groups = vkResponse.result.value?.response?.items ?? []
+                    
+                    do {
+                        let realm = try Realm()
+                        try realm.write {
+                            realm.add(groups, update: true)
+                        }
+    //                    print(realm.configuration.fileURL)
+                    } catch {
+                        print(error)
                     }
-//                    print(realm.configuration.fileURL)
-                } catch {
-                    print(error)
-                }
-                completion()
-            })
+                    DispatchQueue.main.async {
+                    completion()
+                    }
+                })
         }
+    }
     
     static func loadAllGroupsData(completion: @escaping () -> Void) {
         
-        Alamofire.request("https://api.vk.com/method/groups.search?q=c&access_token=\(Session.instance.token)&v=5.95")
-            .responseObject(completionHandler: { (vkResponse: DataResponse<VKGroupResponse>) in
-                
-                let groups = vkResponse.result.value?.response?.items ?? []
-                
-                do {
-                    let realm = try Realm()
-                    try realm.write {
-                        realm.add(groups, update: true)
+        DispatchQueue.global(qos: .utility).async {
+        
+            Alamofire.request("https://api.vk.com/method/groups.search?q=c&access_token=\(Session.instance.token)&v=5.95")
+                .responseObject(completionHandler: { (vkResponse: DataResponse<VKGroupResponse>) in
+                    
+                    let groups = vkResponse.result.value?.response?.items ?? []
+                    
+                    do {
+                        let realm = try Realm()
+                        try realm.write {
+                            realm.add(groups, update: true)
+                        }
+//                        print(realm.configuration.fileURL)
+                    } catch {
+                        print(error)
                     }
-//                    print(realm.configuration.fileURL)
-                } catch {
-                    print(error)
-                }
-                completion()
-            })
+                    DispatchQueue.main.async {
+                    completion()
+                    }
+                })
+        }
     }
     
     static func loadFriendsData(completion: @escaping () -> Void) {
         
-        Alamofire.request("https://api.vk.com/method/friends.get?fields=photo_50&access_token=\(Session.instance.token)&v=5.95")
-            .responseObject(completionHandler: { (vkResponse: DataResponse<VKFriendResponse>) in
-                let result = vkResponse.result
-                
-                let friends = result.value?.response?.items ?? []
-                
-                do {
-                    let realm = try Realm()
-                    try realm.write {
-                        realm.add(friends, update: true)
+        DispatchQueue.global(qos: .utility).async {
+        
+            Alamofire.request("https://api.vk.com/method/friends.get?fields=photo_50&access_token=\(Session.instance.token)&v=5.95")
+                .responseObject(completionHandler: { (vkResponse: DataResponse<VKFriendResponse>) in
+                    
+                    let result = vkResponse.result
+                    
+                    let friends = result.value?.response?.items ?? []
+                    
+                    do {
+                        let realm = try Realm()
+                        try realm.write {
+                            realm.add(friends, update: true)
+                        }
+                        print(realm.configuration.fileURL)
+                    } catch {
+                        print(error)
                     }
-                    print(realm.configuration.fileURL)
-                } catch {
-                    print(error)
-                }
-                completion()
-            })
+                    DispatchQueue.main.async {
+                    completion()
+                    }
+                })
+        }
     }
     
     static func loadFriendsPhotos(friendID: String, completion: @escaping ([Photo]) -> Void) {
         
-        Alamofire.request("https://api.vk.com/method/photos.getAll?owner_id=\(friendID)&extended=1&access_token=\(Session.instance.token)&v=5.95")
-            .responseObject(completionHandler: { (vkResponse: DataResponse<VKPhotoResponse>) in
-               
-                var photos: [Photo] = []
-                let result = vkResponse.result
-                let items = result.value?.response?.items ?? []
-                
-                for item in items {
-                    if let photo = item.sizes.last {
-                        photos.append(photo)
+        DispatchQueue.global(qos: .utility).async {
+        
+            Alamofire.request("https://api.vk.com/method/photos.getAll?owner_id=\(friendID)&extended=1&access_token=\(Session.instance.token)&v=5.95")
+                .responseObject(completionHandler: { (vkResponse: DataResponse<VKPhotoResponse>) in
+                   
+                    var photos: [Photo] = []
+                    
+                    let result = vkResponse.result
+                    
+                    let items = result.value?.response?.items ?? []
+                    
+                    for item in items {
+                        if let photo = item.sizes.last {
+                            photos.append(photo)
+                        }
                     }
-                }
-                
-                switch result {
-                case .success(_): completion(photos)
-                case .failure(let error): print(error)
-                }
-            })
+                    
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success(_): completion(photos)
+                        case .failure(let error): print(error)
+                        }
+                    }
+                })
+        }
     }
     
     static func loadNews(completion: @escaping ([News]) -> Void) {
