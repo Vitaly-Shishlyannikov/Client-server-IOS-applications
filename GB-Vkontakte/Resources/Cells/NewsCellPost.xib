@@ -98,6 +98,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="VKg-lE-zN8"/>
             <connections>
+                <outlet property="likeControl" destination="Sdr-DO-wxD" id="fCa-vL-Z1K"/>
                 <outlet property="newsText" destination="qYo-Fv-NXz" id="JIC-FV-NSe"/>
                 <outlet property="sourceImage" destination="aRo-Hm-bDy" id="yO1-92-GJr"/>
                 <outlet property="sourceLabel" destination="F7X-DA-wtK" id="vmO-6b-Qm2"/>
