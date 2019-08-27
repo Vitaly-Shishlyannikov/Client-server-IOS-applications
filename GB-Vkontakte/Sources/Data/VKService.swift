@@ -66,7 +66,7 @@ class VKService {
                     try realm.write {
                         realm.add(friends, update: true)
                     }
-//                    print(realm.configuration.fileURL)
+                    print(realm.configuration.fileURL)
                 } catch {
                     print(error)
                 }
@@ -101,15 +101,42 @@ class VKService {
         
         DispatchQueue.global(qos: .utility).async {
         
-        Alamofire.request("https://api.vk.com/method/newsfeed.get?filters=post&access_token=\(Session.instance.token)&v=5.95")
-            .responseObject(completionHandler: { (vkResponse: DataResponse<VKNewsResponse>) in
+            Alamofire.request("https://api.vk.com/method/newsfeed.get?filters=post&access_token=\(Session.instance.token)&v=5.95")
+                .responseObject(completionHandler: { (vkResponse: DataResponse<VKNewsResponse>) in
                 
                 let result = vkResponse.result
                 
                 guard let news = result.value?.response?.items else {return}
                 
+                guard let sourceGroups = result.value?.response?.sourceGroups else {return}
+                
+                do {
+                    let realm = try Realm()
+                    try realm.write {
+                        realm.add(sourceGroups, update: true)
+                    }
+//                    print(realm.configuration.fileURL)
+                } catch {
+                    print(error)
+                }
+                
+                guard let sourceProfiles = result.value?.response?.sourceProfiles else {return}
+                
+                for sourceProfile in sourceProfiles {
+                    sourceProfile.fullName = sourceProfile.firstName + " " + sourceProfile.lastName
+                }
+                
+                do {
+                    let realm = try Realm()
+                    try realm.write {
+                        realm.add(sourceProfiles, update: true)
+                    }
+//                    print(realm.configuration.fileURL)
+                } catch {
+                    print(error)
+                }
                 DispatchQueue.main.async {
-                    completion(news) 
+                    completion(news)
                 }
             })
         }

@@ -113,6 +113,9 @@ PODS:
   - Realm/Headers (3.14.1)
   - RealmSwift (3.14.1):
     - Realm (= 3.14.1)
+  - SDWebImage (5.0.1):
+    - SDWebImage/Core (= 5.0.1)
+  - SDWebImage/Core (5.0.1)
   - SwiftKeychainWrapper (3.2.0)
 
 DEPENDENCIES:
@@ -122,6 +125,7 @@ DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Firestore
   - RealmSwift
+  - SDWebImage (~> 5.0)
   - SwiftKeychainWrapper
 
 SPEC REPOS:
@@ -147,6 +151,7 @@ SPEC REPOS:
     - Protobuf
     - Realm
     - RealmSwift
+    - SDWebImage
     - SwiftKeychainWrapper
 
 SPEC CHECKSUMS:
@@ -171,8 +176,9 @@ SPEC CHECKSUMS:
   Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
   Realm: e12c9c2387d05c5bba3a9c394838f5870e85763b
   RealmSwift: a82eab9b04c3e1616082c7e17aa300740847769c
+  SDWebImage: 27dd2c9ea07a2252f94557c9fbb6105ee94b74c9
   SwiftKeychainWrapper: 82c4c02cdc36f9a24f7edfcaab3e336401caa1a1
 
-PODFILE CHECKSUM: 4c9c1cc64022b00bc0608d05ade8e4535324c223
+PODFILE CHECKSUM: 39f77ebe986676fc3296b12fbc5f7133e30b8a01
 
 COCOAPODS: 1.7.3
