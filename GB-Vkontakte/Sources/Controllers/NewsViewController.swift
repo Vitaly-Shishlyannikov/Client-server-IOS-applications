@@ -45,6 +45,7 @@ class NewsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: NewsCell.reuseId, for: indexPath) as? NewsCell else {return UITableViewCell()}
         
+        cell.likeControl.updateLikesCount(likes: news[indexPath.row].likes)
         cell.newsText.text = news[indexPath.row].text
         
         let sourceId = news[indexPath.row].source_id

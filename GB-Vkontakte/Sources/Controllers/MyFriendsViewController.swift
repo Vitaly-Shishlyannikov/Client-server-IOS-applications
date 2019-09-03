@@ -166,26 +166,28 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
             cell.friendNameLabel.text = fullName
             
             let avatarPath = searchedFriends[indexPath.row].photo
-            guard let url = URL(string: avatarPath) else {return UITableViewCell()}
-            let data = try? Data(contentsOf: url)
-            if let imagedata = data {
-                cell.friendAvatar.image = UIImage(data: imagedata)
-            } else {
-
-                let char = friendsIndexArray[indexPath.section]
-                guard let friendFirstName = friendsIndexDictionary[char]?[indexPath.row].firstName else {return UITableViewCell()}
-                guard let friendLastName = friendsIndexDictionary[char]?[indexPath.row].lastName else {return UITableViewCell()}
-                let friendFullName = friendFirstName + " " + friendLastName
-                
-                cell.friendNameLabel.text = friendFullName
-                
-                guard let avatarPath = friendsIndexDictionary[char]?[indexPath
-                    .row].photo else {return UITableViewCell()}
-                guard let url = URL(string: avatarPath) else {return UITableViewCell()}
+            if let url = URL(string: avatarPath) {
                 let data = try? Data(contentsOf: url)
                 if let imagedata = data {
                     cell.friendAvatar.image = UIImage(data: imagedata)
-                //cell.contentView.backgroundColor = UIColor.white
+                }
+            }
+        } else {
+
+            let char = friendsIndexArray[indexPath.section]
+            let friendFirstName = friendsIndexDictionary[char]?[indexPath.row].firstName ?? ""
+            let friendLastName = friendsIndexDictionary[char]?[indexPath.row].lastName ?? ""
+            let friendFullName = friendFirstName + " " + friendLastName
+            
+            cell.friendNameLabel.text = friendFullName
+            
+            if let avatarPath = friendsIndexDictionary[char]?[indexPath
+                .row].photo {
+                if let url = URL(string: avatarPath) {
+                    let data = try? Data(contentsOf: url)
+                        if let imagedata = data {
+                            cell.friendAvatar.image = UIImage(data: imagedata)
+                    }
                 }
             }
         }
@@ -227,8 +229,8 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
             let photoController = segue.destination as? PhotoCollectionViewController,
             let indexPath = tableView.indexPathForSelectedRow {
                 let selectedFriendCharacter = friendsIndexArray[indexPath.section]
-                guard let firstName = friendsIndexDictionary[selectedFriendCharacter]?[indexPath.row].firstName else {return}
-                guard let lastName = friendsIndexDictionary[selectedFriendCharacter]?[indexPath.row].lastName else {return}
+                let firstName = friendsIndexDictionary[selectedFriendCharacter]?[indexPath.row].firstName ?? ""
+                let lastName = friendsIndexDictionary[selectedFriendCharacter]?[indexPath.row].lastName ?? ""
                 let photoName = firstName + " " + lastName
                 photoController.friendNameForTitle = photoName
             
@@ -236,6 +238,7 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
                 photoController.selectedFriendID = String(selectedFriendID ?? 1)
             }
     }
+    
     
     // функция для разлогинивания в fireBase
     @IBAction func logout(_ sender: Any) {
