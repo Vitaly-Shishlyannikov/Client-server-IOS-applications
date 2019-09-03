@@ -53,16 +53,16 @@ class ViewsControl: UIControl {
     
     func incrementViewsCount() {
         viewsCount += 1
-        updateViewsCount(comments: viewsCount)
+        updateViewsCount(views: viewsCount)
     }
     
     func decrementViewsCount() {
         viewsCount -= 1
-        updateViewsCount(comments: viewsCount)
+        updateViewsCount(views: viewsCount)
     }
     
-    func updateViewsCount(comments: Int) {
-        viewsCount = comments
+    func updateViewsCount(views: Int) {
+        viewsCount = views
         viewsLabel.text = "\(viewsCount)"
     }
     

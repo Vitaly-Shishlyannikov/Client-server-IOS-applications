@@ -90,6 +90,7 @@ class News: Mappable {
     @objc dynamic var comments: Int = 0
     @objc dynamic var likes: Int = 0
     @objc dynamic var reposts: Int = 0
+    @objc dynamic var views: Int = 0
     
     @objc dynamic var photoNews: String = ""
 
@@ -102,6 +103,7 @@ class News: Mappable {
         comments <- map["comments.count"]
         likes <- map["likes.count"]
         reposts <- map["reposts.count"]
+        views <- map["views.count"]
         
         photoNews <- map ["attachments.photo.sizes.5.url"]
     }

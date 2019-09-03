@@ -16,6 +16,10 @@ class NewsCell: UITableViewCell {
     @IBOutlet weak var sourceImage: RoundAvatarView!
     @IBOutlet weak var newsText: UITextView!
     @IBOutlet weak var likeControl: LikeControl!
+    @IBOutlet weak var commentControl: CommentControl!
+    @IBOutlet weak var sharesControl: SharesControl!
+    @IBOutlet weak var viewsControl: ViewsControl!
+    
     
     @IBOutlet weak var newsImage: UIImageView!
     

@@ -46,6 +46,10 @@ class NewsViewController: UITableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: NewsCell.reuseId, for: indexPath) as? NewsCell else {return UITableViewCell()}
         
         cell.likeControl.updateLikesCount(likes: news[indexPath.row].likes)
+        cell.commentControl.updateCommentsCount(comments: news[indexPath.row].comments)
+        cell.sharesControl.updateSharesCount(shares: news[indexPath.row].reposts)
+        cell.viewsControl.updateViewsCount(views: news[indexPath.row].views)
+        
         cell.newsText.text = news[indexPath.row].text
         
         let sourceId = news[indexPath.row].source_id
