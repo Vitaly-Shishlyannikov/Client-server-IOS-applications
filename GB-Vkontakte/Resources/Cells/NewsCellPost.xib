@@ -98,10 +98,13 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="VKg-lE-zN8"/>
             <connections>
+                <outlet property="commentControl" destination="cmc-XR-etN" id="zBd-0F-V9Z"/>
                 <outlet property="likeControl" destination="Sdr-DO-wxD" id="fCa-vL-Z1K"/>
                 <outlet property="newsText" destination="qYo-Fv-NXz" id="JIC-FV-NSe"/>
+                <outlet property="sharesControl" destination="liw-Xa-vU9" id="FBd-Ye-Mn1"/>
                 <outlet property="sourceImage" destination="aRo-Hm-bDy" id="yO1-92-GJr"/>
                 <outlet property="sourceLabel" destination="F7X-DA-wtK" id="vmO-6b-Qm2"/>
+                <outlet property="viewsControl" destination="Ue2-ae-efd" id="GaV-7H-scq"/>
             </connections>
             <point key="canvasLocation" x="252.17391304347828" y="-78.683035714285708"/>
         </tableViewCell>
