@@ -27,6 +27,8 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
     
     var searchIsActive = false
     
+    var photoService: PhotoService?
+    
     @IBOutlet weak var searchBar: UISearchBar!
     
     // MARK: - LifeCycle
@@ -181,14 +183,24 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
             
             cell.friendNameLabel.text = friendFullName
             
-            if let avatarPath = friendsIndexDictionary[char]?[indexPath
+//            if let avatarPath = friendsIndexDictionary[char]?[indexPath
+//                .row].photo {
+//                if let url = URL(string: avatarPath) {
+//                    let data = try? Data(contentsOf: url)
+//                        if let imagedata = data {
+//                            cell.friendAvatar.image = UIImage(data: imagedata)
+//                    }
+//                }
+//            }
+            
+//            let an = photoService.photo(atIndexPath: indexPath, byUrl: "dvsfdg")
+//            print(an)
+            if let url = friendsIndexDictionary[char]?[indexPath
                 .row].photo {
-                if let url = URL(string: avatarPath) {
-                    let data = try? Data(contentsOf: url)
-                        if let imagedata = data {
-                            cell.friendAvatar.image = UIImage(data: imagedata)
-                    }
-                }
+                print(url)
+                cell.friendAvatar.image = photoService?.photo(atIndexPath: indexPath, byUrl: url)
+                let photo = photoService?.photo(atIndexPath: indexPath, byUrl: url)
+                print(photo?.description)
             }
         }
         return cell

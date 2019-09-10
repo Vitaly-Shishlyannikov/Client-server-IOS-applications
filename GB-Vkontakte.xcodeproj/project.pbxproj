@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5805A8BB2327B4B40073337A /* LoadAndCachePictures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5805A8BA2327B4B40073337A /* LoadAndCachePictures.swift */; };
 		5831EE7722E8E8B8002EF2F4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5831EE7622E8E8B8002EF2F4 /* GoogleService-Info.plist */; };
 		5831EE7922E8EC9E002EF2F4 /* FirebaseAuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5831EE7822E8EC9E002EF2F4 /* FirebaseAuthController.swift */; };
 		5836E75B22BC3015007AA848 /* CustomInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5836E75A22BC3015007AA848 /* CustomInteractiveTransition.swift */; };
@@ -57,6 +58,7 @@
 
 /* Begin PBXFileReference section */
 		0BE564799A3D7971653DE863 /* Pods-GB-Vkontakte.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GB-Vkontakte.release.xcconfig"; path = "Target Support Files/Pods-GB-Vkontakte/Pods-GB-Vkontakte.release.xcconfig"; sourceTree = "<group>"; };
+		5805A8BA2327B4B40073337A /* LoadAndCachePictures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadAndCachePictures.swift; sourceTree = "<group>"; };
 		5831EE7622E8E8B8002EF2F4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5831EE7822E8EC9E002EF2F4 /* FirebaseAuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuthController.swift; sourceTree = "<group>"; };
 		5836E75A22BC3015007AA848 /* CustomInteractiveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInteractiveTransition.swift; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 		58554E0622DDF6D900C4644C /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				5805A8BA2327B4B40073337A /* LoadAndCachePictures.swift */,
 				58611E3522D28E8C005BDC34 /* VKService.swift */,
 				58B0F06023028A7E00434736 /* NewsFeed.swift */,
 				58611E3C22D35F46005BDC34 /* Friend.swift */,
@@ -479,6 +482,7 @@
 				588F829A22A14EA300DA7643 /* FriendsServerEmulator.swift in Sources */,
 				58A5DDF1229B3DA2001381C4 /* FriendCell.swift in Sources */,
 				583A96C622AE8D5100D7CC7F /* ThreePointsIndicator.swift in Sources */,
+				5805A8BB2327B4B40073337A /* LoadAndCachePictures.swift in Sources */,
 				58E75F2C228EEBDD00EC0B9C /* LaunchController.swift in Sources */,
 				58FAC718229D568C00DE1667 /* ExtensionsForClasses.swift in Sources */,
 				58A5DDF5229B42AC001381C4 /* PhotoCollectionViewController.swift in Sources */,
