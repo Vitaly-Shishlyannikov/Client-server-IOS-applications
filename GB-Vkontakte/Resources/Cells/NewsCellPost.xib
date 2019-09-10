@@ -28,7 +28,7 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cmc-XR-etN" customClass="CommentControl" customModule="GB_Vkontakte" customModuleProvider="target">
-                        <rect key="frame" x="96" y="152.5" width="70" height="30"/>
+                        <rect key="frame" x="94" y="152.5" width="70" height="30"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="70" id="1VG-Pm-pY7"/>
@@ -36,7 +36,7 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="liw-Xa-vU9" customClass="SharesControl" customModule="GB_Vkontakte" customModuleProvider="target">
-                        <rect key="frame" x="176" y="152.5" width="70" height="30"/>
+                        <rect key="frame" x="172" y="152.5" width="70" height="30"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="70" id="2RI-0l-NaD"/>
@@ -44,7 +44,7 @@
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ue2-ae-efd" customClass="ViewsControl" customModule="GB_Vkontakte" customModuleProvider="target">
-                        <rect key="frame" x="266" y="152.5" width="70" height="30"/>
+                        <rect key="frame" x="250" y="152.5" width="70" height="30"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="70" id="0Bf-ha-PQA"/>
@@ -84,16 +84,16 @@
                     <constraint firstAttribute="bottom" secondItem="liw-Xa-vU9" secondAttribute="bottom" constant="10" id="Gkm-ZP-9jk"/>
                     <constraint firstAttribute="bottom" secondItem="Sdr-DO-wxD" secondAttribute="bottom" constant="10" id="Jna-Pc-gkb"/>
                     <constraint firstAttribute="bottom" secondItem="cmc-XR-etN" secondAttribute="bottom" constant="10" id="RNm-dW-hJD"/>
-                    <constraint firstItem="liw-Xa-vU9" firstAttribute="leading" secondItem="cmc-XR-etN" secondAttribute="trailing" constant="10" id="Zou-KJ-JUb"/>
+                    <constraint firstItem="liw-Xa-vU9" firstAttribute="leading" secondItem="cmc-XR-etN" secondAttribute="trailing" constant="8" id="Zou-KJ-JUb"/>
                     <constraint firstItem="qYo-Fv-NXz" firstAttribute="centerX" secondItem="ZI0-Zm-CEM" secondAttribute="centerX" id="ffa-MR-T4u"/>
                     <constraint firstItem="F7X-DA-wtK" firstAttribute="leading" secondItem="aRo-Hm-bDy" secondAttribute="trailing" constant="20" id="g7X-FR-Pp3"/>
                     <constraint firstItem="qYo-Fv-NXz" firstAttribute="top" secondItem="aRo-Hm-bDy" secondAttribute="bottom" constant="10" id="iTr-lu-waZ"/>
                     <constraint firstItem="aRo-Hm-bDy" firstAttribute="top" secondItem="ZI0-Zm-CEM" secondAttribute="top" constant="10" id="jM5-56-S3C"/>
                     <constraint firstItem="aRo-Hm-bDy" firstAttribute="leading" secondItem="ZI0-Zm-CEM" secondAttribute="leading" constant="16" id="lEV-34-3WW"/>
                     <constraint firstAttribute="trailing" secondItem="F7X-DA-wtK" secondAttribute="trailing" id="lQ1-6X-peF"/>
-                    <constraint firstItem="cmc-XR-etN" firstAttribute="leading" secondItem="Sdr-DO-wxD" secondAttribute="trailing" constant="10" id="rq5-yt-ury"/>
+                    <constraint firstItem="cmc-XR-etN" firstAttribute="leading" secondItem="Sdr-DO-wxD" secondAttribute="trailing" constant="8" id="rq5-yt-ury"/>
                     <constraint firstAttribute="trailing" secondItem="qYo-Fv-NXz" secondAttribute="trailing" constant="20" id="yEH-lh-lNZ"/>
-                    <constraint firstItem="Ue2-ae-efd" firstAttribute="leading" secondItem="liw-Xa-vU9" secondAttribute="trailing" constant="20" id="yi5-Py-7bg"/>
+                    <constraint firstItem="Ue2-ae-efd" firstAttribute="leading" secondItem="liw-Xa-vU9" secondAttribute="trailing" constant="8" id="yi5-Py-7bg"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="VKg-lE-zN8"/>
