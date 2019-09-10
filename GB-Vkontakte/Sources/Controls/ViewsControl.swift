@@ -32,13 +32,16 @@ class ViewsControl: UIControl {
         setupConstraints()
         
         //MARK: to debug ViewsControl position uncomment two lines below
-        //    viewsIconView.layer.borderWidth = 1.0
-        //    viewsLabel.layer.borderWidth = 1.0
+//            viewsIcon.layer.borderWidth = 1.0
+//            viewsLabel.layer.borderWidth = 1.0
         
         stackView = UIStackView(arrangedSubviews: [viewsIcon, viewsLabel])
         
         self.addSubview(stackView)
         stackView.distribution = .fillEqually
+        
+        stackView.translatesAutoresizingMaskIntoConstraints = true
+        
         addGestureRecognizer(tapGestureRecognizer)
     }
     
@@ -48,7 +51,13 @@ class ViewsControl: UIControl {
     }
     
     func setupConstraints() {
-        viewsLabel.heightAnchor.constraint(equalTo: viewsIcon.heightAnchor, multiplier: 1)
+//        viewsIcon.translatesAutoresizingMaskIntoConstraints = true
+//
+//        NSLayoutConstraint.activate([
+//            viewsIcon.widthAnchor.constraint(equalToConstant: bounds.width) ,
+//            viewsIcon.heightAnchor.constraint(equalToConstant: bounds.height / 2)
+////            viewsLabel.heightAnchor.constraint(equalTo: viewsIcon.heightAnchor, multiplier: 1)
+//            ])
     }
     
     func incrementViewsCount() {
