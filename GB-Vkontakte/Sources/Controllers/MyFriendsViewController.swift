@@ -40,6 +40,8 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
         
         searchBar.delegate = self
         
+        self.photoService = PhotoService(container: self.tableView)
+        
         VKService.loadFriendsData() {[weak self] in
             self?.loadFriendsData()
             self?.tableView?.reloadData()
@@ -192,15 +194,11 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
 //                    }
 //                }
 //            }
-            
-//            let an = photoService.photo(atIndexPath: indexPath, byUrl: "dvsfdg")
-//            print(an)
+           
             if let url = friendsIndexDictionary[char]?[indexPath
                 .row].photo {
                 print(url)
                 cell.friendAvatar.image = photoService?.photo(atIndexPath: indexPath, byUrl: url)
-                let photo = photoService?.photo(atIndexPath: indexPath, byUrl: url)
-                print(photo?.description)
             }
         }
         return cell
@@ -237,7 +235,7 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "PhotoSegue",
+        if  segue.identifier == "PhotoSegue",
             let photoController = segue.destination as? PhotoCollectionViewController,
             let indexPath = tableView.indexPathForSelectedRow {
                 let selectedFriendCharacter = friendsIndexArray[indexPath.section]
