@@ -15,6 +15,8 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
     
     var friends = [RealmFriend]()
     
+//    var friendsWithFullNames
+    
     var friendsIndexArray: [Character] {
         return getFriendsIndexArray()
     }
@@ -91,7 +93,7 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
     func getFriendsIndexArray() -> [Character] {
         
         var friendIndexArray: [Character] = []
-            for friend in self.friends {
+            for friend in friends {
             if let firstLetter = friend.lastName.first {
                 friendIndexArray.append(firstLetter)
             }

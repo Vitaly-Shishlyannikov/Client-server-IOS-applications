@@ -37,7 +37,7 @@ class RealmFriend: Object, Mappable {
     
     @objc dynamic var id: Int = 0
     @objc dynamic var firstName: String = ""
-    @objc dynamic var lastName: String = ""
+    @objc dynamic var lastName: String = ""    
     @objc dynamic var photo: String = ""
     
     override static func primaryKey() -> String? {
