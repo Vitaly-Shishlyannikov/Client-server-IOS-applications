@@ -76,6 +76,8 @@ class VKService {
                     
                     let friends = result.value?.response?.items ?? []
                     
+                    
+                    
                     do {
                         let realm = try Realm()
                         try realm.write {

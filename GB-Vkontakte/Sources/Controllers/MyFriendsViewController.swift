@@ -91,14 +91,14 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
     func getFriendsIndexArray() -> [Character] {
         
         var friendIndexArray: [Character] = []
-        for friend in friends {
+            for friend in self.friends {
             if let firstLetter = friend.lastName.first {
                 friendIndexArray.append(firstLetter)
             }
         }
         friendIndexArray = Array(Set(friendIndexArray))
         friendIndexArray.sort()
-        return friendIndexArray
+            return friendIndexArray
     }
     
     func getFriendsIndexDictionary() -> [Character: [RealmFriend]] {
@@ -155,9 +155,14 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // для каждой буквы в массиве индексов проверяем соответствие первой букве фамилии
         // всех друзей, добавляем при совпадении и возвращаем кол-во элементов для секции
-        let char = friendsIndexArray[section]
-        let rowsArray: [RealmFriend] = friendsIndexDictionary[char] ?? []
-        return searchIsActive ? searchedFriends.count : rowsArray.count
+        
+        if searchIsActive {
+            return searchedFriends.count
+        } else {
+            let char = friendsIndexArray[section]
+            let rowsArray: [RealmFriend] = friendsIndexDictionary[char] ?? []
+            return rowsArray.count
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
