@@ -20,35 +20,35 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sdr-DO-wxD" customClass="LikeControl" customModule="GB_Vkontakte" customModuleProvider="target">
-                        <rect key="frame" x="16" y="152.5" width="70" height="30"/>
+                        <rect key="frame" x="16" y="162.5" width="60" height="20"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="30" id="HYo-uc-NEw"/>
-                            <constraint firstAttribute="width" constant="70" id="j2R-J1-7k4"/>
+                            <constraint firstAttribute="height" constant="20" id="HYo-uc-NEw"/>
+                            <constraint firstAttribute="width" constant="60" id="j2R-J1-7k4"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cmc-XR-etN" customClass="CommentControl" customModule="GB_Vkontakte" customModuleProvider="target">
-                        <rect key="frame" x="96" y="152.5" width="70" height="30"/>
+                        <rect key="frame" x="86" y="162.5" width="60" height="20"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="70" id="1VG-Pm-pY7"/>
-                            <constraint firstAttribute="height" constant="30" id="wAQ-N4-lqt"/>
+                            <constraint firstAttribute="width" constant="60" id="1VG-Pm-pY7"/>
+                            <constraint firstAttribute="height" constant="20" id="wAQ-N4-lqt"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="liw-Xa-vU9" customClass="SharesControl" customModule="GB_Vkontakte" customModuleProvider="target">
-                        <rect key="frame" x="176" y="152.5" width="70" height="30"/>
+                        <rect key="frame" x="156" y="162.5" width="60" height="20"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="70" id="2RI-0l-NaD"/>
-                            <constraint firstAttribute="height" constant="30" id="g45-rD-g54"/>
+                            <constraint firstAttribute="width" constant="60" id="2RI-0l-NaD"/>
+                            <constraint firstAttribute="height" constant="20" id="g45-rD-g54"/>
                         </constraints>
                     </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ue2-ae-efd" customClass="ViewsControl" customModule="GB_Vkontakte" customModuleProvider="target">
-                        <rect key="frame" x="266" y="152.5" width="70" height="30"/>
+                        <rect key="frame" x="226" y="162.5" width="80" height="20"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="70" id="0Bf-ha-PQA"/>
-                            <constraint firstAttribute="height" constant="30" id="oyl-oO-ryS"/>
+                            <constraint firstAttribute="width" constant="80" id="0Bf-ha-PQA"/>
+                            <constraint firstAttribute="height" constant="20" id="oyl-oO-ryS"/>
                         </constraints>
                     </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aRo-Hm-bDy" customClass="RoundAvatarView" customModule="GB_Vkontakte" customModuleProvider="target">
@@ -65,7 +65,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="qYo-Fv-NXz">
-                        <rect key="frame" x="20" y="64" width="310" height="78.5"/>
+                        <rect key="frame" x="20" y="64" width="310" height="88.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="MOm-6i-8pA"/>
@@ -93,7 +93,7 @@
                     <constraint firstAttribute="trailing" secondItem="F7X-DA-wtK" secondAttribute="trailing" id="lQ1-6X-peF"/>
                     <constraint firstItem="cmc-XR-etN" firstAttribute="leading" secondItem="Sdr-DO-wxD" secondAttribute="trailing" constant="10" id="rq5-yt-ury"/>
                     <constraint firstAttribute="trailing" secondItem="qYo-Fv-NXz" secondAttribute="trailing" constant="20" id="yEH-lh-lNZ"/>
-                    <constraint firstItem="Ue2-ae-efd" firstAttribute="leading" secondItem="liw-Xa-vU9" secondAttribute="trailing" constant="20" id="yi5-Py-7bg"/>
+                    <constraint firstItem="Ue2-ae-efd" firstAttribute="leading" secondItem="liw-Xa-vU9" secondAttribute="trailing" constant="10" id="yi5-Py-7bg"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="VKg-lE-zN8"/>
