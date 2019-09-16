@@ -184,16 +184,6 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
             let friendFullName = friendFirstName + " " + friendLastName
             
             cell.friendNameLabel.text = friendFullName
-            
-//            if let avatarPath = friendsIndexDictionary[char]?[indexPath
-//                .row].photo {
-//                if let url = URL(string: avatarPath) {
-//                    let data = try? Data(contentsOf: url)
-//                        if let imagedata = data {
-//                            cell.friendAvatar.image = UIImage(data: imagedata)
-//                    }
-//                }
-//            }
            
             if let url = friendsIndexDictionary[char]?[indexPath
                 .row].photo {
