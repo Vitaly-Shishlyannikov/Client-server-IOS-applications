@@ -76,7 +76,13 @@ class VKService {
                     
                     let friends = result.value?.response?.items ?? []
                     
+                    for friend in friends {
+                        friend.fullName = friend.firstName + " " + friend.lastName
+                    }
+                    
                     do {
+                        let config = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
+                        Realm.Configuration.defaultConfiguration = config
                         let realm = try Realm()
                         try realm.write {
                             realm.add(friends, update: true)

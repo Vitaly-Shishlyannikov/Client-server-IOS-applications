@@ -85,6 +85,7 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
             let realm = try Realm()
             let friends = realm.objects(RealmFriend.self)
             self.friends = Array(friends)
+            print(realm.configuration.fileURL)
         } catch {
             print(error)
         }
@@ -173,8 +174,7 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
         
         if searchIsActive {
             let friend = searchedFriends[indexPath.row]
-            let fullName = friend.firstName + " " + friend.lastName
-            cell.friendNameLabel.text = fullName
+            cell.friendNameLabel.text = friend.fullName
             
             let avatarPath = searchedFriends[indexPath.row].photo
             if let url = URL(string: avatarPath) {
@@ -186,11 +186,10 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
         } else {
 
             let char = friendsIndexArray[indexPath.section]
-            let friendFirstName = friendsIndexDictionary[char]?[indexPath.row].firstName ?? ""
-            let friendLastName = friendsIndexDictionary[char]?[indexPath.row].lastName ?? ""
-            let friendFullName = friendFirstName + " " + friendLastName
             
-            cell.friendNameLabel.text = friendFullName
+            let friend = friendsIndexDictionary[char]?[indexPath.row]
+
+            cell.friendNameLabel.text = friend?.fullName
            
             if let url = friendsIndexDictionary[char]?[indexPath
                 .row].photo {
@@ -236,10 +235,8 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
             let photoController = segue.destination as? PhotoCollectionViewController,
             let indexPath = tableView.indexPathForSelectedRow {
                 let selectedFriendCharacter = friendsIndexArray[indexPath.section]
-                let firstName = friendsIndexDictionary[selectedFriendCharacter]?[indexPath.row].firstName ?? ""
-                let lastName = friendsIndexDictionary[selectedFriendCharacter]?[indexPath.row].lastName ?? ""
-                let photoName = firstName + " " + lastName
-                photoController.friendNameForTitle = photoName
+                let friend = friendsIndexDictionary[selectedFriendCharacter]?[indexPath.row]
+            photoController.friendNameForTitle = friend?.fullName ?? ""
             
                 let selectedFriendID = friendsIndexDictionary[selectedFriendCharacter]?[indexPath.row].id
                 photoController.selectedFriendID = String(selectedFriendID ?? 1)
