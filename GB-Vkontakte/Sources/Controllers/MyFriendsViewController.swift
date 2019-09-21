@@ -15,6 +15,8 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
     
     var friends = [RealmFriend]()
     
+//    var friendsWithFullNames
+    
     var friendsIndexArray: [Character] {
         return getFriendsIndexArray()
     }
@@ -39,6 +41,8 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
         self.tableView.rowHeight = 70
         
         searchBar.delegate = self
+        
+        self.photoService = PhotoService(container: self.tableView)
         
         VKService.loadFriendsData() {[weak self] in
             self?.loadFriendsData()
@@ -81,6 +85,7 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
             let realm = try Realm()
             let friends = realm.objects(RealmFriend.self)
             self.friends = Array(friends)
+            print(realm.configuration.fileURL)
         } catch {
             print(error)
         }
@@ -89,14 +94,14 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
     func getFriendsIndexArray() -> [Character] {
         
         var friendIndexArray: [Character] = []
-        for friend in friends {
+            for friend in friends {
             if let firstLetter = friend.lastName.first {
                 friendIndexArray.append(firstLetter)
             }
         }
         friendIndexArray = Array(Set(friendIndexArray))
         friendIndexArray.sort()
-        return friendIndexArray
+            return friendIndexArray
     }
     
     func getFriendsIndexDictionary() -> [Character: [RealmFriend]] {
@@ -153,9 +158,14 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // для каждой буквы в массиве индексов проверяем соответствие первой букве фамилии
         // всех друзей, добавляем при совпадении и возвращаем кол-во элементов для секции
-        let char = friendsIndexArray[section]
-        let rowsArray: [RealmFriend] = friendsIndexDictionary[char] ?? []
-        return searchIsActive ? searchedFriends.count : rowsArray.count
+        
+        if searchIsActive {
+            return searchedFriends.count
+        } else {
+            let char = friendsIndexArray[section]
+            let rowsArray: [RealmFriend] = friendsIndexDictionary[char] ?? []
+            return rowsArray.count
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -164,8 +174,7 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
         
         if searchIsActive {
             let friend = searchedFriends[indexPath.row]
-            let fullName = friend.firstName + " " + friend.lastName
-            cell.friendNameLabel.text = fullName
+            cell.friendNameLabel.text = friend.fullName
             
             let avatarPath = searchedFriends[indexPath.row].photo
             if let url = URL(string: avatarPath) {
@@ -177,30 +186,15 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
         } else {
 
             let char = friendsIndexArray[indexPath.section]
-            let friendFirstName = friendsIndexDictionary[char]?[indexPath.row].firstName ?? ""
-            let friendLastName = friendsIndexDictionary[char]?[indexPath.row].lastName ?? ""
-            let friendFullName = friendFirstName + " " + friendLastName
             
-            cell.friendNameLabel.text = friendFullName
-            
-//            if let avatarPath = friendsIndexDictionary[char]?[indexPath
-//                .row].photo {
-//                if let url = URL(string: avatarPath) {
-//                    let data = try? Data(contentsOf: url)
-//                        if let imagedata = data {
-//                            cell.friendAvatar.image = UIImage(data: imagedata)
-//                    }
-//                }
-//            }
-            
-//            let an = photoService.photo(atIndexPath: indexPath, byUrl: "dvsfdg")
-//            print(an)
+            let friend = friendsIndexDictionary[char]?[indexPath.row]
+
+            cell.friendNameLabel.text = friend?.fullName
+           
             if let url = friendsIndexDictionary[char]?[indexPath
                 .row].photo {
                 print(url)
                 cell.friendAvatar.image = photoService?.photo(atIndexPath: indexPath, byUrl: url)
-                let photo = photoService?.photo(atIndexPath: indexPath, byUrl: url)
-                print(photo?.description)
             }
         }
         return cell
@@ -237,14 +231,12 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "PhotoSegue",
+        if  segue.identifier == "PhotoSegue",
             let photoController = segue.destination as? PhotoCollectionViewController,
             let indexPath = tableView.indexPathForSelectedRow {
                 let selectedFriendCharacter = friendsIndexArray[indexPath.section]
-                let firstName = friendsIndexDictionary[selectedFriendCharacter]?[indexPath.row].firstName ?? ""
-                let lastName = friendsIndexDictionary[selectedFriendCharacter]?[indexPath.row].lastName ?? ""
-                let photoName = firstName + " " + lastName
-                photoController.friendNameForTitle = photoName
+                let friend = friendsIndexDictionary[selectedFriendCharacter]?[indexPath.row]
+            photoController.friendNameForTitle = friend?.fullName ?? ""
             
                 let selectedFriendID = friendsIndexDictionary[selectedFriendCharacter]?[indexPath.row].id
                 photoController.selectedFriendID = String(selectedFriendID ?? 1)

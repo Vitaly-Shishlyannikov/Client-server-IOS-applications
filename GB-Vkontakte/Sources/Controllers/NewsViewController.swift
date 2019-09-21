@@ -14,6 +14,8 @@ class NewsViewController: UITableViewController {
     
     var news = [News]()
     
+    let realmSourcesOfNews = try? Realm()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -53,14 +55,13 @@ class NewsViewController: UITableViewController {
         cell.newsText.text = news[indexPath.row].text
         
         let sourceId = news[indexPath.row].source_id
-        let realm = try? Realm()
         
         if sourceId < 0 {
-            let group = realm?.objects(SourceGroupRealm.self).filter("id == %@", -sourceId).first
+            let group = realmSourcesOfNews?.objects(SourceGroupRealm.self).filter("id == %@", -sourceId).first
             cell.sourceLabel.text = group?.name ?? "default name"
             cell.sourceImage.sd_setImage(with: URL(string: ((group?.photoURL)!)), placeholderImage: UIImage(named: "defaultAvatar"))
         } else {
-            let user = realm?.objects(SourceProfileRealm.self).filter("id == %@", sourceId).first
+            let user = realmSourcesOfNews?.objects(SourceProfileRealm.self).filter("id == %@", sourceId).first
             cell.sourceLabel.text = user?.fullName ?? "default name"
             cell.sourceImage.sd_setImage(with: URL(string: ((user?.photoURL)!)), placeholderImage: UIImage(named: "defaultAvatar"))
         }

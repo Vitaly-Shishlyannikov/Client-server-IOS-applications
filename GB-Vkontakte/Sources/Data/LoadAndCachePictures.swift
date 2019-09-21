@@ -69,7 +69,7 @@ class PhotoService {
         Alamofire.request(url).responseData(queue: DispatchQueue.global()) { [weak self] response in
             
             guard   let data = response.data,
-                let image = UIImage(data: data) else {return}
+                    let image = UIImage(data: data) else {return}
             
             self?.images[url] = image
             self?.saveImageToCache(url: url, image: image)
