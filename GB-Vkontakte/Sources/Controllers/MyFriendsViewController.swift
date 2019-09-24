@@ -14,15 +14,22 @@ import FirebaseFirestore
 class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
     
     var friends = [RealmFriend]()
-    
-//    var friendsWithFullNames
+//    {
+//        didSet{
+//            if friends.count > 0 {
+//                self.getFriendsIndexArray(friends: self.friends) {[weak self] indexArray in
+//                    self?.friendsIndexArray = indexArray
+//                }
+//            }
+//        }
+//    }
     
     var friendsIndexArray: [Character] {
-        return getFriendsIndexArray()
+        return getFriendsIndexArray(friendsArray: self.friends)
     }
     
     var friendsIndexDictionary: [Character: [RealmFriend]] {
-        return getFriendsIndexDictionary()
+        return getFriendsIndexDictionary(friendsArray: self.friends)
     }
     
     var searchedFriends: [RealmFriend] = []
@@ -45,69 +52,48 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
         self.photoService = PhotoService(container: self.tableView)
         
         VKService.loadFriendsData() {[weak self] in
+            
             self?.loadFriendsData()
+            
             self?.tableView?.reloadData()
-        }
-        
-//        let db = Firestore.firestore()
-//        let userId = (Auth.auth().currentUser?.uid)!
-//
-//        db.collection(userId).getDocuments() { (querySnapshot, err) in
-//            if let err = err {
-//                print("Error getting documents: \(err)")
-//            } else {
-//                for document in querySnapshot!.documents {
-//                    print("\(document.documentID) => \(document.data())")
-//                }
-//            }
-//        }
-
-//        var ref: DocumentReference? = nil
-//        ref = db.collection(userId).document("favourite groups")
-//        ref?.setData( [
-//            "id111": "Куклы ручной работы",
-//            "id222": "Counter-Strike not dead",
-//            "id333": "Поездка в  Индию",
-//            "id4444sds44": "MDK"
-//        ]) { err in
-//            if let err = err {
-//                print("Error adding document: \(err)")
-//            } else {
-//                print("Document added with ID: \(ref!.documentID)")
-//            }
-//        }
+            }
     }
     
     // MARK: - Functions
     
     func loadFriendsData() {
-        do {
-            let realm = try Realm()
-            let friends = realm.objects(RealmFriend.self)
-            self.friends = Array(friends)
-            print(realm.configuration.fileURL)
-        } catch {
-            print(error)
-        }
+//        DispatchQueue.global().async {
+            do {
+                let realm = try Realm()
+                let friends = realm.objects(RealmFriend.self)
+                self.friends = Array(friends)
+                
+                print(realm.configuration.fileURL)
+            } catch {
+                print(error)
+            }
+//        }
     }
     
-    func getFriendsIndexArray() -> [Character] {
+    
+    func getFriendsIndexArray(friendsArray: [RealmFriend] ) -> [Character] {
         
         var friendIndexArray: [Character] = []
-            for friend in friends {
+            for friend in friendsArray {
             if let firstLetter = friend.lastName.first {
                 friendIndexArray.append(firstLetter)
             }
         }
         friendIndexArray = Array(Set(friendIndexArray))
         friendIndexArray.sort()
-            return friendIndexArray
+        
+        return friendIndexArray
     }
     
-    func getFriendsIndexDictionary() -> [Character: [RealmFriend]] {
+    func getFriendsIndexDictionary(friendsArray: [RealmFriend] ) -> [Character: [RealmFriend]] {
         
         var frIndDict: [Character: [RealmFriend]] = [:]
-        for friend in friends {
+        for friend in friendsArray {
             if let firstLetter = friend.lastName.first {
                 if (frIndDict.keys.contains(firstLetter)) {
                     frIndDict[firstLetter]?.append(friend)
@@ -241,18 +227,6 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
                 let selectedFriendID = friendsIndexDictionary[selectedFriendCharacter]?[indexPath.row].id
                 photoController.selectedFriendID = String(selectedFriendID ?? 1)
             }
-    }
-    
-    
-    // функция для разлогинивания в fireBase
-    @IBAction func logout(_ sender: Any) {
-        
-        do{
-            try Auth.auth().signOut()
-            self.dismiss(animated: true, completion: nil)
-        } catch (let error) {
-            print("Failed with error \(error)")
-        }
     }
 }
 
