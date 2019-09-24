@@ -15,11 +15,11 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
     
     var friends = [RealmFriend]()
     
-    var friendsIndexArray: [Character] {
-        return getFriendsIndexArray(friendsArray: self.friends)
-    }
+//    var friendsIndexArray: [Character] {
+//        return getFriendsIndexArray(friendsArray: self.friends)
+//    }
     
-//    var friendsIndexArray = [Character]()
+    var friendsIndexArray = [Character]()
     
     var friendsIndexDictionary: [Character: [RealmFriend]] {
         return getFriendsIndexDictionary(friendsArray: self.friends)
@@ -48,10 +48,13 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
             
             self?.loadFriendsData()
             
+            
+            self!.getFriendsIndexArray(friendsArray: self!.friends)
+            
             self?.tableView?.reloadData()
             }
         
-//        self.getFriendsIndexArray(friendsArray: self.friends) {[weak self] array in
+//        self.getFriendsIndexArrayTest(friendsArray: self.friends) {[weak self] array in
 //            self?.friendsIndexArray = array
 //        }
     }
@@ -74,6 +77,7 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
 //        self.getFriendsIndexArray(friendsArray: self.friends) {[weak self] array in
 //            self?.friendsIndexArray = array
 //        }
+        
     }
     
     
@@ -96,8 +100,9 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
         }
     }
     
-    func getFriendsIndexArray(friendsArray: [RealmFriend]) -> [Character] {
+    func getFriendsIndexArray(friendsArray: [RealmFriend])  {
         
+            
         var friendIndexArray: [Character] = []
         for friend in friendsArray {
             if let firstLetter = friend.lastName.first {
@@ -106,7 +111,12 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
         }
         friendIndexArray = Array(Set(friendIndexArray))
         friendIndexArray.sort()
-        return friendIndexArray
+            
+           
+                self.friendsIndexArray = friendIndexArray
+//        return friendIndexArray
+        
+        
     }
     
     func getFriendsIndexDictionary(friendsArray: [RealmFriend] ) -> [Character: [RealmFriend]] {
