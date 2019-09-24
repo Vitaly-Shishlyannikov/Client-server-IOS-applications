@@ -14,19 +14,12 @@ import FirebaseFirestore
 class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
     
     var friends = [RealmFriend]()
-//    {
-//        didSet{
-//            if friends.count > 0 {
-//                self.getFriendsIndexArray(friends: self.friends) {[weak self] indexArray in
-//                    self?.friendsIndexArray = indexArray
-//                }
-//            }
-//        }
-//    }
     
     var friendsIndexArray: [Character] {
         return getFriendsIndexArray(friendsArray: self.friends)
     }
+    
+//    var friendsIndexArray = [Character]()
     
     var friendsIndexDictionary: [Character: [RealmFriend]] {
         return getFriendsIndexDictionary(friendsArray: self.friends)
@@ -57,36 +50,62 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
             
             self?.tableView?.reloadData()
             }
+        
+//        self.getFriendsIndexArray(friendsArray: self.friends) {[weak self] array in
+//            self?.friendsIndexArray = array
+//        }
     }
     
     // MARK: - Functions
     
     func loadFriendsData() {
-//        DispatchQueue.global().async {
-            do {
-                let realm = try Realm()
-                let friends = realm.objects(RealmFriend.self)
-                self.friends = Array(friends)
-                
-                print(realm.configuration.fileURL)
-            } catch {
-                print(error)
-            }
+        
+        do {
+            let realm = try Realm()
+            let friends = realm.objects(RealmFriend.self)
+            
+            self.friends = Array(friends)
+            
+            print(realm.configuration.fileURL)
+            
+        } catch {
+            print(error)
+        }
+//        self.getFriendsIndexArray(friendsArray: self.friends) {[weak self] array in
+//            self?.friendsIndexArray = array
 //        }
     }
     
     
-    func getFriendsIndexArray(friendsArray: [RealmFriend] ) -> [Character] {
+    func getFriendsIndexArrayTest(friendsArray: [RealmFriend], completion: @escaping ([Character]) -> Void) {
+        
+        DispatchQueue.global(qos: .utility).async {
+        
+            var friendIndexArray: [Character] = []
+            for friend in friendsArray {
+                if let firstLetter = friend.lastName.first {
+                    friendIndexArray.append(firstLetter)
+                }
+            }
+            friendIndexArray = Array(Set(friendIndexArray))
+            friendIndexArray.sort()
+            
+            DispatchQueue.main.async {
+                completion(friendIndexArray)
+            }
+        }
+    }
+    
+    func getFriendsIndexArray(friendsArray: [RealmFriend]) -> [Character] {
         
         var friendIndexArray: [Character] = []
-            for friend in friendsArray {
+        for friend in friendsArray {
             if let firstLetter = friend.lastName.first {
                 friendIndexArray.append(firstLetter)
             }
         }
         friendIndexArray = Array(Set(friendIndexArray))
         friendIndexArray.sort()
-        
         return friendIndexArray
     }
     
@@ -138,6 +157,7 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
     
     // количество секций равно количеству элементов в массиве первых букв
     override func numberOfSections(in tableView: UITableView) -> Int {
+        
         return searchIsActive ? 1 : friendsIndexArray.count
     }
     
@@ -179,7 +199,6 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
            
             if let url = friendsIndexDictionary[char]?[indexPath
                 .row].photo {
-                print(url)
                 cell.friendAvatar.image = photoService?.photo(atIndexPath: indexPath, byUrl: url)
             }
         }
