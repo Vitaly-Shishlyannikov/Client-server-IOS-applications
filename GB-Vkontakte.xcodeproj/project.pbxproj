@@ -191,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				58A5DDEE229B3CCC001381C4 /* MyFriendsViewController.swift */,
+				58A5DDF4229B42AC001381C4 /* PhotoCollectionViewController.swift */,
 				5848118D22A8FFBE00DD653C /* NewsViewController.swift */,
 				5869687522CE0971002AB84D /* VKWebViewController.swift */,
 				58A5DDEC229B3B69001381C4 /* MyGroupsViewController.swift */,
@@ -199,7 +200,6 @@
 				5841A7EB22BB71CC009C22DD /* CustomNavigationController.swift */,
 				58E75F2B228EEBDD00EC0B9C /* LaunchController.swift */,
 				5841A7E522B7D41A009C22DD /* FullScreeenPhotoController.swift */,
-				58A5DDF4229B42AC001381C4 /* PhotoCollectionViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";

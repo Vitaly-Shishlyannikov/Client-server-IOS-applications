@@ -167,9 +167,9 @@ class VKService {
                 } catch {
                     print(error)
                 }
-                DispatchQueue.main.async {
-                    completion(news)
-                }
+                    DispatchQueue.main.async {
+                        completion(news)
+                    }
             })
         }
     }
