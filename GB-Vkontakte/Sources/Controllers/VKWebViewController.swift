@@ -19,6 +19,10 @@ class VKWebViewController: UIViewController, WKNavigationDelegate {
         }
     }
     
+    @IBAction func logout(unwindSegue: UIStoryboardSegue) {
+        logoutVK()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

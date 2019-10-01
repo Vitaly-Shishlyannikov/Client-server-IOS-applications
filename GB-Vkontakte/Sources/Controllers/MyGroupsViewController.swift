@@ -15,7 +15,7 @@ class MyGroupsViewController: UITableViewController, UISearchBarDelegate {
     
     var token: NotificationToken?
     
-    var searchedGroups: [RealmGroup] = []
+    var searchedGroups = [RealmGroup]()
     
     var searchIsActive = false
     

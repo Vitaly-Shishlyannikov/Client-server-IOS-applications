@@ -101,14 +101,9 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="My friends" id="e2K-IC-Ol8">
-                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="SfS-hO-It1">
-                            <connections>
-                                <segue destination="rQs-7e-jAM" kind="unwind" unwindAction="myUNwindActionWithUnwindSegue:" id="2vo-xd-VxV"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="logout" id="UyV-S6-qTM">
                             <connections>
-                                <action selector="logout:" destination="2Qr-75-Auc" id="VQ7-W2-g0m"/>
+                                <segue destination="rQs-7e-jAM" kind="unwind" unwindAction="logoutWithUnwindSegue:" id="Xlt-rC-26Y"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -353,14 +348,14 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="My groups" id="z7Q-IR-Qql">
-                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="m8W-br-S6l">
-                            <connections>
-                                <segue destination="R1L-DX-Qf4" kind="unwind" unwindAction="myUNwindActionWithUnwindSegue:" id="Prz-Qf-193"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="All Groups" id="rUK-n5-Ams">
+                        <barButtonItem key="leftBarButtonItem" title="All Groups" id="rUK-n5-Ams">
                             <connections>
                                 <segue destination="Mdh-rg-U1R" kind="show" id="qfn-Hk-mid"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="logout" id="6cj-H6-uac">
+                            <connections>
+                                <segue destination="R1L-DX-Qf4" kind="unwind" unwindAction="logoutWithUnwindSegue:" id="mi2-92-wC0"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -388,9 +383,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="News" id="e3I-ws-Om8">
-                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="Yje-I5-vTg">
+                        <barButtonItem key="rightBarButtonItem" title="logout" id="Z8Q-qo-UmB">
                             <connections>
-                                <segue destination="imb-0n-Xcj" kind="unwind" unwindAction="myUNwindActionWithUnwindSegue:" id="ucg-EH-QqO"/>
+                                <segue destination="imb-0n-Xcj" kind="unwind" unwindAction="logoutWithUnwindSegue:" id="DaJ-dC-fsa"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -507,7 +502,13 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="All groups" id="mCT-OI-fji"/>
+                    <navigationItem key="navigationItem" title="All groups" id="mCT-OI-fji">
+                        <barButtonItem key="rightBarButtonItem" title="logout" id="SUF-cz-X3M">
+                            <connections>
+                                <segue destination="iLZ-ag-RhY" kind="unwind" unwindAction="logoutWithUnwindSegue:" id="moZ-J0-1AL"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="searchBar" destination="HDg-ve-aou" id="val-ti-vzc"/>
