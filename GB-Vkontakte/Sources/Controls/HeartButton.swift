@@ -59,3 +59,8 @@ class HeartButton: UIButton {
     }
 }
 
+// расширение класса Int для перевода градусов в радианы
+extension Int {
+    var degreesToRadians: CGFloat { return CGFloat(self) * .pi / 180 }
+}
+

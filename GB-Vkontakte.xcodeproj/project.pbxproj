@@ -29,7 +29,6 @@
 		588B5CB222D893F9004296D2 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588B5CB122D893F9004296D2 /* Photo.swift */; };
 		58A5DDE6229B3788001381C4 /* GroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A5DDE5229B3788001381C4 /* GroupCell.swift */; };
 		58A5DDE8229B3801001381C4 /* AllGroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A5DDE7229B3801001381C4 /* AllGroupsViewController.swift */; };
-		58A5DDEB229B3840001381C4 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A5DDEA229B3840001381C4 /* Models.swift */; };
 		58A5DDED229B3B69001381C4 /* MyGroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A5DDEC229B3B69001381C4 /* MyGroupsViewController.swift */; };
 		58A5DDEF229B3CCC001381C4 /* MyFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A5DDEE229B3CCC001381C4 /* MyFriendsViewController.swift */; };
 		58A5DDF1229B3DA2001381C4 /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A5DDF0229B3DA2001381C4 /* FriendCell.swift */; };
@@ -45,7 +44,6 @@
 		58FAC712229C960F00DE1667 /* RoundAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FAC711229C960F00DE1667 /* RoundAvatarView.swift */; };
 		58FAC714229D533800DE1667 /* LikeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FAC713229D533800DE1667 /* LikeControl.swift */; };
 		58FAC716229D53DD00DE1667 /* HeartButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FAC715229D53DD00DE1667 /* HeartButton.swift */; };
-		58FAC718229D568C00DE1667 /* ExtensionsForClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FAC717229D568C00DE1667 /* ExtensionsForClasses.swift */; };
 		AF034F4ECE0542E64E3808B0 /* Pods_GB_Vkontakte.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D32BF6518AF60C8795F3B6C0 /* Pods_GB_Vkontakte.framework */; };
 /* End PBXBuildFile section */
 
@@ -73,7 +71,6 @@
 		588B5CB122D893F9004296D2 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		58A5DDE5229B3788001381C4 /* GroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCell.swift; sourceTree = "<group>"; };
 		58A5DDE7229B3801001381C4 /* AllGroupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupsViewController.swift; sourceTree = "<group>"; };
-		58A5DDEA229B3840001381C4 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		58A5DDEC229B3B69001381C4 /* MyGroupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGroupsViewController.swift; sourceTree = "<group>"; };
 		58A5DDEE229B3CCC001381C4 /* MyFriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFriendsViewController.swift; sourceTree = "<group>"; };
 		58A5DDF0229B3DA2001381C4 /* FriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
@@ -91,7 +88,6 @@
 		58FAC711229C960F00DE1667 /* RoundAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundAvatarView.swift; sourceTree = "<group>"; };
 		58FAC713229D533800DE1667 /* LikeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeControl.swift; sourceTree = "<group>"; };
 		58FAC715229D53DD00DE1667 /* HeartButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeartButton.swift; sourceTree = "<group>"; };
-		58FAC717229D568C00DE1667 /* ExtensionsForClasses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionsForClasses.swift; sourceTree = "<group>"; };
 		BFF49E1ABFA98FBF379C4857 /* Pods-GB-Vkontakte.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GB-Vkontakte.debug.xcconfig"; path = "Target Support Files/Pods-GB-Vkontakte/Pods-GB-Vkontakte.debug.xcconfig"; sourceTree = "<group>"; };
 		D32BF6518AF60C8795F3B6C0 /* Pods_GB_Vkontakte.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GB_Vkontakte.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -135,7 +131,6 @@
 				58554E0622DDF6D900C4644C /* Data */,
 				5836E76122BC38E7007AA848 /* Controllers */,
 				5838A4B622C5008E00EBE770 /* Singleton */,
-				5836E76622BC3A2D007AA848 /* ExtensionsForClasses */,
 				5848118F22A903A700DD653C /* Controls */,
 				58FAC70E229C932700DE1667 /* Custom Views */,
 				58A5DDE9229B3815001381C4 /* Models */,
@@ -195,14 +190,6 @@
 			path = Transitions;
 			sourceTree = "<group>";
 		};
-		5836E76622BC3A2D007AA848 /* ExtensionsForClasses */ = {
-			isa = PBXGroup;
-			children = (
-				58FAC717229D568C00DE1667 /* ExtensionsForClasses.swift */,
-			);
-			path = ExtensionsForClasses;
-			sourceTree = "<group>";
-		};
 		5838A4B622C5008E00EBE770 /* Singleton */ = {
 			isa = PBXGroup;
 			children = (
@@ -239,7 +226,6 @@
 		58A5DDE9229B3815001381C4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				58A5DDEA229B3840001381C4 /* Models.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -442,14 +428,12 @@
 				58FAC710229C934D00DE1667 /* RoundShadowView.swift in Sources */,
 				58A5DDF1229B3DA2001381C4 /* FriendCell.swift in Sources */,
 				5805A8BB2327B4B40073337A /* LoadAndCachePictures.swift in Sources */,
-				58FAC718229D568C00DE1667 /* ExtensionsForClasses.swift in Sources */,
 				58A5DDF5229B42AC001381C4 /* PhotoCollectionViewController.swift in Sources */,
 				5848119922A93E9900DD653C /* ShareControl.swift in Sources */,
 				58D8B15222A68DB800B80789 /* GradientNotInspectable.swift in Sources */,
 				58B0F06123028A7E00434736 /* NewsFeed.swift in Sources */,
 				58611E3A22D358DA005BDC34 /* Group.swift in Sources */,
 				58A5DDF3229B4251001381C4 /* PhotoCell.swift in Sources */,
-				58A5DDEB229B3840001381C4 /* Models.swift in Sources */,
 				58611E3622D28E8C005BDC34 /* VKService.swift in Sources */,
 				58E75F1A228EEBA400EC0B9C /* AppDelegate.swift in Sources */,
 				58A5DDE6229B3788001381C4 /* GroupCell.swift in Sources */,
