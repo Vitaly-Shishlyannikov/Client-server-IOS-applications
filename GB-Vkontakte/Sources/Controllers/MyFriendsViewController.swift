@@ -8,8 +8,6 @@
 
 import UIKit
 import RealmSwift
-import FirebaseAuth
-import FirebaseFirestore
 
 class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
     

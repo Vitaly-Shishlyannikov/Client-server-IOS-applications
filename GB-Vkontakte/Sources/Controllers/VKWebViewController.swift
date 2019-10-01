@@ -10,7 +10,6 @@ import UIKit
 import WebKit
 import Alamofire
 import AlamofireObjectMapper
-import SwiftKeychainWrapper
 
 class VKWebViewController: UIViewController, WKNavigationDelegate {
     
@@ -65,14 +64,14 @@ class VKWebViewController: UIViewController, WKNavigationDelegate {
         }
         
         
-        // сохраняем токен в Keychain
-        KeychainWrapper.standard.set(Session.instance.token, forKey: "token")
-        //print(KeychainWrapper.standard.string(forKey: "token") as Any)
-        
-        // сохраняем версию в UserDefaults
-        let userDefaults = UserDefaults.standard
-        userDefaults.set("5.68", forKey: "version")
-        //print(userDefaults.string(forKey: "version") as Any)
+//        // сохраняем токен в Keychain
+//        KeychainWrapper.standard.set(Session.instance.token, forKey: "token")
+//        //print(KeychainWrapper.standard.string(forKey: "token") as Any)
+//
+//        // сохраняем версию в UserDefaults
+//        let userDefaults = UserDefaults.standard
+//        userDefaults.set("5.68", forKey: "version")
+//        //print(userDefaults.string(forKey: "version") as Any)
         
         // переход на TabBarController
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
