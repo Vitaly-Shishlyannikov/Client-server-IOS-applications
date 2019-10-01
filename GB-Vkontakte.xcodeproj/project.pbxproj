@@ -124,12 +124,12 @@
 		5836E75D22BC3833007AA848 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				5838A4B722C500D100EBE770 /* SessionSingleton.swift */,
+				5836E76122BC38E7007AA848 /* VIewControllers */,
 				58554E0622DDF6D900C4644C /* Data */,
-				5836E76122BC38E7007AA848 /* Controllers */,
-				5838A4B622C5008E00EBE770 /* Singleton */,
+				581DF8FA22974DDA00CF8777 /* Cells */,
 				5848118F22A903A700DD653C /* Controls */,
 				58FAC70E229C932700DE1667 /* Custom Views */,
-				581DF8FA22974DDA00CF8777 /* Cells */,
 				5836E76222BC3956007AA848 /* Transitions */,
 			);
 			path = Sources;
@@ -160,7 +160,7 @@
 			path = StoryBoards;
 			sourceTree = "<group>";
 		};
-		5836E76122BC38E7007AA848 /* Controllers */ = {
+		5836E76122BC38E7007AA848 /* VIewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				5869687522CE0971002AB84D /* VKWebViewController.swift */,
@@ -170,27 +170,19 @@
 				58A5DDEC229B3B69001381C4 /* MyGroupsViewController.swift */,
 				58A5DDE7229B3801001381C4 /* AllGroupsViewController.swift */,
 				5848118D22A8FFBE00DD653C /* NewsViewController.swift */,
-				5841A7EB22BB71CC009C22DD /* CustomNavigationController.swift */,
 			);
-			path = Controllers;
+			path = VIewControllers;
 			sourceTree = "<group>";
 		};
 		5836E76222BC3956007AA848 /* Transitions */ = {
 			isa = PBXGroup;
 			children = (
+				5841A7EB22BB71CC009C22DD /* CustomNavigationController.swift */,
 				5841A7E922BB6C2E009C22DD /* CustomPushAnimator.swift */,
 				5841A7ED22BBC945009C22DD /* CustomPopAnimator.swift */,
 				5836E75A22BC3015007AA848 /* CustomInteractiveTransition.swift */,
 			);
 			path = Transitions;
-			sourceTree = "<group>";
-		};
-		5838A4B622C5008E00EBE770 /* Singleton */ = {
-			isa = PBXGroup;
-			children = (
-				5838A4B722C500D100EBE770 /* SessionSingleton.swift */,
-			);
-			path = Singleton;
 			sourceTree = "<group>";
 		};
 		5848118F22A903A700DD653C /* Controls */ = {
