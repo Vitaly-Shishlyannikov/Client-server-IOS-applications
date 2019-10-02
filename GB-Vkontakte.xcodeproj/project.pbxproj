@@ -201,10 +201,10 @@
 			isa = PBXGroup;
 			children = (
 				58611E3522D28E8C005BDC34 /* VKService.swift */,
+				588B5CB122D893F9004296D2 /* Photo.swift */,
 				58B0F06023028A7E00434736 /* NewsFeed.swift */,
 				58611E3C22D35F46005BDC34 /* Friend.swift */,
 				58611E3922D358DA005BDC34 /* Group.swift */,
-				588B5CB122D893F9004296D2 /* Photo.swift */,
 				5805A8BA2327B4B40073337A /* LoadAndCachePictures.swift */,
 			);
 			path = Data;

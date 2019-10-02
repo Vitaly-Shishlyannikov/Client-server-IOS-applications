@@ -80,17 +80,6 @@ class VKService {
                         friend.fullName = friend.firstName + " " + friend.lastName
                     }
                     
-//                    do {
-//                        let config = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
-//                        Realm.Configuration.defaultConfiguration = config
-//                        let realm = try Realm()
-//                        try realm.write {
-//                            realm.add(friends, update: true)
-//                        }
-//                        print(realm.configuration.fileURL)
-//                    } catch {
-//                        print(error)
-//                    }
                     DispatchQueue.main.async {
                     completion(friends)
                     }
@@ -114,8 +103,12 @@ class VKService {
                     for item in items {
                         if let photo = item.sizes.last {
                             photos.append(photo)
+                            let likesCount = item.likes["count"]
+                            photo.likesCount = likesCount ?? 0
                         }
                     }
+                    
+                    let cnt = ""
                     
                     DispatchQueue.main.async {
                         switch result {

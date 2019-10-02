@@ -23,7 +23,7 @@ class VKPhotoResponse: Mappable {
 }
 
 class VKPhotoResponseInternal: Mappable {
-    var items: [VKPhotoResponseInInternal]? = nil
+    var items: [Item]? = nil
     
     required init?(map: Map) {}
     
@@ -32,13 +32,26 @@ class VKPhotoResponseInternal: Mappable {
     }
 }
 
-class VKPhotoResponseInInternal: Mappable {
+class Item: Mappable {
     var sizes: [Photo] = []
+    var likes: [String: Int] = [:]
     
     required init?(map: Map) {}
     
     func mapping(map: Map) {
         sizes <- map["sizes"]
+        likes <- map["likes"]
+    }
+}
+
+class Likes: Mappable {
+    
+    var likesCount: String = ""
+    
+    required init?(map: Map) {}
+    
+    func mapping(map: Map) {
+        likesCount <- map["count"]
     }
 }
 
@@ -46,11 +59,11 @@ class Photo: Mappable {
     
     var photoPath: String = ""
     var sizeType: String = ""
+    var likesCount: Int = 0
     
     required init?(map: Map) {}
     
     func mapping(map: Map) {
-        
         photoPath <- map["url"]
         sizeType <- map["type"]
     }

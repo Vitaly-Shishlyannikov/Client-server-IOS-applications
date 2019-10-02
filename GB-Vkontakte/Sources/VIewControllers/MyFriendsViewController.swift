@@ -18,9 +18,7 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
     
     var friendsIndexArray = [Character]()
     
-    var friendsIndexDictionary: [Character: [Friend]] {
-        return getFriendsIndexDictionary(friendsArray: self.friends)
-    }
+    var friendsIndexDictionary = [Character: [Friend]]()
     
     var searchedFriends: [Friend] = []
     
@@ -45,60 +43,21 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
             
             self?.friends = friendsArray
             
-            
-            self!.getFriendsIndexArray(friendsArray: self!.friends)
+            self?.getFriendsIndexArray(friendsArray: self?.friends ?? []) {[weak self] indexArray in
+                self?.friendsIndexArray = indexArray
+            }
+
+            self?.getFriendsIndexDictionary(friendsArray: self?.friends ?? []) {[weak self] dictionary in
+                self?.friendsIndexDictionary = dictionary
+            }
             
             self?.tableView?.reloadData()
             }
-        
-//        self.getFriendsIndexArrayTest(friendsArray: self.friends) {[weak self] array in
-//            self?.friendsIndexArray = array
-//        }
     }
     
     // MARK: - Functions
     
-//    func loadFriendsData() {
-//
-//        do {
-//            let realm = try Realm()
-//            let friends = realm.objects(RealmFriend.self)
-//
-//            self.friends = Array(friends)
-//
-//            print(realm.configuration.fileURL)
-//
-//        } catch {
-//            print(error)
-//        }
-//        self.getFriendsIndexArray(friendsArray: self.friends) {[weak self] array in
-//            self?.friendsIndexArray = array
-//        }
-        
-//    }
-    
-    
-    func getFriendsIndexArrayTest(friendsArray: [Friend], completion: @escaping ([Character]) -> Void) {
-        
-        DispatchQueue.global(qos: .utility).async {
-        
-            var friendIndexArray: [Character] = []
-            for friend in friendsArray {
-                if let firstLetter = friend.lastName.first {
-                    friendIndexArray.append(firstLetter)
-                }
-            }
-            friendIndexArray = Array(Set(friendIndexArray))
-            friendIndexArray.sort()
-            
-            DispatchQueue.main.async {
-                completion(friendIndexArray)
-            }
-        }
-    }
-    
-    func getFriendsIndexArray(friendsArray: [Friend])  {
-        
+    func getFriendsIndexArray(friendsArray: [Friend], completion: @escaping ([Character]) -> Void) {
             
         var friendIndexArray: [Character] = []
         for friend in friendsArray {
@@ -108,15 +67,11 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
         }
         friendIndexArray = Array(Set(friendIndexArray))
         friendIndexArray.sort()
-            
-           
-                self.friendsIndexArray = friendIndexArray
-//        return friendIndexArray
         
-        
+        completion(friendIndexArray)
     }
     
-    func getFriendsIndexDictionary(friendsArray: [Friend] ) -> [Character: [Friend]] {
+    func getFriendsIndexDictionary(friendsArray: [Friend], completion: @escaping ([Character:[Friend]]) -> Void) {
         
         var frIndDict: [Character: [Friend]] = [:]
         for friend in friendsArray {
@@ -128,7 +83,7 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
                 }
             }
         }
-        return frIndDict
+        completion(frIndDict)
     }
     
     // MARK: - SearchBar delegate
@@ -185,10 +140,17 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FriendCell.reuseIdentifier, for: indexPath) as? FriendCell else { return UITableViewCell() }
         
+        configureCell(indexPath: indexPath, cell: cell)
+        
+        return cell
+    }
+    
+    func configureCell(indexPath: IndexPath, cell: FriendCell) {
+        
         if searchIsActive {
             let friend = searchedFriends[indexPath.row]
             cell.friendNameLabel.text = friend.fullName
-            
+        
             let avatarPath = searchedFriends[indexPath.row].photo
             if let url = URL(string: avatarPath) {
                 let data = try? Data(contentsOf: url)
@@ -197,19 +159,16 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
                 }
             }
         } else {
-
-            let char = friendsIndexArray[indexPath.section]
             
+            let char = friendsIndexArray[indexPath.section]
             let friend = friendsIndexDictionary[char]?[indexPath.row]
-
             cell.friendNameLabel.text = friend?.fullName
-           
+            
             if let url = friendsIndexDictionary[char]?[indexPath
-                .row].photo {
+            .row].photo {
                 cell.friendAvatar.image = photoService?.photo(atIndexPath: indexPath, byUrl: url)
             }
         }
-        return cell
     }
     
     // метод контрола для быстрого перехода по первым буквам фамилий
