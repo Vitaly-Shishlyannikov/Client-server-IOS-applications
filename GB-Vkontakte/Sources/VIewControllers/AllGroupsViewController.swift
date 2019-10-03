@@ -7,13 +7,12 @@
 //
 
 import UIKit
-import RealmSwift
 
-class AllGroupsViewController: UITableViewController, UISearchBarDelegate {
+final class AllGroupsViewController: UITableViewController, UISearchBarDelegate {
     
-    var groups = [RealmGroup]()
+    var groups = [RealmCommonGroup]()
     
-    var searchedGroups: [RealmGroup] = []
+    var searchedGroups = [RealmCommonGroup]()
     
     var searchIsActive = false
     
@@ -28,44 +27,34 @@ class AllGroupsViewController: UITableViewController, UISearchBarDelegate {
         
         searchBar.delegate = self
         
-        VKService.loadAllGroupsData(){[weak self] in
-            self?.loadGroupsData()
+        VKService.loadAllGroupsData(){}
+        
+        VKService.getAllGroupsFromRealm {[weak self] groupsArray in
+            self?.groups = groupsArray
             self?.tableView?.reloadData()
-        }
-    }
-    
-    // MARK: - Functions
-    
-    func loadGroupsData() {
-        do {
-            let realm = try Realm()
-            let groups = realm.objects(RealmGroup.self)
-            self.groups = Array(groups)
-        } catch {
-            print(error)
         }
     }
     
     // MARK: - SearchBar delegate
     
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+    private func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchIsActive = true;
     }
     
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+    private func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchIsActive = false;
     }
     
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    private func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchIsActive = false;
     }
     
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    private func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchIsActive = false;
     }
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchedGroups = self.groups.filter({(group: RealmGroup) -> Bool in
+    private func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchedGroups = self.groups.filter({(group: RealmCommonGroup) -> Bool in
             return group.name.lowercased().contains(searchText.lowercased())
         })
         

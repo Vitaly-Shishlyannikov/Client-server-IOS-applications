@@ -13,7 +13,7 @@ import AlamofireObjectMapper
 import ObjectMapper
 import RealmSwift
 
-class VKService {
+final class VKService {
         
     static func loadUserGroupsData(completion: @escaping () -> Void) {
         
@@ -40,19 +40,28 @@ class VKService {
         }
     }
     
+    static func getGroupsFromRealm(completion: @escaping ([RealmGroup]) -> Void){
+        
+        guard let realm = try? Realm() else {return}
+        let resultGroups = realm.objects(RealmGroup.self)
+        let groups = Array(resultGroups)
+        
+        completion(groups)
+    }
+    
     static func loadAllGroupsData(completion: @escaping () -> Void) {
         
         DispatchQueue.global(qos: .utility).async {
         
             Alamofire.request("https://api.vk.com/method/groups.search?q=c&access_token=\(Session.instance.token)&v=5.95")
-                .responseObject(completionHandler: { (vkResponse: DataResponse<VKGroupResponse>) in
+                .responseObject(completionHandler: { (vkResponse: DataResponse<VKCommonGroupResponse>) in
                     
-                    let groups = vkResponse.result.value?.response?.items ?? []
+                    let allGroups = vkResponse.result.value?.response?.items ?? []
                     
                     do {
                         let realm = try Realm()
                         try realm.write {
-                            realm.add(groups, update: true)
+                            realm.add(allGroups, update: true)
                         }
 //                        print(realm.configuration.fileURL)
                     } catch {
@@ -65,7 +74,16 @@ class VKService {
         }
     }
     
-    static func loadFriendsData(completion: @escaping () -> Void) {
+    static func getAllGroupsFromRealm(completion: @escaping ([RealmCommonGroup]) -> Void){
+        
+        guard let realm = try? Realm() else {return}
+        let resultGroups = realm.objects(RealmCommonGroup.self)
+        let groups = Array(resultGroups)
+        
+        completion(groups)
+    }
+    
+    static func loadFriendsData(completion: @escaping ([Friend]) -> Void) {
         
         DispatchQueue.global(qos: .utility).async {
         
@@ -80,19 +98,8 @@ class VKService {
                         friend.fullName = friend.firstName + " " + friend.lastName
                     }
                     
-                    do {
-                        let config = Realm.Configuration(deleteRealmIfMigrationNeeded: true)
-                        Realm.Configuration.defaultConfiguration = config
-                        let realm = try Realm()
-                        try realm.write {
-                            realm.add(friends, update: true)
-                        }
-                        print(realm.configuration.fileURL)
-                    } catch {
-                        print(error)
-                    }
                     DispatchQueue.main.async {
-                    completion()
+                    completion(friends)
                     }
                 })
         }
@@ -114,6 +121,8 @@ class VKService {
                     for item in items {
                         if let photo = item.sizes.last {
                             photos.append(photo)
+                            let likesCount = item.likes["count"]
+                            photo.likesCount = likesCount ?? 0
                         }
                     }
                     
@@ -172,6 +181,20 @@ class VKService {
                     }
             })
         }
+    }
+    
+    static func getGroupSourceOfNewsFromRealm(sourceId: Int) -> SourceGroupRealm? {
+        
+        let sourceOfNews = try? Realm()
+        let source = sourceOfNews?.objects(SourceGroupRealm.self).filter("id == %@", -sourceId).first
+        return source
+    }
+    
+    static func getProfileSourceOfNewsFromRealm(sourceId: Int) -> SourceProfileRealm? {
+        
+        let sourceOfNews = try? Realm()
+        let source = sourceOfNews?.objects(SourceProfileRealm.self).filter("id == %@", sourceId).first
+        return source
     }
 }
 

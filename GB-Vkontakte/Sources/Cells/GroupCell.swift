@@ -8,7 +8,7 @@
 
 import UIKit
 
-class GroupCell: UITableViewCell {
+final class GroupCell: UITableViewCell {
     
     static let reuseIdentifier = "GroupCell"
     
@@ -34,7 +34,7 @@ class GroupCell: UITableViewCell {
         animateAvatar()
     }
     
-    func animateAvatar() {
+    private func animateAvatar() {
         let animation = CASpringAnimation(keyPath: "transform.scale")
         animation.fromValue = 0
         animation.toValue = 1

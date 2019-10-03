@@ -10,9 +10,8 @@ import UIKit
 import WebKit
 import Alamofire
 import AlamofireObjectMapper
-import SwiftKeychainWrapper
 
-class VKWebViewController: UIViewController, WKNavigationDelegate {
+final class VKWebViewController: UIViewController, WKNavigationDelegate {
     
     @IBOutlet weak var webView: WKWebView! {
         didSet{
@@ -20,10 +19,14 @@ class VKWebViewController: UIViewController, WKNavigationDelegate {
         }
     }
     
+    @IBAction func logout(unwindSegue: UIStoryboardSegue) {
+        logoutVK()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //logoutVK()
+//        logoutVK()
         
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
@@ -59,20 +62,22 @@ class VKWebViewController: UIViewController, WKNavigationDelegate {
                 return dict
         }
         
-        if let token = params["access_token"], let userID = params["user_id"] {
-            Session.instance.token = token
-            Session.instance.userId = Int(userID)!
+        if let token = params["access_token"],
+           let userID = params["user_id"] {
+            print(token)
+                Session.instance.token = token
+                Session.instance.userId = Int(userID)!
         }
         
         
-        // сохраняем токен в Keychain
-        KeychainWrapper.standard.set(Session.instance.token, forKey: "token")
-        //print(KeychainWrapper.standard.string(forKey: "token") as Any)
-        
-        // сохраняем версию в UserDefaults
-        let userDefaults = UserDefaults.standard
-        userDefaults.set("5.68", forKey: "version")
-        //print(userDefaults.string(forKey: "version") as Any)
+//        // сохраняем токен в Keychain
+//        KeychainWrapper.standard.set(Session.instance.token, forKey: "token")
+//        //print(KeychainWrapper.standard.string(forKey: "token") as Any)
+//
+//        // сохраняем версию в UserDefaults
+//        let userDefaults = UserDefaults.standard
+//        userDefaults.set("5.68", forKey: "version")
+//        //print(userDefaults.string(forKey: "version") as Any)
         
         // переход на TabBarController
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -82,7 +87,7 @@ class VKWebViewController: UIViewController, WKNavigationDelegate {
         decisionHandler(.cancel)
     }
     
-    func logoutVK() {
+    private func logoutVK() {
         let dataStore = WKWebsiteDataStore.default()
         dataStore.fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
             dataStore.removeData(

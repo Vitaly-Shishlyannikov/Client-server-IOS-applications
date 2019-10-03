@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PhotoCell: UICollectionViewCell {
+final class PhotoCell: UICollectionViewCell {
     
     @IBOutlet weak var photoImageView: UIImageView!
     static let reuseIdentifier = "PhotoCell"

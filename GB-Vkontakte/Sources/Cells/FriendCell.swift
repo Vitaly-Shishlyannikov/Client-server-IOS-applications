@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FriendCell: UITableViewCell {
+final class FriendCell: UITableViewCell {
     
     static let reuseIdentifier = "FriendCell"
     
@@ -34,7 +34,7 @@ class FriendCell: UITableViewCell {
         animateAvatar()
     }
     
-    func animateAvatar() {
+    private func animateAvatar() {
         let animation = CASpringAnimation(keyPath: "transform.scale")
         animation.fromValue = 0
         animation.toValue = 1

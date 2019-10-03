@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewsCell: UITableViewCell {
+final class NewsCell: UITableViewCell {
     
     static var reuseId = "NewsCell"
 

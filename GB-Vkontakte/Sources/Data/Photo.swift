@@ -12,7 +12,7 @@ import Alamofire
 import AlamofireObjectMapper
 import ObjectMapper
 
-class VKPhotoResponse: Mappable {
+final class VKPhotoResponse: Mappable {
     var response: VKPhotoResponseInternal? = nil
     
     required init?(map: Map) {}
@@ -22,8 +22,8 @@ class VKPhotoResponse: Mappable {
     }
 }
 
-class VKPhotoResponseInternal: Mappable {
-    var items: [VKPhotoResponseInInternal]? = nil
+final class VKPhotoResponseInternal: Mappable {
+    var items: [Item]? = nil
     
     required init?(map: Map) {}
     
@@ -32,25 +32,38 @@ class VKPhotoResponseInternal: Mappable {
     }
 }
 
-class VKPhotoResponseInInternal: Mappable {
+final class Item: Mappable {
     var sizes: [Photo] = []
+    var likes: [String: Int] = [:]
     
     required init?(map: Map) {}
     
     func mapping(map: Map) {
         sizes <- map["sizes"]
+        likes <- map["likes"]
     }
 }
 
-class Photo: Mappable {
+final class Likes: Mappable {
     
-    var photoPath: String = ""
-    var sizeType: String = ""
+    var likesCount: String = ""
     
     required init?(map: Map) {}
     
     func mapping(map: Map) {
-        
+        likesCount <- map["count"]
+    }
+}
+
+final class Photo: Mappable {
+    
+    var photoPath: String = ""
+    var sizeType: String = ""
+    var likesCount: Int = 0
+    
+    required init?(map: Map) {}
+    
+    func mapping(map: Map) {
         photoPath <- map["url"]
         sizeType <- map["type"]
     }
