@@ -7,13 +7,10 @@
 //
 
 import UIKit
-import RealmSwift
 
 final class MyGroupsViewController: UITableViewController, UISearchBarDelegate {
     
     var groups = [RealmGroup]()
-    
-    var token: NotificationToken?
     
     var searchedGroups = [RealmGroup]()
     
@@ -30,40 +27,12 @@ final class MyGroupsViewController: UITableViewController, UISearchBarDelegate {
         
         searchBar.delegate = self
         
-        VKService.loadUserGroupsData(){[weak self] in
-            self?.loadGroupsDataAndRealmNotifications()
+        VKService.loadUserGroupsData(){}
+        
+        VKService.getGroupsFromRealm {[weak self] groupsArray in
+            self?.groups = groupsArray
             self?.tableView?.reloadData()
         }
-    }
-    
-    // MARK: - Functions
-    
-    private func loadGroupsDataAndRealmNotifications() {
-        guard let realm = try? Realm() else {return}
-        let resultGroups = realm.objects(RealmGroup.self)
-        token = resultGroups.observe({[weak self] changes in
-            switch changes {
-            case .initial(let results):
-                self?.groups = Array(results)
-            case let .update(results, deletions, insertions, modifications):
-                self?.groups = Array(results)
-                self?.tableView.performBatchUpdates({
-                    self?.tableView.insertRows(at: insertions.map({IndexPath(row: $0, section: 0)}), with: .automatic)
-                    self?.tableView.deleteRows(at: deletions.map({IndexPath(row: $0, section: 0)}), with: .automatic)
-                    self?.tableView.reloadRows(at: modifications.map({IndexPath(row: $0, section: 0)}), with: .automatic)
-                })
-            case .error(let error):
-                print(error)
-            }
-        })
-        self.groups = Array(resultGroups)
-        
-//        // проверка работы RealmNotifications, через 5 сек удаляется первая группа
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-//            try? realm.write {
-//                realm.delete(self.groups.first!)
-//            }
-//        }
     }
     
     // MARK: - SearchBar delegate
@@ -130,11 +99,13 @@ final class MyGroupsViewController: UITableViewController, UISearchBarDelegate {
     @IBAction func addGroup(segue: UIStoryboardSegue) {
         if let controller = segue.source as? AllGroupsViewController,
         let indexPath = controller.tableView.indexPathForSelectedRow {
-            let group = controller.groups[indexPath.row]
+            if let group = controller.groups[indexPath.row] as? RealmGroup {
 
-            guard !groups.contains(where: { $0.name == group.name }) else { return }
-
-            groups.append(group)
+                guard !groups.contains(where: { $0.name == group.name }) else { return }
+                
+                groups.append(group)
+            }
+            
             let newIndexPath = IndexPath(item: groups.count - 1, section: 0)
             tableView.insertRows(at: [newIndexPath], with: .automatic)
         }

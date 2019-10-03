@@ -40,19 +40,28 @@ final class VKService {
         }
     }
     
+    static func getGroupsFromRealm(completion: @escaping ([RealmGroup]) -> Void){
+        
+        guard let realm = try? Realm() else {return}
+        let resultGroups = realm.objects(RealmGroup.self)
+        let groups = Array(resultGroups)
+        
+        completion(groups)
+    }
+    
     static func loadAllGroupsData(completion: @escaping () -> Void) {
         
         DispatchQueue.global(qos: .utility).async {
         
             Alamofire.request("https://api.vk.com/method/groups.search?q=c&access_token=\(Session.instance.token)&v=5.95")
-                .responseObject(completionHandler: { (vkResponse: DataResponse<VKGroupResponse>) in
+                .responseObject(completionHandler: { (vkResponse: DataResponse<VKCommonGroupResponse>) in
                     
-                    let groups = vkResponse.result.value?.response?.items ?? []
+                    let allGroups = vkResponse.result.value?.response?.items ?? []
                     
                     do {
                         let realm = try Realm()
                         try realm.write {
-                            realm.add(groups, update: true)
+                            realm.add(allGroups, update: true)
                         }
 //                        print(realm.configuration.fileURL)
                     } catch {
@@ -63,6 +72,15 @@ final class VKService {
                     }
                 })
         }
+    }
+    
+    static func getAllGroupsFromRealm(completion: @escaping ([RealmCommonGroup]) -> Void){
+        
+        guard let realm = try? Realm() else {return}
+        let resultGroups = realm.objects(RealmCommonGroup.self)
+        let groups = Array(resultGroups)
+        
+        completion(groups)
     }
     
     static func loadFriendsData(completion: @escaping ([Friend]) -> Void) {

@@ -33,7 +33,7 @@ final class VKGroupResponseInternal: Mappable {
     }
 }
 
-final class RealmGroup: Object, Mappable {
+class RealmGroup: Object, Mappable {
     @objc dynamic var id: Int = 0
     @objc dynamic var photo: String = ""
     @objc dynamic var name: String = ""
