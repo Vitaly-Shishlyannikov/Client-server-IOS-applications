@@ -39,13 +39,19 @@ final class NewsViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       
         return news.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: NewsCell.reuseId, for: indexPath) as? NewsCell else {return UITableViewCell()}
+        
+        configureCell(indexPath: indexPath, cell: cell)
+        
+        return cell
+    }
+
+    private func configureCell(indexPath: IndexPath, cell: NewsCell) {
         
         cell.likeControl.updateLikesCount(likes: news[indexPath.row].likes)
         cell.commentControl.updateCommentsCount(comments: news[indexPath.row].comments)
@@ -65,6 +71,5 @@ final class NewsViewController: UITableViewController {
             cell.sourceLabel.text = user?.fullName ?? "default name"
             cell.sourceImage.sd_setImage(with: URL(string: ((user?.photoURL)!)), placeholderImage: UIImage(named: "defaultAvatar"))
         }
-        return cell
     }
 }
