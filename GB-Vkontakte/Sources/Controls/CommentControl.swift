@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CommentControl: UIControl {
+final class CommentControl: UIControl {
     
     private var stackView: UIStackView!
     private var commentsIcon = UIImageView()
@@ -46,16 +46,16 @@ class CommentControl: UIControl {
         stackView.frame = bounds
     }
     
-    func setupConstraints() {
+    private func setupConstraints() {
         commentsLabel.heightAnchor.constraint(equalTo: commentsIcon.heightAnchor, multiplier: 1)
     }
     
-    func incrementCommentsCount() {
+    private func incrementCommentsCount() {
         commentsCount += 1
         updateCommentsCount(comments: commentsCount)
     }
     
-    func decrementCommentsCount() {
+    private func decrementCommentsCount() {
         commentsCount -= 1
         updateCommentsCount(comments: commentsCount)
     }

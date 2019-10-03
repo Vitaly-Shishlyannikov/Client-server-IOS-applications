@@ -13,7 +13,7 @@ import AlamofireObjectMapper
 import ObjectMapper
 import RealmSwift
 
-class VKGroupResponse: Mappable {
+final class VKGroupResponse: Mappable {
     var response: VKGroupResponseInternal? = nil
     
     required init?(map: Map) {}
@@ -23,7 +23,7 @@ class VKGroupResponse: Mappable {
     }
 }
 
-class VKGroupResponseInternal: Mappable {
+final class VKGroupResponseInternal: Mappable {
     var items: [RealmGroup] = []
     
     required init?(map: Map) {}
@@ -33,7 +33,7 @@ class VKGroupResponseInternal: Mappable {
     }
 }
 
-class RealmGroup: Object, Mappable {
+final class RealmGroup: Object, Mappable {
     @objc dynamic var id: Int = 0
     @objc dynamic var photo: String = ""
     @objc dynamic var name: String = ""

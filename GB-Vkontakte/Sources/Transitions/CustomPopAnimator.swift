@@ -8,7 +8,8 @@
 
 import UIKit
 
-class CustomPopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+final class CustomPopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+    
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.8
     }

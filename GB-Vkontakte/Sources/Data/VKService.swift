@@ -13,7 +13,7 @@ import AlamofireObjectMapper
 import ObjectMapper
 import RealmSwift
 
-class VKService {
+final class VKService {
         
     static func loadUserGroupsData(completion: @escaping () -> Void) {
         
@@ -107,8 +107,6 @@ class VKService {
                             photo.likesCount = likesCount ?? 0
                         }
                     }
-                    
-                    let cnt = ""
                     
                     DispatchQueue.main.async {
                         switch result {

@@ -13,7 +13,7 @@ import AlamofireObjectMapper
 import ObjectMapper
 import RealmSwift
 
-class VKNewsResponse: Mappable {
+final class VKNewsResponse: Mappable {
     var response: VKNewsItems? = nil
     
     required init?(map: Map) {}
@@ -23,7 +23,7 @@ class VKNewsResponse: Mappable {
     }
 }
 
-class VKNewsItems: Mappable {
+final class VKNewsItems: Mappable {
     var items: [News] = []
     var sourceProfiles: [SourceProfileRealm] = []
     var sourceGroups: [SourceGroupRealm] = []
@@ -37,7 +37,7 @@ class VKNewsItems: Mappable {
     }
 }
 
-class SourceProfileRealm: Object, Mappable {
+final class SourceProfileRealm: Object, Mappable {
     
     @objc dynamic var id: Int = 0
     @objc dynamic var firstName: String = ""
@@ -61,7 +61,7 @@ class SourceProfileRealm: Object, Mappable {
     }
 }
 
-class SourceGroupRealm: Object, Mappable {
+final class SourceGroupRealm: Object, Mappable {
     
     @objc dynamic var id: Int = 0
     @objc dynamic var name: String = ""
@@ -82,7 +82,7 @@ class SourceGroupRealm: Object, Mappable {
     }
 }
 
-class News: Mappable {
+final class News: Mappable {
     
     @objc dynamic var source_id: Int = 0
     @objc dynamic var text: String = ""

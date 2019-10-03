@@ -12,7 +12,7 @@ import Alamofire
 import AlamofireObjectMapper
 import ObjectMapper
 
-class VKPhotoResponse: Mappable {
+final class VKPhotoResponse: Mappable {
     var response: VKPhotoResponseInternal? = nil
     
     required init?(map: Map) {}
@@ -22,7 +22,7 @@ class VKPhotoResponse: Mappable {
     }
 }
 
-class VKPhotoResponseInternal: Mappable {
+final class VKPhotoResponseInternal: Mappable {
     var items: [Item]? = nil
     
     required init?(map: Map) {}
@@ -32,7 +32,7 @@ class VKPhotoResponseInternal: Mappable {
     }
 }
 
-class Item: Mappable {
+final class Item: Mappable {
     var sizes: [Photo] = []
     var likes: [String: Int] = [:]
     
@@ -44,7 +44,7 @@ class Item: Mappable {
     }
 }
 
-class Likes: Mappable {
+final class Likes: Mappable {
     
     var likesCount: String = ""
     
@@ -55,7 +55,7 @@ class Likes: Mappable {
     }
 }
 
-class Photo: Mappable {
+final class Photo: Mappable {
     
     var photoPath: String = ""
     var sizeType: String = ""

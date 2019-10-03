@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HeartButton: UIButton {
+final class HeartButton: UIButton {
     
     @IBInspectable var filled: Bool = true
     @IBInspectable var strokeWidth: CGFloat = 2.0
@@ -34,7 +34,7 @@ class HeartButton: UIButton {
         bezFig.stroke()
     }
     
-   func drawHeart(heartHeight rectHeight: CGFloat) -> UIBezierPath {
+   private func drawHeart(heartHeight rectHeight: CGFloat) -> UIBezierPath {
     
         let heart = UIBezierPath()
     

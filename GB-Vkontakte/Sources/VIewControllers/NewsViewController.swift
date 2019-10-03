@@ -10,7 +10,7 @@ import UIKit
 import RealmSwift
 import SDWebImage
 
-class NewsViewController: UITableViewController {
+final class NewsViewController: UITableViewController {
     
     var news = [News]()
     

@@ -12,7 +12,7 @@ import Alamofire
 import AlamofireObjectMapper
 import ObjectMapper
 
-class VKFriendResponse: Mappable {
+final class VKFriendResponse: Mappable {
     var response: VKFriendResponseInternal? = nil
     
     required init?(map: Map) {}
@@ -22,7 +22,7 @@ class VKFriendResponse: Mappable {
     }
 }
 
-class VKFriendResponseInternal: Mappable {
+final class VKFriendResponseInternal: Mappable {
     var items: [Friend] = []
     
     required init?(map: Map) {}
@@ -32,7 +32,7 @@ class VKFriendResponseInternal: Mappable {
     }
 }
 
-class Friend: Mappable {
+final class Friend: Mappable {
     
     var id: Int = 0
     var firstName: String = ""

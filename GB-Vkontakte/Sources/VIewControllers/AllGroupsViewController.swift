@@ -9,7 +9,7 @@
 import UIKit
 import RealmSwift
 
-class AllGroupsViewController: UITableViewController, UISearchBarDelegate {
+final class AllGroupsViewController: UITableViewController, UISearchBarDelegate {
     
     var groups = [RealmGroup]()
     
@@ -36,7 +36,7 @@ class AllGroupsViewController: UITableViewController, UISearchBarDelegate {
     
     // MARK: - Functions
     
-    func loadGroupsData() {
+    private func loadGroupsData() {
         do {
             let realm = try Realm()
             let groups = realm.objects(RealmGroup.self)
@@ -48,23 +48,23 @@ class AllGroupsViewController: UITableViewController, UISearchBarDelegate {
     
     // MARK: - SearchBar delegate
     
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+    private func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchIsActive = true;
     }
     
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+    private func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchIsActive = false;
     }
     
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    private func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchIsActive = false;
     }
     
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    private func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchIsActive = false;
     }
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    private func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchedGroups = self.groups.filter({(group: RealmGroup) -> Bool in
             return group.name.lowercased().contains(searchText.lowercased())
         })

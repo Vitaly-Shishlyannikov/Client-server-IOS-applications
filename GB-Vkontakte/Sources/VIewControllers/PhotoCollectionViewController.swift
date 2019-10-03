@@ -10,7 +10,7 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
-class PhotoCollectionViewController: UICollectionViewController {
+final class PhotoCollectionViewController: UICollectionViewController {
     
     var friendNameForTitle: String = ""
     var selectedFriendID: String = ""

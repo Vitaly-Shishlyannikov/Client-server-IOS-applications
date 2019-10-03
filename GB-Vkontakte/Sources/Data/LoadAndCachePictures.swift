@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-class PhotoService {
+final class PhotoService {
     
     private let cacheLifeTime : TimeInterval = 30 * 24 * 60 * 60
     

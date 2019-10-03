@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewsControl: UIControl {
+final class ViewsControl: UIControl {
     
     private var stackView: UIStackView!
     private var viewsIcon = UIImageView()
@@ -50,7 +50,7 @@ class ViewsControl: UIControl {
         stackView.frame = bounds
     }
     
-    func setupConstraints() {
+    private func setupConstraints() {
 //        viewsIcon.translatesAutoresizingMaskIntoConstraints = true
 //
 //        NSLayoutConstraint.activate([
@@ -60,12 +60,12 @@ class ViewsControl: UIControl {
 //            ])
     }
     
-    func incrementViewsCount() {
+    private func incrementViewsCount() {
         viewsCount += 1
         updateViewsCount(views: viewsCount)
     }
     
-    func decrementViewsCount() {
+    private func decrementViewsCount() {
         viewsCount -= 1
         updateViewsCount(views: viewsCount)
     }

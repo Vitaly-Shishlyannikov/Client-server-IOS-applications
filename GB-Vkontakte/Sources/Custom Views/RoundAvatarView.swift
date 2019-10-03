@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RoundAvatarView: UIImageView {
+final class RoundAvatarView: UIImageView {
     
     var cornerRadius: CGFloat {
         return frame.width/2
@@ -28,7 +28,7 @@ class RoundAvatarView: UIImageView {
         setCornerRadius(value: cornerRadius)
     }
     
-    func setCornerRadius(value: CGFloat) {
+    private func setCornerRadius(value: CGFloat) {
         layer.cornerRadius = value
         layer.masksToBounds = true
     }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RoundShadowVIew: UIImageView {
+final class RoundShadowVIew: UIImageView {
     
     @IBInspectable var shadowColor: UIColor = .cyan
     @IBInspectable var shadowOpacity: Float = 0.5
@@ -33,7 +33,7 @@ class RoundShadowVIew: UIImageView {
         setShadow(radius: cornerRadius)
     }
     
-    func setShadow(radius: CGFloat) {
+    private func setShadow(radius: CGFloat) {
         layer.shadowColor = shadowColor.cgColor
         layer.shadowOpacity = shadowOpacity
         layer.shadowRadius = shadowRadius

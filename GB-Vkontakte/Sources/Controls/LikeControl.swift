@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LikeControl: UIControl {
+final class LikeControl: UIControl {
     
     private var stackView: UIStackView!
     private var likeButton = HeartButton()
@@ -47,16 +47,16 @@ class LikeControl: UIControl {
         stackView.frame = bounds
     }
     
-    func setupConstraints() {
+    private func setupConstraints() {
         likesLabel.heightAnchor.constraint(equalTo: likeButton.heightAnchor, multiplier: 1)
     }
     
-    func incrementLikesCount() {
+    private func incrementLikesCount() {
         likesCount += 1
         updateLikesCount(likes: likesCount)
     }
     
-    func decrementLikesCount() {
+    private func decrementLikesCount() {
         likesCount -= 1
         updateLikesCount(likes: likesCount)
     }
@@ -66,7 +66,7 @@ class LikeControl: UIControl {
         likesLabel.text = "\(likesCount)"
     }
     
-    func like() {
+    private func like() {
         if !liked {
             likeButton.liked = true
             likeButton.setNeedsDisplay()
@@ -96,7 +96,7 @@ class LikeControl: UIControl {
     }
     
     
-    func animateLikeButton() {
+    private func animateLikeButton() {
         let animation = CASpringAnimation(keyPath: "transform.rotation")
         animation.fromValue = Double.pi / 2
         animation.toValue = Double.pi * 2

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FullScreenPhotoController: UIViewController  {
+final class FullScreenPhotoController: UIViewController  {
     
     @IBOutlet weak var mainPhoto: UIImageView!
     @IBOutlet weak var nextPhoto: UIImageView!
@@ -23,7 +23,7 @@ class FullScreenPhotoController: UIViewController  {
         setupView()
     }
     
-    func setImageToPhoto (photo: Photo, setImageTo imageView: UIImageView) {
+    private func setImageToPhoto (photo: Photo, setImageTo imageView: UIImageView) {
         
         let urlPath = photo.photoPath
         guard let url = URL(string: urlPath) else {return}
@@ -33,12 +33,12 @@ class FullScreenPhotoController: UIViewController  {
         }
     }
 
-    func setMainPhoto () {
+    private func setMainPhoto () {
         
         setImageToPhoto(photo: photos[indexPathSelected.row], setImageTo: mainPhoto)
     }
     
-    func setupView() {
+    private func setupView() {
         
         let swipeLeftGestureRecognizer = UISwipeGestureRecognizer(target: self,
                                                           action: #selector(swipeLeft(_:)))

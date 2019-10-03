@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SharesControl: UIControl {
+final class SharesControl: UIControl {
     
     private var stackView: UIStackView!
     private var sharesIcon = UIImageView()
@@ -46,16 +46,16 @@ class SharesControl: UIControl {
         stackView.frame = bounds
     }
     
-    func setupConstraints() {
+    private func setupConstraints() {
         sharesLabel.heightAnchor.constraint(equalTo: sharesIcon.heightAnchor, multiplier: 1)
     }
     
-    func incrementSharesCount() {
+    private func incrementSharesCount() {
         sharesCount += 1
         updateSharesCount(shares: sharesCount)
     }
     
-    func decrementSharesCount() {
+    private func decrementSharesCount() {
         sharesCount -= 1
         updateSharesCount(shares: sharesCount)
     }

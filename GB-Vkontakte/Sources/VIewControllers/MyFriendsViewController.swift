@@ -8,13 +8,9 @@
 
 import UIKit
 
-class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
+final class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
     
     var friends = [Friend]()
-    
-//    var friendsIndexArray: [Character] {
-//        return getFriendsIndexArray(friendsArray: self.friends)
-//    }
     
     var friendsIndexArray = [Character]()
     
@@ -57,7 +53,7 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
     
     // MARK: - Functions
     
-    func getFriendsIndexArray(friendsArray: [Friend], completion: @escaping ([Character]) -> Void) {
+    private func getFriendsIndexArray(friendsArray: [Friend], completion: @escaping ([Character]) -> Void) {
             
         var friendIndexArray: [Character] = []
         for friend in friendsArray {
@@ -71,7 +67,7 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
         completion(friendIndexArray)
     }
     
-    func getFriendsIndexDictionary(friendsArray: [Friend], completion: @escaping ([Character:[Friend]]) -> Void) {
+    private func getFriendsIndexDictionary(friendsArray: [Friend], completion: @escaping ([Character:[Friend]]) -> Void) {
         
         var frIndDict: [Character: [Friend]] = [:]
         for friend in friendsArray {
@@ -88,23 +84,23 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
     
     // MARK: - SearchBar delegate
     
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+    private func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchIsActive = true;
     }
     
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+    private func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchIsActive = false;
     }
     
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    private func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchIsActive = false;
     }
     
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    private func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchIsActive = false;
     }
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    private func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchedFriends = self.friends.filter({(friend: Friend) -> Bool in
             return friend.firstName.lowercased().contains(searchText.lowercased()) ||
             friend.lastName.lowercased().contains(searchText.lowercased())
@@ -145,7 +141,7 @@ class MyFriendsViewController: UITableViewController, UISearchBarDelegate {
         return cell
     }
     
-    func configureCell(indexPath: IndexPath, cell: FriendCell) {
+    private func configureCell(indexPath: IndexPath, cell: FriendCell) {
         
         if searchIsActive {
             let friend = searchedFriends[indexPath.row]
