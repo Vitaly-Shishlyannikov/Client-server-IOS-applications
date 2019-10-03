@@ -182,5 +182,19 @@ final class VKService {
             })
         }
     }
+    
+    static func getGroupSourceOfNewsFromRealm(sourceId: Int) -> SourceGroupRealm? {
+        
+        let sourceOfNews = try? Realm()
+        let source = sourceOfNews?.objects(SourceGroupRealm.self).filter("id == %@", -sourceId).first
+        return source
+    }
+    
+    static func getProfileSourceOfNewsFromRealm(sourceId: Int) -> SourceProfileRealm? {
+        
+        let sourceOfNews = try? Realm()
+        let source = sourceOfNews?.objects(SourceProfileRealm.self).filter("id == %@", sourceId).first
+        return source
+    }
 }
 

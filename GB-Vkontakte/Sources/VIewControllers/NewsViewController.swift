@@ -7,14 +7,11 @@
 //
 
 import UIKit
-import RealmSwift
 import SDWebImage
 
 final class NewsViewController: UITableViewController {
     
     var news = [News]()
-    
-    let realmSourcesOfNews = try? Realm()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,13 +60,16 @@ final class NewsViewController: UITableViewController {
         let sourceId = news[indexPath.row].source_id
         
         if sourceId < 0 {
-            let group = realmSourcesOfNews?.objects(SourceGroupRealm.self).filter("id == %@", -sourceId).first
+            let group = VKService.getGroupSourceOfNewsFromRealm(sourceId: sourceId)
+            
             cell.sourceLabel.text = group?.name ?? "default name"
-            cell.sourceImage.sd_setImage(with: URL(string: ((group?.photoURL)!)), placeholderImage: UIImage(named: "defaultAvatar"))
+            cell.sourceImage.sd_setImage(with: URL(string: ((group?.photoURL)!)),                placeholderImage: UIImage(named: "defaultAvatar"))
+            
         } else {
-            let user = realmSourcesOfNews?.objects(SourceProfileRealm.self).filter("id == %@", sourceId).first
+            let user = VKService.getProfileSourceOfNewsFromRealm(sourceId: sourceId)
+            
             cell.sourceLabel.text = user?.fullName ?? "default name"
-            cell.sourceImage.sd_setImage(with: URL(string: ((user?.photoURL)!)), placeholderImage: UIImage(named: "defaultAvatar"))
+            cell.sourceImage.sd_setImage(with: URL(string: ((user?.photoURL)!)),     placeholderImage: UIImage(named: "defaultAvatar"))
         }
     }
 }
