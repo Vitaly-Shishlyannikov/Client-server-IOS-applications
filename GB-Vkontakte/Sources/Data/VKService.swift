@@ -15,7 +15,7 @@ import RealmSwift
 
 final class VKService {
         
-    static func loadUserGroupsData(completion: @escaping () -> Void) {
+    func loadUserGroupsData() {
         
         DispatchQueue.global(qos: .utility).async {
     
@@ -33,23 +33,11 @@ final class VKService {
                     } catch {
                         print(error)
                     }
-                    DispatchQueue.main.async {
-                    completion()
-                    }
                 })
         }
     }
     
-    static func getGroupsFromRealm(completion: @escaping ([RealmGroup]) -> Void){
-        
-        guard let realm = try? Realm() else {return}
-        let resultGroups = realm.objects(RealmGroup.self)
-        let groups = Array(resultGroups)
-        
-        completion(groups)
-    }
-    
-    static func loadAllGroupsData(completion: @escaping () -> Void) {
+    func loadAllGroupsData() {
         
         DispatchQueue.global(qos: .utility).async {
         
@@ -67,20 +55,8 @@ final class VKService {
                     } catch {
                         print(error)
                     }
-                    DispatchQueue.main.async {
-                    completion()
-                    }
                 })
         }
-    }
-    
-    static func getAllGroupsFromRealm(completion: @escaping ([RealmCommonGroup]) -> Void){
-        
-        guard let realm = try? Realm() else {return}
-        let resultGroups = realm.objects(RealmCommonGroup.self)
-        let groups = Array(resultGroups)
-        
-        completion(groups)
     }
     
     static func loadFriendsData(completion: @escaping ([Friend]) -> Void) {

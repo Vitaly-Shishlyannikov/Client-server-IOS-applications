@@ -10,11 +10,13 @@ import UIKit
 
 final class AllGroupsViewController: UITableViewController, UISearchBarDelegate {
     
-    var groups = [RealmCommonGroup]()
+    var groups = [Group]()
     
-    var searchedGroups = [RealmCommonGroup]()
+    var searchedGroups = [Group]()
     
     var searchIsActive = false
+    
+    var groupService = AllGroupsAdapter()
     
     @IBOutlet weak var searchBar: UISearchBar!
     
@@ -27,11 +29,9 @@ final class AllGroupsViewController: UITableViewController, UISearchBarDelegate 
         
         searchBar.delegate = self
         
-        VKService.loadAllGroupsData(){}
-        
-        VKService.getAllGroupsFromRealm {[weak self] groupsArray in
-            self?.groups = groupsArray
-            self?.tableView?.reloadData()
+        groupService.getAllGroups {[weak self] groups in
+            self?.groups = groups
+            self?.tableView.reloadData()
         }
     }
     
@@ -54,7 +54,7 @@ final class AllGroupsViewController: UITableViewController, UISearchBarDelegate 
     }
     
     private func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchedGroups = self.groups.filter({(group: RealmCommonGroup) -> Bool in
+        searchedGroups = self.groups.filter({(group: Group) -> Bool in
             return group.name.lowercased().contains(searchText.lowercased())
         })
         

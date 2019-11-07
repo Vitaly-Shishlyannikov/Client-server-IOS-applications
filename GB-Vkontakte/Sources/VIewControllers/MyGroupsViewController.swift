@@ -10,11 +10,13 @@ import UIKit
 
 final class MyGroupsViewController: UITableViewController, UISearchBarDelegate {
     
-    var groups = [RealmGroup]()
+    var groups = [Group]()
     
-    var searchedGroups = [RealmGroup]()
+    var searchedGroups = [Group]()
     
     var searchIsActive = false
+    
+    var groupService = GroupAdapter()
     
     @IBOutlet weak var searchBar: UISearchBar!
     
@@ -27,11 +29,9 @@ final class MyGroupsViewController: UITableViewController, UISearchBarDelegate {
         
         searchBar.delegate = self
         
-        VKService.loadUserGroupsData(){}
-        
-        VKService.getGroupsFromRealm {[weak self] groupsArray in
-            self?.groups = groupsArray
-            self?.tableView?.reloadData()
+        groupService.getGroups { [weak self] groups in
+            self?.groups = groups
+            self?.tableView.reloadData()
         }
     }
     
@@ -54,7 +54,7 @@ final class MyGroupsViewController: UITableViewController, UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchedGroups = self.groups.filter({(group: RealmGroup) -> Bool in
+        searchedGroups = self.groups.filter({(group: Group) -> Bool in
             return group.name.lowercased().contains(searchText.lowercased())
         })
         
@@ -99,7 +99,7 @@ final class MyGroupsViewController: UITableViewController, UISearchBarDelegate {
     @IBAction func addGroup(segue: UIStoryboardSegue) {
         if let controller = segue.source as? AllGroupsViewController,
         let indexPath = controller.tableView.indexPathForSelectedRow {
-            if let group = controller.groups[indexPath.row] as? RealmGroup {
+            if let group = controller.groups[indexPath.row] as? Group {
 
                 guard !groups.contains(where: { $0.name == group.name }) else { return }
                 
