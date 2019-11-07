@@ -36,6 +36,7 @@
 		58A5DDF3229B4251001381C4 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A5DDF2229B4251001381C4 /* PhotoCell.swift */; };
 		58A5DDF5229B42AC001381C4 /* PhotoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A5DDF4229B42AC001381C4 /* PhotoCollectionViewController.swift */; };
 		58B0F06123028A7E00434736 /* NewsFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B0F06023028A7E00434736 /* NewsFeed.swift */; };
+		58D961CB23740FFD0061A80C /* ExtensionUIColour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D961CA23740FFD0061A80C /* ExtensionUIColour.swift */; };
 		58E75F1A228EEBA400EC0B9C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58E75F19228EEBA400EC0B9C /* AppDelegate.swift */; };
 		58E75F1F228EEBA400EC0B9C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58E75F1D228EEBA400EC0B9C /* Main.storyboard */; };
 		58E75F21228EEBA600EC0B9C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 58E75F20228EEBA600EC0B9C /* Assets.xcassets */; };
@@ -77,6 +78,7 @@
 		58A5DDF2229B4251001381C4 /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		58A5DDF4229B42AC001381C4 /* PhotoCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewController.swift; sourceTree = "<group>"; };
 		58B0F06023028A7E00434736 /* NewsFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeed.swift; sourceTree = "<group>"; };
+		58D961CA23740FFD0061A80C /* ExtensionUIColour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionUIColour.swift; sourceTree = "<group>"; };
 		58E75F16228EEBA400EC0B9C /* GB-Vkontakte.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GB-Vkontakte.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		58E75F19228EEBA400EC0B9C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		58E75F1E228EEBA400EC0B9C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				5838A4B722C500D100EBE770 /* SessionSingleton.swift */,
+				58D961CC237410220061A80C /* Extensions */,
 				5836E76122BC38E7007AA848 /* VIewControllers */,
 				58554E0622DDF6D900C4644C /* Data */,
 				581DF8FA22974DDA00CF8777 /* Cells */,
@@ -211,6 +214,14 @@
 				5805A8BA2327B4B40073337A /* LoadAndCachePictures.swift */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		58D961CC237410220061A80C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				58D961CA23740FFD0061A80C /* ExtensionUIColour.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		58E75F0D228EEBA400EC0B9C = {
@@ -387,6 +398,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				58FAC712229C960F00DE1667 /* RoundAvatarView.swift in Sources */,
+				58D961CB23740FFD0061A80C /* ExtensionUIColour.swift in Sources */,
 				588B5CB222D893F9004296D2 /* Photo.swift in Sources */,
 				5869687622CE0971002AB84D /* VKWebViewController.swift in Sources */,
 				58A5DDEF229B3CCC001381C4 /* MyFriendsViewController.swift in Sources */,

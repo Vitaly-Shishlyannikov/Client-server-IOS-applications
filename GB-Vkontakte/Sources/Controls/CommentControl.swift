@@ -28,7 +28,7 @@ final class CommentControl: UIControl {
     private func setupView() {
         commentsIcon.image = UIImage(named: "commentsIcon")
         commentsLabel.text = "\(commentsCount)"
-        commentsLabel.textColor = UIColor.gray
+        commentsLabel.textColor = UIColor.brandGrey
         setupConstraints()
         
         //  MARK: to debug LikeControl position uncomment two lines below

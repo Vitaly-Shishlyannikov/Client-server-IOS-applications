@@ -29,7 +29,7 @@ final class LikeControl: UIControl {
     private func setupView() {
         likeButton.isUserInteractionEnabled = false
         likesLabel.text = "\(likesCount)"
-        likesLabel.textColor = UIColor.gray
+        likesLabel.textColor = UIColor.brandGrey
         setupConstraints()
         
       //  MARK: to debug LikeControl position uncomment two lines below
@@ -72,13 +72,13 @@ final class LikeControl: UIControl {
             likeButton.setNeedsDisplay()
             incrementLikesCount()
             liked = true
-            likesLabel.textColor = UIColor.red
+            likesLabel.textColor = UIColor.brandRed
         } else {
             likeButton.liked = false
             likeButton.setNeedsDisplay()
             decrementLikesCount()
             liked = false
-            likesLabel.textColor = UIColor.gray
+            likesLabel.textColor = UIColor.brandGrey
         }
     }
     
