@@ -15,7 +15,9 @@ final class AllGroupsAdapter {
     
     private var realmNotificationsToken = NotificationToken()
     
-    func getAllGroups(completion: @escaping ([Group]) -> Void){
+    func getAllGroups(textForGroupTitle: String, completion: @escaping ([Group]) -> Void){
+        
+        self.vkService.loadAllGroupsData(textForGroupTitle: textForGroupTitle)
         
         guard let realm = try? Realm() else {return}
         let resultGroups = realm.objects(RealmCommonGroup.self)
@@ -40,8 +42,6 @@ final class AllGroupsAdapter {
             }
         }
         self.realmNotificationsToken = token
-        
-        self.vkService.loadAllGroupsData()
     }
     
     private func group(from realmCommonGroup: RealmCommonGroup) -> Group {

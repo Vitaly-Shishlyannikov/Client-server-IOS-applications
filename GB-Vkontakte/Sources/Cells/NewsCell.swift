@@ -20,7 +20,6 @@ final class NewsCell: UITableViewCell {
     @IBOutlet weak var sharesControl: SharesControl!
     @IBOutlet weak var viewsControl: ViewsControl!
     
-    
     @IBOutlet weak var newsImage: UIImageView!
     
     override func awakeFromNib() {

@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-final class GroupAdapter {
+final class GroupsAdapter {
     
     private let vkService = VKService()
     
@@ -42,7 +42,7 @@ final class GroupAdapter {
         self.realmNotificationsToken = token
         
         self.vkService.loadUserGroupsData()
-        }
+    }
 
     private func group(from realmGroup: RealmGroup) -> Group {
         return Group(id: realmGroup.id,

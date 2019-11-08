@@ -16,7 +16,7 @@ final class MyGroupsViewController: UITableViewController, UISearchBarDelegate {
     
     var searchIsActive = false
     
-    var groupService = GroupAdapter()
+    var groupService = GroupsAdapter()
     
     @IBOutlet weak var searchBar: UISearchBar!
     
@@ -37,11 +37,11 @@ final class MyGroupsViewController: UITableViewController, UISearchBarDelegate {
     
     // MARK: - SearchBar delegate
     
-    private func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchIsActive = true;
     }
     
-    private func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchIsActive = false;
     }
     
@@ -95,20 +95,17 @@ final class MyGroupsViewController: UITableViewController, UISearchBarDelegate {
     
     // MARK: - Navigation
     
-    
     @IBAction func addGroup(segue: UIStoryboardSegue) {
         if let controller = segue.source as? AllGroupsViewController,
-        let indexPath = controller.tableView.indexPathForSelectedRow {
-            if let group = controller.groups[indexPath.row] as? Group {
-
+           let indexPath = controller.tableView.indexPathForSelectedRow {
+            
+                let group = controller.groups[indexPath.row]
                 guard !groups.contains(where: { $0.name == group.name }) else { return }
-                
                 groups.append(group)
-            }
+        }
             
             let newIndexPath = IndexPath(item: groups.count - 1, section: 0)
             tableView.insertRows(at: [newIndexPath], with: .automatic)
-        }
     }
 }
 

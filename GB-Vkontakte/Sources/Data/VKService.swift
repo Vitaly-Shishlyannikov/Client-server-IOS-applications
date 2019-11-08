@@ -37,21 +37,23 @@ final class VKService {
         }
     }
     
-    func loadAllGroupsData() {
+    func loadAllGroupsData(textForGroupTitle: String) {
         
         DispatchQueue.global(qos: .utility).async {
         
-            Alamofire.request("https://api.vk.com/method/groups.search?q=c&access_token=\(Session.instance.token)&v=5.95")
+            Alamofire.request("https://api.vk.com/method/groups.search?q=\(textForGroupTitle)&access_token=\(Session.instance.token)&v=5.95")
                 .responseObject(completionHandler: { (vkResponse: DataResponse<VKCommonGroupResponse>) in
                     
                     let allGroups = vkResponse.result.value?.response?.items ?? []
                     
                     do {
                         let realm = try Realm()
+                        let objects = realm.objects(RealmCommonGroup.self)
                         try realm.write {
+                            realm.delete(objects)
                             realm.add(allGroups, update: true)
                         }
-//                        print(realm.configuration.fileURL)
+                        print(realm.configuration.fileURL)
                     } catch {
                         print(error)
                     }
