@@ -53,7 +53,7 @@ final class VKService {
                             realm.delete(objects)
                             realm.add(allGroups, update: true)
                         }
-                        print(realm.configuration.fileURL)
+                        print(realm.configuration.fileURL as Any)
                     } catch {
                         print(error)
                     }
@@ -72,9 +72,9 @@ final class VKService {
                     
                     let friends = result.value?.response?.items ?? []
                     
-                    for friend in friends {
-                        friend.fullName = friend.firstName + " " + friend.lastName
-                    }
+//                    for friend in friends {
+//                        friend.fullName = friend.firstName + " " + friend.lastName
+//                    }
                     
                     DispatchQueue.main.async {
                     completion(friends)

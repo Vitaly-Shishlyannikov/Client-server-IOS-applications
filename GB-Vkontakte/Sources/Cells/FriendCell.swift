@@ -15,6 +15,11 @@ final class FriendCell: UITableViewCell {
     @IBOutlet weak var friendNameLabel: UILabel!
     @IBOutlet weak var friendAvatar: RoundAvatarView!
     
+    func configure(with viewModel: FriendViewModel) {
+        
+        friendNameLabel.text = viewModel.fullName
+        friendAvatar.image = viewModel.avatarImage
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
