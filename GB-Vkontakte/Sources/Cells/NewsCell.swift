@@ -22,6 +22,17 @@ final class NewsCell: UITableViewCell {
     
     @IBOutlet weak var newsImage: UIImageView!
     
+    func configure(with viewModel: NewsViewModel) {
+        
+        sourceLabel.text = viewModel.sourceLabeltext
+        sourceImage.image = viewModel.sourceImage
+        newsText.text = viewModel.newsText
+        likeControl.updateLikesCount(likes: viewModel.likesCount)
+        commentControl.updateCommentsCount(comments: viewModel.commentCount)
+        sharesControl.updateSharesCount(shares: viewModel.sharesCount)
+        viewsControl.updateViewsCount(views: viewModel.viewsCount)
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }

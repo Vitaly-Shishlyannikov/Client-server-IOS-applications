@@ -13,6 +13,12 @@ final class NewsViewController: UITableViewController {
     
     var news = [News]()
     
+    var newsService = NewsAdapter()
+    
+    private var newsViewModels: [NewsViewModel] = []
+    
+    private let newsViewModelFactory = NewsViewModelFactory()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -22,10 +28,16 @@ final class NewsViewController: UITableViewController {
         tableView.dataSource = self
         
         self.tableView.rowHeight = 150
-
-        VKService.loadNews(){[weak self] news in
-            self?.news = news
-            self?.tableView?.reloadData()
+        
+        newsService.getNews { [weak self] news in
+            
+            guard let self = self else {return}
+            
+            self.news = news
+            
+            self.newsViewModels = self.newsViewModelFactory.constructViewModels(from: self.news)
+            
+            self.tableView?.reloadData()
         }
     }
 
@@ -36,40 +48,15 @@ final class NewsViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return news.count
+        return newsViewModels.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: NewsCell.reuseId, for: indexPath) as? NewsCell else {return UITableViewCell()}
         
-        configureCell(indexPath: indexPath, cell: cell)
+        cell.configure(with: newsViewModels[indexPath.row])
         
         return cell
-    }
-
-    private func configureCell(indexPath: IndexPath, cell: NewsCell) {
-        
-        cell.likeControl.updateLikesCount(likes: news[indexPath.row].likes)
-        cell.commentControl.updateCommentsCount(comments: news[indexPath.row].comments)
-        cell.sharesControl.updateSharesCount(shares: news[indexPath.row].reposts)
-        cell.viewsControl.updateViewsCount(views: news[indexPath.row].views)
-        
-        cell.newsText.text = news[indexPath.row].text
-        
-        let sourceId = news[indexPath.row].source_id
-        
-        if sourceId < 0 {
-            let group = VKService.getGroupSourceOfNewsFromRealm(sourceId: sourceId)
-            
-            cell.sourceLabel.text = group?.name ?? "default name"
-            cell.sourceImage.sd_setImage(with: URL(string: ((group?.photoURL)!)),                placeholderImage: UIImage(named: "defaultAvatar"))
-            
-        } else {
-            let user = VKService.getProfileSourceOfNewsFromRealm(sourceId: sourceId)
-            
-            cell.sourceLabel.text = user?.fullName ?? "default name"
-            cell.sourceImage.sd_setImage(with: URL(string: ((user?.photoURL)!)),     placeholderImage: UIImage(named: "defaultAvatar"))
-        }
     }
 }

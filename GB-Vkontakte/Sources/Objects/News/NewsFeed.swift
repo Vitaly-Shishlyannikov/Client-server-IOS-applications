@@ -24,7 +24,7 @@ final class VKNewsResponse: Mappable {
 }
 
 final class VKNewsItems: Mappable {
-    var items: [News] = []
+    var items: [NewsRaw] = []
     var sourceProfiles: [SourceProfileRealm] = []
     var sourceGroups: [SourceGroupRealm] = []
     
@@ -82,8 +82,9 @@ final class SourceGroupRealm: Object, Mappable {
     }
 }
 
-final class News: Mappable {
+final class NewsRaw: Object, Mappable {
     
+    @objc dynamic var id: Int = 0
     @objc dynamic var source_id: Int = 0
     @objc dynamic var text: String = ""
     @objc dynamic var photoURL: String = ""
@@ -93,10 +94,17 @@ final class News: Mappable {
     @objc dynamic var views: Int = 0
     
     @objc dynamic var photoNews: String = ""
+    
+    override static func primaryKey() -> String? {
+        return "id"
+    }
 
-    required init?(map: Map) {}
+    required convenience init?(map: Map) {
+        self.init()
+    }
     
     func mapping(map: Map) {
+        
         source_id <- map["source_id"]
         text <- map["text"]
         photoURL <- map["url"]
