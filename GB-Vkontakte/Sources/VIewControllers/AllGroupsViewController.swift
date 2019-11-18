@@ -10,11 +10,22 @@ import UIKit
 
 final class AllGroupsViewController: UITableViewController, UISearchBarDelegate {
     
-    var groups = [RealmCommonGroup]()
+    var groups = [Group]()
     
-    var searchedGroups = [RealmCommonGroup]()
+    var searchedGroups = [Group]()
+    
+    var searchText = String() {
+        willSet {
+                groupService.getAllGroups(textForGroupTitle: newValue) {[weak self] groups in
+                self?.groups = groups
+                self?.tableView.reloadData()
+            }
+        }
+    }
     
     var searchIsActive = false
+    
+    var groupService = AllGroupsAdapter()
     
     @IBOutlet weak var searchBar: UISearchBar!
     
@@ -26,58 +37,50 @@ final class AllGroupsViewController: UITableViewController, UISearchBarDelegate 
         self.tableView.rowHeight = 70
         
         searchBar.delegate = self
-        
-        VKService.loadAllGroupsData(){}
-        
-        VKService.getAllGroupsFromRealm {[weak self] groupsArray in
-            self?.groups = groupsArray
-            self?.tableView?.reloadData()
-        }
     }
     
     // MARK: - SearchBar delegate
     
-    private func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchIsActive = true;
     }
     
-    private func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchIsActive = false;
     }
     
-    private func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchIsActive = false;
     }
     
-    private func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchIsActive = false;
     }
     
-    private func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchedGroups = self.groups.filter({(group: RealmCommonGroup) -> Bool in
-            return group.name.lowercased().contains(searchText.lowercased())
-        })
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
-        searchIsActive = searchText.count == 0 ? false : true
-        
-        tableView.reloadData()
+        self.searchText = searchText
     }
     
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchIsActive ? searchedGroups.count : groups.count
+        return groups.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: GroupCell.reuseIdentifier, for: indexPath) as? GroupCell else { return UITableViewCell() }
-        let group = searchIsActive ? searchedGroups[indexPath.row] : groups[indexPath.row]
-        cell.groupNameLabel.text = group.name
         
-        let url = URL(string: group.photo)
-        let data = try? Data(contentsOf: url!)
-        if let imagedata = data {
-            cell.groupAvatar.image = UIImage(data: imagedata)
+        if indexPath.row < groups.count {
+            
+            let group = groups[indexPath.row]
+            cell.groupNameLabel.text = group.name
+            
+            let url = URL(string: group.photo)
+            let data = try? Data(contentsOf: url!)
+            if let imagedata = data {
+                cell.groupAvatar.image = UIImage(data: imagedata)
+            }
         }
         return cell
     }

@@ -28,7 +28,7 @@ final class SharesControl: UIControl {
     private func setupView() {
         sharesIcon.image = UIImage(named: "shareIcon")
         sharesLabel.text = "\(sharesCount)"
-        sharesLabel.textColor = UIColor.gray
+        sharesLabel.textColor = UIColor.brandGrey
         setupConstraints()
         
         //  MARK: to debug LikeControl position uncomment two lines below

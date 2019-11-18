@@ -12,7 +12,7 @@ final class HeartButton: UIButton {
     
     @IBInspectable var filled: Bool = true
     @IBInspectable var strokeWidth: CGFloat = 2.0
-    @IBInspectable var strokeColor: UIColor = UIColor.gray
+    @IBInspectable var strokeColor: UIColor = UIColor.brandGrey
     
     var liked: Bool = false
     
@@ -20,12 +20,12 @@ final class HeartButton: UIButton {
         let bezFig = drawHeart(heartHeight: self.bounds.height)
         
         if !liked {
-            strokeColor = UIColor.gray
+            strokeColor = UIColor.brandGrey
             self.strokeColor.setStroke()
             self.filled = false
         } else {
-            strokeColor = UIColor.red
-            self.tintColor = UIColor.red
+            strokeColor = UIColor.brandRed
+            self.tintColor = UIColor.brandRed
             self.strokeColor.setStroke()
             self.tintColor.setFill()
             bezFig.fill()
@@ -58,9 +58,3 @@ final class HeartButton: UIButton {
         return heart
     }
 }
-
-// расширение класса Int для перевода градусов в радианы
-extension Int {
-    var degreesToRadians: CGFloat { return CGFloat(self) * .pi / 180 }
-}
-

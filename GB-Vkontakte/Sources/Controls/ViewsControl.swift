@@ -28,7 +28,7 @@ final class ViewsControl: UIControl {
     private func setupView() {
         viewsIcon.image = UIImage(named: "viewsIcon")
         viewsLabel.text = "\(viewsCount)"
-        viewsLabel.textColor = UIColor.gray
+        viewsLabel.textColor = UIColor.brandGrey
         setupConstraints()
         
         //MARK: to debug ViewsControl position uncomment two lines below

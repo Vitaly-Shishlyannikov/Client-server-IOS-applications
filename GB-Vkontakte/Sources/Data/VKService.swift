@@ -15,7 +15,7 @@ import RealmSwift
 
 final class VKService {
         
-    static func loadUserGroupsData(completion: @escaping () -> Void) {
+    func loadUserGroupsData() {
         
         DispatchQueue.global(qos: .utility).async {
     
@@ -33,54 +33,32 @@ final class VKService {
                     } catch {
                         print(error)
                     }
-                    DispatchQueue.main.async {
-                    completion()
-                    }
                 })
         }
     }
     
-    static func getGroupsFromRealm(completion: @escaping ([RealmGroup]) -> Void){
-        
-        guard let realm = try? Realm() else {return}
-        let resultGroups = realm.objects(RealmGroup.self)
-        let groups = Array(resultGroups)
-        
-        completion(groups)
-    }
-    
-    static func loadAllGroupsData(completion: @escaping () -> Void) {
+    func loadAllGroupsData(textForGroupTitle: String) {
         
         DispatchQueue.global(qos: .utility).async {
         
-            Alamofire.request("https://api.vk.com/method/groups.search?q=c&access_token=\(Session.instance.token)&v=5.95")
+            Alamofire.request("https://api.vk.com/method/groups.search?q=\(textForGroupTitle)&access_token=\(Session.instance.token)&v=5.95")
                 .responseObject(completionHandler: { (vkResponse: DataResponse<VKCommonGroupResponse>) in
                     
                     let allGroups = vkResponse.result.value?.response?.items ?? []
                     
                     do {
                         let realm = try Realm()
+                        let objects = realm.objects(RealmCommonGroup.self)
                         try realm.write {
+                            realm.delete(objects)
                             realm.add(allGroups, update: true)
                         }
-//                        print(realm.configuration.fileURL)
+                        print(realm.configuration.fileURL as Any)
                     } catch {
                         print(error)
                     }
-                    DispatchQueue.main.async {
-                    completion()
-                    }
                 })
         }
-    }
-    
-    static func getAllGroupsFromRealm(completion: @escaping ([RealmCommonGroup]) -> Void){
-        
-        guard let realm = try? Realm() else {return}
-        let resultGroups = realm.objects(RealmCommonGroup.self)
-        let groups = Array(resultGroups)
-        
-        completion(groups)
     }
     
     static func loadFriendsData(completion: @escaping ([Friend]) -> Void) {
@@ -93,10 +71,6 @@ final class VKService {
                     let result = vkResponse.result
                     
                     let friends = result.value?.response?.items ?? []
-                    
-                    for friend in friends {
-                        friend.fullName = friend.firstName + " " + friend.lastName
-                    }
                     
                     DispatchQueue.main.async {
                     completion(friends)
@@ -136,9 +110,7 @@ final class VKService {
         }
     }
     
-    static func loadNews(completion: @escaping ([News]) -> Void) {
-        
-        debugPrint("isMainThread \(Thread.isMainThread)")
+    func loadNews() {
         
         DispatchQueue.global(qos: .utility).async {
         
@@ -148,53 +120,38 @@ final class VKService {
                 let result = vkResponse.result
                 
                 let news = result.value?.response?.items ?? []
+                    
+                for item in 0..<news.count {
+                    news[item].id = item
+                }
                 
                 let sourceGroups = result.value?.response?.sourceGroups ?? []
                 
-                do {
-                    let realm = try Realm()
-                    try realm.write {
-                        realm.add(sourceGroups, update: true)
-                    }
-//                    print(realm.configuration.fileURL)
-                } catch {
-                    print(error)
-                }
-                
                 let sourceProfiles = result.value?.response?.sourceProfiles ?? []
-                
-                for sourceProfile in sourceProfiles {
-                    sourceProfile.fullName = sourceProfile.firstName + " " + sourceProfile.lastName
-                }
+
+                Realm.Configuration.defaultConfiguration = Realm.Configuration (deleteRealmIfMigrationNeeded: true)
                 
                 do {
+                    
                     let realm = try Realm()
+                    let objectsNews = realm.objects(NewsRaw.self)
+                    let objectsGroups = realm.objects(SourceGroupRealm.self)
+                    let objectsProfiles = realm.objects(SourceProfileRealm.self)
+                    
                     try realm.write {
+                        realm.delete(objectsNews)
+                        realm.delete(objectsGroups)
+                        realm.delete(objectsProfiles)
                         realm.add(sourceProfiles, update: true)
+                        realm.add(sourceGroups, update: true)
+                        realm.add(news, update: true)
                     }
-//                    print(realm.configuration.fileURL)
+                    print(realm.configuration.fileURL)
                 } catch {
                     print(error)
                 }
-                    DispatchQueue.main.async {
-                        completion(news)
-                    }
             })
         }
-    }
-    
-    static func getGroupSourceOfNewsFromRealm(sourceId: Int) -> SourceGroupRealm? {
-        
-        let sourceOfNews = try? Realm()
-        let source = sourceOfNews?.objects(SourceGroupRealm.self).filter("id == %@", -sourceId).first
-        return source
-    }
-    
-    static func getProfileSourceOfNewsFromRealm(sourceId: Int) -> SourceProfileRealm? {
-        
-        let sourceOfNews = try? Realm()
-        let source = sourceOfNews?.objects(SourceProfileRealm.self).filter("id == %@", sourceId).first
-        return source
     }
 }
 
