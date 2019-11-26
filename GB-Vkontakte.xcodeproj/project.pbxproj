@@ -41,6 +41,8 @@
 		58A5DDF3229B4251001381C4 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A5DDF2229B4251001381C4 /* PhotoCell.swift */; };
 		58A5DDF5229B42AC001381C4 /* PhotoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58A5DDF4229B42AC001381C4 /* PhotoCollectionViewController.swift */; };
 		58B0F06123028A7E00434736 /* NewsFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58B0F06023028A7E00434736 /* NewsFeed.swift */; };
+		58CE675A238DC086002834CF /* VKServiceProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CE6759238DC086002834CF /* VKServiceProxy.swift */; };
+		58CE675C238DC2DF002834CF /* VKServiceInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58CE675B238DC2DF002834CF /* VKServiceInterface.swift */; };
 		58D961CB23740FFD0061A80C /* ExtensionUIColour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D961CA23740FFD0061A80C /* ExtensionUIColour.swift */; };
 		58D961CE2374172A0061A80C /* ExtensionInt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D961CD2374172A0061A80C /* ExtensionInt.swift */; };
 		58D961D123741BF00061A80C /* GroupsAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58D961D023741BF00061A80C /* GroupsAdapter.swift */; };
@@ -93,6 +95,8 @@
 		58A5DDF2229B4251001381C4 /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		58A5DDF4229B42AC001381C4 /* PhotoCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewController.swift; sourceTree = "<group>"; };
 		58B0F06023028A7E00434736 /* NewsFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeed.swift; sourceTree = "<group>"; };
+		58CE6759238DC086002834CF /* VKServiceProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKServiceProxy.swift; sourceTree = "<group>"; };
+		58CE675B238DC2DF002834CF /* VKServiceInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKServiceInterface.swift; sourceTree = "<group>"; };
 		58D961CA23740FFD0061A80C /* ExtensionUIColour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionUIColour.swift; sourceTree = "<group>"; };
 		58D961CD2374172A0061A80C /* ExtensionInt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionInt.swift; sourceTree = "<group>"; };
 		58D961D023741BF00061A80C /* GroupsAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsAdapter.swift; sourceTree = "<group>"; };
@@ -227,6 +231,8 @@
 			isa = PBXGroup;
 			children = (
 				58611E3522D28E8C005BDC34 /* VKService.swift */,
+				58CE6759238DC086002834CF /* VKServiceProxy.swift */,
+				58CE675B238DC2DF002834CF /* VKServiceInterface.swift */,
 				5805A8BA2327B4B40073337A /* LoadAndCachePictures.swift */,
 			);
 			path = Data;
@@ -481,6 +487,7 @@
 				5841A7EE22BBC945009C22DD /* CustomPopAnimator.swift in Sources */,
 				5848119722A919AB00DD653C /* NewsCell.swift in Sources */,
 				58FAC714229D533800DE1667 /* LikeControl.swift in Sources */,
+				58CE675C238DC2DF002834CF /* VKServiceInterface.swift in Sources */,
 				5841A7EA22BB6C2E009C22DD /* CustomPushAnimator.swift in Sources */,
 				5838A4B822C500D100EBE770 /* SessionSingleton.swift in Sources */,
 				58A5DDED229B3B69001381C4 /* MyGroupsViewController.swift in Sources */,
@@ -509,6 +516,7 @@
 				58A5DDE6229B3788001381C4 /* GroupCell.swift in Sources */,
 				58D961D123741BF00061A80C /* GroupsAdapter.swift in Sources */,
 				58D961D5237429BF0061A80C /* AllGroupsAdapter.swift in Sources */,
+				58CE675A238DC086002834CF /* VKServiceProxy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

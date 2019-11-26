@@ -17,10 +17,13 @@ final class PhotoCollectionViewController: UICollectionViewController {
     
     var photos = [Photo]()
     
+    var vkService = VKService()
+    lazy var vkServiceProxy = VKServiceProxy(vkService: vkService)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        VKService.loadFriendsPhotos(friendID: selectedFriendID) {[weak self] photos in
+        self.vkServiceProxy.loadFriendsPhotos(friendID: selectedFriendID) {[weak self] photos in
             self?.photos = photos
             self?.collectionView?.reloadData()
         }
@@ -32,7 +35,6 @@ final class PhotoCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photos.count
-
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

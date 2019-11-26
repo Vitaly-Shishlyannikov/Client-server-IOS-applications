@@ -11,7 +11,8 @@ import RealmSwift
 
 final class GroupsAdapter {
     
-    private let vkService = VKService()
+    var vkService = VKService()
+    lazy var vkServiceProxy = VKServiceProxy(vkService: vkService)
     
     private var realmNotificationsToken = NotificationToken()
     
@@ -41,7 +42,7 @@ final class GroupsAdapter {
         }
         self.realmNotificationsToken = token
         
-        self.vkService.loadUserGroupsData()
+        self.vkServiceProxy.loadUserGroupsData()
     }
 
     private func group(from realmGroup: RealmGroup) -> Group {

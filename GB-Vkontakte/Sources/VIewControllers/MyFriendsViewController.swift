@@ -22,6 +22,9 @@ final class MyFriendsViewController: UITableViewController, UISearchBarDelegate 
     
     var photoService: PhotoService?
     
+    var vkService = VKService()
+    lazy var vkServiceProxy = VKServiceProxy(vkService: vkService)
+    
     private let friendViewModelFactory = FriendViewModelFactory()
     
     private var friendViewModels: [FriendViewModel] = []
@@ -39,7 +42,7 @@ final class MyFriendsViewController: UITableViewController, UISearchBarDelegate 
         
         self.photoService = PhotoService(container: self.tableView)
         
-        VKService.loadFriendsData() {[weak self] friendsArray in
+        self.vkServiceProxy.loadFriendsData() {[weak self] friendsArray in
             
             guard let self = self else {return}
             
@@ -67,14 +70,12 @@ final class MyFriendsViewController: UITableViewController, UISearchBarDelegate 
         for friend in friendsArray {
             if let firstLetter = friend.lastName.first {
                 friendIndexArray.append(firstLetter)
-                print(firstLetter)
             }
         }
         friendIndexArray = Array(Set(friendIndexArray))
         friendIndexArray.sort()
         
         completion(friendIndexArray)
-        print(friendIndexArray)
     }
     
     private func getFriendsIndexDictionary(friendsArray: [FriendViewModel], completion: @escaping ([Character:[FriendViewModel]]) -> Void) {
@@ -89,7 +90,6 @@ final class MyFriendsViewController: UITableViewController, UISearchBarDelegate 
                 }
             }
         }
-        print(frIndDict)
         completion(frIndDict)
     }
     
