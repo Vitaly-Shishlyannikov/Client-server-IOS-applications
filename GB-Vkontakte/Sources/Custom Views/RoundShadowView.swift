@@ -9,12 +9,12 @@
 import UIKit
 
 final class RoundShadowVIew: UIImageView {
-    
-    @IBInspectable var shadowColor: UIColor = .cyan
-    @IBInspectable var shadowOpacity: Float = 0.5
-    @IBInspectable var shadowRadius: CGFloat = 8
-    @IBInspectable var shadowOffset: CGSize = .zero
-    
+   
+   var shadowColor: UIColor = .cyan
+   var shadowOpacity: Float = 0.5
+   var shadowRadius: CGFloat = 8
+   var shadowOffset: CGSize = .zero
+   
     var cornerRadius: CGFloat {
         return frame.width/2
     }

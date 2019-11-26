@@ -64,7 +64,7 @@ final class VKWebViewController: UIViewController, WKNavigationDelegate {
         
         if let token = params["access_token"],
            let userID = params["user_id"] {
-            print(token)
+//                print(token)
                 Session.instance.token = token
                 Session.instance.userId = Int(userID)!
         }

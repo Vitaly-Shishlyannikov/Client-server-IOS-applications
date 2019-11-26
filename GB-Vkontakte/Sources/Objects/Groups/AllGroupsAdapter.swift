@@ -11,13 +11,14 @@ import RealmSwift
 
 final class AllGroupsAdapter {
     
-    private let vkService = VKService()
+    var vkService = VKService()
+    lazy var vkServiceProxy = VKServiceProxy(vkService: vkService)
     
     private var realmNotificationsToken = NotificationToken()
     
     func getAllGroups(textForGroupTitle: String, completion: @escaping ([Group]) -> Void){
         
-        self.vkService.loadAllGroupsData(textForGroupTitle: textForGroupTitle)
+        self.vkServiceProxy.loadAllGroupsData(textForGroupTitle: textForGroupTitle)
         
         guard let realm = try? Realm() else {return}
         let resultGroups = realm.objects(RealmCommonGroup.self)

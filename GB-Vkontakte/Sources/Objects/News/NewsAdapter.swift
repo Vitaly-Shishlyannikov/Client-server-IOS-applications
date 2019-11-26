@@ -11,13 +11,14 @@ import RealmSwift
 
 final class NewsAdapter {
     
-    private let vkService = VKService()
+    var vkService = VKService()
+    lazy var vkServiceProxy = VKServiceProxy(vkService: vkService)
     
     private var realmNotificationsToken = NotificationToken()
     
     func getNews(completion: @escaping ([News]) -> Void){
         
-        self.vkService.loadNews()
+        self.vkServiceProxy.loadNews()
         
         guard let realm = try? Realm() else {return}
         let resultNews = realm.objects(NewsRaw.self)
@@ -66,13 +67,13 @@ final class NewsAdapter {
             }
         }
         
-    return News(sourceName: sourceName,
-                sourceImageUrl: sourceImageUrl,
-                newsText: news.text,
-                likesCount: news.likes,
-                commentCount: news.comments,
-                sharesCount: news.reposts,
-                viewsCount: news.views)
+        return News(sourceName: sourceName,
+                    sourceImageUrl: sourceImageUrl,
+                    newsText: news.text,
+                    likesCount: news.likes,
+                    commentCount: news.comments,
+                    sharesCount: news.reposts,
+                    viewsCount: news.views)
     }
     
     func getGroupSourceOfNewsFromRealm(sourceId: Int) -> SourceGroupRealm? {

@@ -9,10 +9,10 @@
 import UIKit
 
 final class HeartButton: UIButton {
-    
-    @IBInspectable var filled: Bool = true
-    @IBInspectable var strokeWidth: CGFloat = 2.0
-    @IBInspectable var strokeColor: UIColor = UIColor.brandGrey
+   
+    var filled: Bool = true
+    var strokeWidth: CGFloat = 2.0
+    var strokeColor: UIColor = UIColor.brandGrey
     
     var liked: Bool = false
     
